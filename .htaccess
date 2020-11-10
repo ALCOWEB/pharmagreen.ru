@@ -1,0 +1,16 @@
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>
+
+# Mod_Rewrite
+<IfModule mod_rewrite.c>
+    # Enable symlinks
+    Options +FollowSymlinks
+    # Enable mod_rewrite
+    RewriteEngine On
+
+
+	
+	
+	
+</IfModule>
