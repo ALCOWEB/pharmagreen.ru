@@ -39,10 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <td class="product_remove">
                                             <?= Html::a('X', Url::to(['/cabinet/wishlist/delete', 'id' => $model->id]), ['data-method' => 'post', 'title' => 'Удалить', ]) ?>
                                         </td>
-                                        <td class="product_thumb"><a class="primary_img" href="<?= Html::encode(Url::to(['/catalog/product', 'id' => $model->id])) ?>">
+                                        <td class="product_thumb"><a class="primary_img" href="<?= Html::encode(Url::to(['shop/catalog/product', 'id' => $model->id])) ?>">
                                                 <img src="<?= Html::encode($model->mainPhoto->getThumbFileUrl('file', 'catalog_list')) ?>" alt=""/>
                                             </a></td>
-                                        <td class="product_name"><a href="<?= Html::encode(Url::to(['/catalog/product', 'id' => $model->id])) ?>"><?= $model->name ?></a></td>
+                                        <td class="product_name"><a href="<?= Html::encode(Url::to(['shop/catalog/product', 'id' => $model->id])) ?>"><?= $model->name ?></a></td>
                                         <td class="product-price"><?= PriceHelper::format($model->price_new) ?></td>
                                         <td class="product_quantity"><?php echo $model->isAvailable() == true ? 'на складе': 'нет на складе'; ?></td>
                                         <td class="product_total"><?= Html::a('Добавить в корзину', Url::to(['/shop/cart/add', 'id' => $model->id]), ['data-method' => 'post', 'title' => 'Добавить в корзину','class' => 'add_to_cart_link']) ?></td>
