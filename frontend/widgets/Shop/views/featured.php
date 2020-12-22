@@ -169,35 +169,37 @@ use yii\widgets\ActiveForm;
 <?php endforeach;?>
 
 
-<?//= Html::a('<span class="lnr lnr-cart">asdasdasd</span>', Url::to(['/shop/cart/test']), ['class' => 'ajax_test_link']) ?>
-<!---->
-<!---->
-<!---->
+<?= Html::a('<span class="lnr lnr-cart">asdasdasd</span>', Url::to(['/shop/cart/test']), ['class' => 'ajax_test_link']) ?>
+
+
+
 <?php
-//$url = Url::to(['shop/cart/test', 'id' => '2']);
-//$test = 123;
-//$js = <<< JS
-//
-//$(document).ready(function(){
-//  $('a.ajax_test_link').on('click', function(event){
-//      event.preventDefault();
-//	  data = $test;
-//	 $.ajax({
-//	    url: '$url',
-//	    type: 'POST',
-//	    data: data,
-//	    success: function(res){
-//	       console.log(res);
-//	    },
-//	    error: function(){
-//	       alert('Error!');
-//	    }
-//	 });
-//	 return false;
-//     });
-//});
-//
-//JS;
-//$this->registerJs($js);
-//
-//?>
+$url = Url::to(['shop/cart/test', 'id' => '2']);
+$test = 123;
+$js = <<< JS
+
+$(document).ready(function(){
+  $('a.ajax_test_link').on('click', function(event){
+      event.preventDefault();
+	  data = $test;
+	 $.ajax({
+	    url: '$url',
+	    type: 'POST',
+	    data: data,
+	    success: function(res){
+	       console.log(res);
+	       $.pjax.reload({container: '#some_pjax_id'});
+	    },
+	    error: function(){
+	       alert('Error!');
+	    }
+	 });
+	 
+	 return false;
+     });
+});
+
+JS;
+$this->registerJs($js);
+
+?>

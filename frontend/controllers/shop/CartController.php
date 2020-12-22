@@ -53,7 +53,7 @@ class CartController extends Controller
     {
 
 
-            if (!$product = $this->products->find($id)) {
+          if (!$product = $this->products->find($id)) {
                 throw new NotFoundHttpException('The requested page does not exist.');
             }
 

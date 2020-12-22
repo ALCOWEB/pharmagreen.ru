@@ -12,6 +12,8 @@ use yii\widgets\Breadcrumbs;
 use shop\readModels\Shop\ProductReadRepository;
 use frontend\widgets\Shop\CategoriesMainWidget;
 use frontend\widgets\SubscribeWidget;
+use yii\widgets\Pjax;
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -90,12 +92,16 @@ AppAsset::register($this);
 
                                     <a href="<?= Url::to(['/cabinet/wishlist/index']) ?>"><span class="lnr lnr-heart"></span> <span class="item_count"><?php echo ProductReadRepository::getWishListCount(\Yii::$app->user->id);?></span> </a>
                                 </div>
+                                <?php   Pjax::begin(['id' => 'some_pjax_id']);?>
+
+
                                 <div class="header_account_list  mini_cart_wrapper">
 
                                     <?= CartWidget::widget() ?>
 
                                     <!--mini cart end-->
                                 </div>
+                                <?php   Pjax::end();?>
                             </div>
                         </div>
                     </div>
