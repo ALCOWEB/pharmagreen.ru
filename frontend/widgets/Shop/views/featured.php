@@ -47,11 +47,11 @@ use yii\widgets\ActiveForm;
                                     <div class="action_links">
                                         <ul>
                                             <li class="add_to_cart">
-                                                <?= Html::a('<span class="lnr lnr-cart"></span>', Url::to(['/shop/cart/add', 'id' => $product->id]), ['data-method' => 'post', 'title' => 'Добавить в корзину','class' => 'add_to_cart_link_'.$product->id ]) ?>
+                                                <?= Html::a('<span class="lnr lnr-cart"></span>', '#', ['data-method' => 'post', 'title' => 'Добавить в корзину','class' => 'add_to_cart_link', 'data-product-id' => $product->id ]) ?>
                                             </li>
                                             <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box<?= $product->id;?>"  title="Быстрый просмотр"> <span class="lnr lnr-magnifier"></span></a></li>
                                             <li class="wishlist">
-                                                <?= Html::a('<span class="lnr lnr-heart"></span>', Url::to(['/cabinet/wishlist/add', 'id' => $product->id]), ['data-method' => 'post', 'title' => 'Добавить в список желаний']) ?>
+                                                <?= Html::a('<span class="lnr lnr-heart"></span>', Url::to(['/cabinet/wishlist/add', 'id' => $product->id]), ['data-method' => 'post', 'title' => 'Добавить в список желаний', 'class' => 'add_to_wish_list_link', 'data-product-id' => $product->id]) ?>
                                         </ul>
                                     </div>
                                 </div>
@@ -137,7 +137,10 @@ use yii\widgets\ActiveForm;
 
                                             <?php $addToCartForm = new AddToCartForm($product)?>
                                             <?php $form = ActiveForm::begin([
-                                                'action' => ['/shop/cart/add', 'id' => $product->id],
+
+                                                'action' => ['/shop/cart/ajax-add', 'id' => $product->id],
+                                                'options' => ['class' => 'add_to_cart_form'],
+
                                             ]) ?>
 
                                             <?php if ($modifications = $addToCartForm->modificationsList()): ?>
@@ -148,7 +151,7 @@ use yii\widgets\ActiveForm;
                                                 <?= $form->field($addToCartForm, 'quantity', ['template' => "{input}\n{error}",  'options' => [
                                                     'tag' => false, // Don't wrap with "form-group" div
                                                 ],])->input('number', ['style' => 'float:left']) ?>
-                                                <?= Html::submitButton('Добавить в корзину') ?>
+                                                <?= Html::submitButton('Добавить в корзину', []) ?>
 
                                             <?php ActiveForm::end() ?>
 
@@ -167,39 +170,3 @@ use yii\widgets\ActiveForm;
 </div>
 <!-- modal area end-->
 <?php endforeach;?>
-
-
-<?= Html::a('<span class="lnr lnr-cart">asdasdasd</span>', Url::to(['/shop/cart/test']), ['class' => 'ajax_test_link']) ?>
-
-
-
-<?php
-$url = Url::to(['shop/cart/test', 'id' => '2']);
-$test = 123;
-$js = <<< JS
-
-$(document).ready(function(){
-  $('a.ajax_test_link').on('click', function(event){
-      event.preventDefault();
-	  data = $test;
-	 $.ajax({
-	    url: '$url',
-	    type: 'POST',
-	    data: data,
-	    success: function(res){
-	       console.log(res);
-	       $.pjax.reload({container: '#some_pjax_id'});
-	    },
-	    error: function(){
-	       alert('Error!');
-	    }
-	 });
-	 
-	 return false;
-     });
-});
-
-JS;
-$this->registerJs($js);
-
-?>

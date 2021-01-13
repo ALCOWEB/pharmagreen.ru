@@ -38,7 +38,8 @@ class AppAsset extends AssetBundle
         'js/isotope.pkgd.min.js',
         'js/slinky.menu.js',
         'js/plugins.js',
-        'js/main.js'
+        'js/main.js',
+        'js/ajaxrequests.js'
         ];
     public $depends = [
                 //'frontend\assets\FontAwesomeAsset', //Чёт не работали иконки, пришлось напрямую закинуть их

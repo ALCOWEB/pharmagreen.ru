@@ -12,7 +12,7 @@ use yii\widgets\Breadcrumbs;
 use shop\readModels\Shop\ProductReadRepository;
 use frontend\widgets\Shop\CategoriesMainWidget;
 use frontend\widgets\SubscribeWidget;
-use yii\widgets\Pjax;
+
 
 AppAsset::register($this);
 ?>
@@ -47,8 +47,65 @@ AppAsset::register($this);
 <div class="off_canvars_overlay">
 
 </div>
-<div class="offcanvas_menu">
 
+
+<div class="offcanvas_menu">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="canvas_open">
+                    <a href="javascript:void(0)"><i class="icon-menu"></i></a>
+                </div>
+                <div class="offcanvas_menu_wrapper">
+                    <div class="canvas_close">
+                        <a href="javascript:void(0)"><i class="icon-x"></i></a>
+                    </div>
+                    <div class="header-account-mobile">
+                        <ul>
+                            <?php if (Yii::$app->user->isGuest): ?>
+                                <li><a href="<?= Html::encode(Url::to(['/auth/auth/login'])) ?>">Вход</a></li>
+                                <li>|</li>
+                                <li><a href="<?= Html::encode(Url::to(['/auth/signup/request'])) ?>">Регистрация</a></li>
+                            <?php else: ?>
+                                <li><a href="<?= Html::encode(Url::to(['/cabinet/profile/edit'])) ?>">Личный кабинет</a></li>
+                                <li>|</li>
+                                <li><a href="<?= Html::encode(Url::to(['/auth/auth/logout'])) ?>" data-method="post">Выход</a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+                    <div class="search_container">
+                        <?= Html::beginForm(['/shop/catalog/search'], 'get') ?>
+
+                        <div class="search_box">
+                            <input type="text" name="text" value="" placeholder="Введите название продукта..." >
+                            <button type="submit"><span class="lnr lnr-magnifier"></span></button>
+                        </div>
+                        <?= Html::endForm() ?>
+                    </div>
+
+                    <div class="call-support">
+                        <p><a href="tel:8-800-667-34-70">8-800-667-34-70</a> Звонок по России бесплатный</p>
+                    </div>
+                    <div id="menu" class="text-left ">
+                        <ul class="offcanvas_main_menu">
+                            <li class="menu-item">
+                                <a href="<?= Html::encode(Url::to(['/shop/catalog']))?>">Каталог</a>
+                            </li>
+                            <li><a href="<?= Html::encode(Url::to(['/blog/index']))?>">Статьи</a>
+                            </li>
+                            <li><a href="<?= Html::encode(Url::to(['/site/about']))?>">О нас</a></li>
+                            <li><a href="<?= Html::encode(Url::to(['/site/about']))?>">Доставка и оплата</a></li>
+                            <li><a href="<?= Html::encode(Url::to(['contact/index']))?>">Контакты</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="offcanvas_footer">
+                        <span><a href="#"><i class="fa fa-envelope-o"></i> info@pharmagreen.ru</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!--offcanvas menu area end-->
 
@@ -92,16 +149,12 @@ AppAsset::register($this);
 
                                     <a href="<?= Url::to(['/cabinet/wishlist/index']) ?>"><span class="lnr lnr-heart"></span> <span class="item_count"><?php echo ProductReadRepository::getWishListCount(\Yii::$app->user->id);?></span> </a>
                                 </div>
-                                <?php   Pjax::begin(['id' => 'some_pjax_id']);?>
-
-
                                 <div class="header_account_list  mini_cart_wrapper">
 
                                     <?= CartWidget::widget() ?>
 
                                     <!--mini cart end-->
                                 </div>
-                                <?php   Pjax::end();?>
                             </div>
                         </div>
                     </div>

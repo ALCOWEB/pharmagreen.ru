@@ -11,6 +11,7 @@ use yii\helpers\Url;
     <div class="container">
         <div class="row">
 <?php foreach ($reviews as $review):?>
+     
             <div class="col-md-4"><div class="testimonial_area">
 
                     <div class="">

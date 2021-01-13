@@ -9,6 +9,7 @@ use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use frontend\widgets\Shop\CartWidget;
 
 class CartController extends Controller
 {
@@ -49,7 +50,18 @@ class CartController extends Controller
         ]);
     }
 
-    public function actionTest($id)
+    public function actionAjaxTest()
+    {
+        //$cart = $this->service->getCart();
+
+        if(\Yii::$app->request->isAjax){
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            $testData = Yii::$app->request->post();
+            return 'success';
+        }
+    }
+
+    public function actionAjaxAdd($id)
     {
 
 
@@ -57,19 +69,32 @@ class CartController extends Controller
                 throw new NotFoundHttpException('The requested page does not exist.');
             }
 
-            $form = new AddToCartForm($product);
+          $form = new AddToCartForm($product);
 
         if(\Yii::$app->request->isAjax){
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            if (!$product->modifications) {
-                    $this->service->add($product->id, null, 1);
+
+            //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+
+            if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+                $this->service->add($product->id, null, $form->quantity);
+
+
+                 return CartWidget::widget();
 
             }
 
-            return [
-                'success' => true,
-                'data' => $id,
-            ];
+            if (!$product->modifications) {
+                $this->service->add($product->id, null, 1);
+
+
+                return CartWidget::widget();
+
+            }
+
+
+
+
         }
 
         return $this->render('add', [
@@ -84,11 +109,6 @@ class CartController extends Controller
      * @throws NotFoundHttpException
      */
 
-    public function actionAddOneClick($id){
-        if (!$product = $this->products->find($id)) {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
 
     public function actionAdd($id)
     {
@@ -173,6 +193,7 @@ class CartController extends Controller
      */
     public function actionRemove($id)
     {
+
         try {
             $this->service->remove($id);
         } catch (\DomainException $e) {
@@ -180,5 +201,24 @@ class CartController extends Controller
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(['index']);
+    }
+
+
+
+    public function actionRemoveAjax($id)
+    {
+
+        if(\Yii::$app->request->isAjax){
+             //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            try {
+                $this->service->remove($id);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+            return CartWidget::widget();
+        }
+
+
     }
 }

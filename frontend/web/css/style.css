@@ -2044,17 +2044,25 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   font-size: 23px;
   font-weight: bold;
 }
+
+
 .call-support p a:hover {
   color: #40A944;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+  .call-support p a {
+    font-size: 19px;
+  }
   .call-support p {
-    font-size: 13px;
+    font-size: 9px;
   }
 }
 @media only screen and (max-width: 767px) {
+  .call-support p a {
+    font-size: 19px;
+  }
   .call-support p {
-    font-size: 13px;
+    font-size: 9px;
   }
 }
 
@@ -5151,6 +5159,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 /*  07. footer area css here */
 .footer_top {
+  padding-top: 20px;
   padding-bottom: 64px;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -10972,4 +10981,11 @@ a.button-auth:hover {
 .zoomWrapper img{
   display: block;
   margin: auto;
+}
+
+.header-account-mobile ul{
+  display: flex;
+  justify-content: space-around;
+  text-transform: uppercase;
+  margin-bottom: 20px;
 }

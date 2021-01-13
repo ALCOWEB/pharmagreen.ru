@@ -42,11 +42,10 @@ use yii\helpers\Url;
                     <p><?= $item->getQuantity() ?> x <span> <?= PriceHelper::format($item->getCost()) ?> </span></p>
                 </div>
                 <div class="cart_remove">
-                    <a href="<?= Url::to(['/shop/cart/remove', 'id' => $item->getId()]) ?>" title="Remove" class="" data-method="post"><i class="icon-x"></i></a>
+                    <a href="<?= Url::to(['/shop/cart/remove-ajax', 'id' => $item->getId()]) ?>" title="Remove" class="remove_from_cart"  data-product-id = <?= $item->getId(); ?>><i class="icon-x"></i></a>
 
                 </div>
             </div>
-
         <?php endforeach ?>
 
     </div>
@@ -65,14 +64,23 @@ use yii\helpers\Url;
     </div>
     <div class="mini_cart_footer">
         <div class="cart_button">
-            <a href="<?= Url::to(['/shop/cart/index']) ?>"><i class="fa fa-shopping-cart"></i> Посмотреть корзину</a>
+            <a href="<?= Url::to(['/shop/cart/index']) ?>" data-pjax=0><i class="fa fa-shopping-cart"></i> Посмотреть корзину</a>
         </div>
         <div class="cart_button">
-            <a href="<?= Url::to(['/shop/checkout/index']) ?>"><i class="fa fa-sign-in"></i> Оформить заказ</a>
+            <a href="<?= Url::to(['/shop/checkout/index']) ?>" data-pjax=0><i class="fa fa-sign-in"></i> Оформить заказ</a>
         </div>
 
     </div>
 </div>
 
+<?php
+$js = <<<JS
+   
+
+
+JS;
+
+$this->registerJs($js);
+?>
 
 

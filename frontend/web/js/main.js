@@ -786,14 +786,22 @@
 
 	
 	 /*---mini cart activation---*/
-    $('.mini_cart_wrapper > a').on('click', function(){
+    // $('.mini_cart_wrapper > a').on('click', function(){
+    //     $('.mini_cart,.off_canvars_overlay').addClass('active')
+    // });
+    // $('.mini_cart_close,.off_canvars_overlay').on('click', function(){
+    //     $('.mini_cart,.off_canvars_overlay').removeClass('active')
+    // });
+
+
+    $(document).on('click', '.mini_cart_wrapper > a', function() {
         $('.mini_cart,.off_canvars_overlay').addClass('active')
     });
-    
-    $('.mini_cart_close,.off_canvars_overlay').on('click', function(){
+    $(document).on('click', '.mini_cart_close,.off_canvars_overlay', function() {
         $('.mini_cart,.off_canvars_overlay').removeClass('active')
     });
-	
+
+
     
     /*---canvas menu activation---*/
     $('.canvas_open,.off_canvars_overlay').on('click', function(){

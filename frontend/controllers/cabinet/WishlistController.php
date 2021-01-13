@@ -72,6 +72,26 @@ class WishlistController extends Controller
         return $this->redirect(Yii::$app->request->referrer ?: ['index']);
     }
 
+
+    public function actionAddAjax($id)
+    {
+        if(\Yii::$app->request->isAjax){
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            try {
+                $this->service->add(Yii::$app->user->id, $id);
+                Yii::$app->session->setFlash('success', 'Success!');
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+
+            return [
+                'success' => true,
+                'data' => $id,
+            ];
+        }
+
+    }
     /**
      * @param $id
      * @return mixed

@@ -95,7 +95,9 @@ $this->params['active_category'] = $product->category;
 
 
                             <?php $form = ActiveForm::begin([
-                                'action' => ['/shop/cart/add', 'id' => $product->id],
+
+                                'action' => ['/shop/cart/ajax-add', 'id' => $product->id],
+                                'options' => ['class' => 'add_to_cart_form'],
                             ]) ?>
 
                             <?php if ($modifications = $cartForm->modificationsList()): ?>
@@ -117,7 +119,7 @@ $this->params['active_category'] = $product->category;
 
                         <div class=" product_d_action">
                             <ul>
-                                <li><?= Html::a('<span class="lnr lnr-heart"></span>&nbsp;Добавить в список желаний', Url::to(['/cabinet/wishlist/add', 'id' => $product->id]), ['data-method' => 'post', 'title' => 'Добавить в список желаний', ]) ?></li>
+                                <li><?= Html::a('<span class="lnr lnr-heart"></span>&nbsp;Добавить в список желаний', Url::to(['/cabinet/wishlist/add', 'id' => $product->id]), ['data-method' => 'post', 'title' => 'Добавить в список желаний', 'class' => 'add_to_wish_list_link', 'data-product-id' => $product->id]) ?></li>
 
                             </ul>
                         </div>
