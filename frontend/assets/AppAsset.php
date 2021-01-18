@@ -14,7 +14,7 @@ class AppAsset extends AssetBundle
         'css/owl.carousel.min.css',
         'css/slick.css',
         'css/magnific-popup.css',
-        'css/font.awesome.css',
+        //'css/font.awesome.css',
         'css/ionicons.min.css',
         'css/linearicons.css',
         'css/animate.css',

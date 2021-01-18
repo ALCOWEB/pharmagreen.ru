@@ -22,7 +22,7 @@
 			setTimeout(function(){
 				$(function(){$('.mini_cart,.off_canvars_overlay').addClass('active');})
 			}, 50);
-
+		//	$('.mini_cart,.off_canvars_overlay').addClass('active');
 
 			// $(document).ready(function() {
 			// 	$('.mini_cart,.off_canvars_overlay').addClass('active')
@@ -59,6 +59,7 @@
 				}, 50);
 				// $('.mini_cart,.off_canvars_overlay').addClass('active');
 			},
+
 			error: function(){
 				alert('Error!');
 			}
@@ -80,6 +81,7 @@
 	      // $('.mini_cart,.off_canvars_overlay').addClass('active');
 
 	    },
+
 	    error: function(){
 	       alert('Error!');
 	    }

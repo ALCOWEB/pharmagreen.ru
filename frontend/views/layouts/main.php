@@ -34,6 +34,7 @@ AppAsset::register($this);
     <?php $this->head() ?>
     <!-- all css here -->
     <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
 
 
 
