@@ -90,6 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
                 <?php $form = ActiveForm::begin() ?>
+                <?=$form->errorSummary($model);?>
                 <div class="row">
                     <div class="col-lg-4 col-md-4">
 
@@ -130,6 +131,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <h3>Способ доставки</h3>
                      <div class="row">
                         <div class="col-lg-12 mb-20">
+                            <?php var_dump($model->delivery->deliveryMethodsList());?>
 <!--                            --><?//= $form->field($model->delivery, 'method')->dropDownList($model->delivery->deliveryMethodsList(), ['prompt' => '--- Select ---', 'encode' => false ])->label('Выбор метода доставки') ?><!-- -->
                             <?= $form->field($model->delivery, 'method')->radioList($model->delivery->deliveryMethodsList(),['unselect' => null,
                                 'item' => function ($index, $label, $name, $checked, $value) use ($model){
@@ -161,8 +163,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         <div class="row">
                             <div class="col-lg-12 mb-20">
-                                <!--                            --><?//= $form->field($model->delivery, 'method')->dropDownList($model->delivery->deliveryMethodsList(), ['prompt' => '--- Select ---', 'encode' => false ])->label('Выбор метода доставки') ?><!-- -->
-
 
                                 <?= $form->field($model->payment, 'method')->radioList($model->payment->paymentMethodsList(),['unselect' => null,
                                     'item' => function ($index, $label, $name, $checked, $value) use ($model){

@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'id',
                         'label' => '№',
                         'value' => function (Order $model) {
-                            return Html::a(Html::encode($model->id), ['view', 'id_hash' => $model->id_hash]);
+                            return Html::a(Html::encode($model->id), ['view', 'id' => $model->id]);
                         },
                         'format' => 'raw',
                     ],

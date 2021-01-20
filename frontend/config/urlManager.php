@@ -28,7 +28,7 @@ return [
         'cabinet' => 'cabinet/default/index',
         'cabinet/<_c:[\w\-]+>' => 'cabinet/<_c>/index',
         'cabinet/<_c:[\w\-]+>/<id:\d+>' => 'cabinet/<_c>/view',
-        'cabinet/order/<id_hash:\w+>' => 'cabinet/order/view',
+        //'cabinet/order/<id_hash:\w+>' => 'cabinet/order/view',
         'cabinet/<_c:[\w\-]+>/<_a:[\w-]+>' => 'cabinet/<_c>/<_a>',
         'cabinet/<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => 'cabinet/<_c>/<_a>',
         ['class' => 'frontend\urls\PageUrlRule'],

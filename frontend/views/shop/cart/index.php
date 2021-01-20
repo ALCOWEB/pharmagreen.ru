@@ -21,6 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="row">
                         <div class="col-12">
                             <div class="table_desc">
+
+
                                 <?= Html::beginForm(['quantityall', 'ids' => $cart->getItemsIds()]); ?>
                                 <div class="cart_page table-responsive">
 

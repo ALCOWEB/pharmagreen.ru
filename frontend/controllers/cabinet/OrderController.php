@@ -32,11 +32,6 @@ class OrderController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['view'],
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['view'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -61,15 +56,15 @@ class OrderController extends Controller
      * @return mixed
      * @throws NotFoundHttpException
      */
-    public function actionView($id_hash)
+    public function actionView($id)
     {
-//        if (!$order = $this->orders->findOwn(\Yii::$app->user->id, $id)) {
-//            throw new NotFoundHttpException('The requested page does not exist.');
-//        }
-
-        if (!$order = $this->orders->findOnebyHash($id_hash)) {
+        if (!$order = $this->orders->findOwn(\Yii::$app->user->id, $id)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+
+//        if (!$order = $this->orders->findOnebyHash($id_hash)) {
+//            throw new NotFoundHttpException('The requested page does not exist.');
+//        }
         return $this->render('view', [
             'order' => $order,
         ]);

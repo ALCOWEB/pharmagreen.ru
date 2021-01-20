@@ -55,6 +55,7 @@ class CheckoutController extends Controller
         $form = new OrderForm($this->cart->getWeight());
 
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+
            if (!Yii::$app->user->isGuest){
                 try {
                     $order = $this->service->checkout(Yii::$app->user->id, $form);
