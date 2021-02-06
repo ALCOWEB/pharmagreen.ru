@@ -5,16 +5,14 @@ namespace shop\entities\Shop\Order;
 class CustomerData
 {
     public $phone;
-    public $first_name;
-    public $last_name;
+    public $name;
     public $email;
 
 
-    public function __construct($phone, $first_name, $last_name, $email)
+    public function __construct($phone, $name, $email)
     {
         $this->phone = $phone;
-        $this->first_name = $first_name;
-        $this->last_name = $last_name;
+        $this->name = $name;
         $this->email = $email;
     }
 }

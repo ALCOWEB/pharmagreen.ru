@@ -28,12 +28,16 @@ class PasswordResetService
                 ['user' => $user]
             )
             ->setTo($user->email)
+            ->setFrom(['info@pharmagreen.ru' => 'Письмо с сайта'])
             ->setSubject('Password reset for ' . Yii::$app->name)
             ->send();
         if (!$sent) {
             throw new \RuntimeException('Sending error.');
         }
     }
+
+
+
     public function validateToken($token): void
     {
         if (empty($token) || !is_string($token)) {

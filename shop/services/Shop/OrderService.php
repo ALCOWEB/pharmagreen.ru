@@ -15,6 +15,7 @@ use shop\repositories\Shop\ProductRepository;
 use shop\repositories\UserRepository;
 use shop\services\TransactionManager;
 use yii\mail\MailerInterface;
+use Yii;
 
 class OrderService
 {
@@ -48,7 +49,7 @@ class OrderService
         $this->mailer = $mailer;
     }
 
-    public function checkout($userId = null, OrderForm $form): Order
+    public function checkout($userId, OrderForm $form, $password = null): Order
     {
         $user = $this->users->get($userId);
 
@@ -70,8 +71,7 @@ class OrderService
             $user->id,
             new CustomerData(
                 $form->customer->phone,
-                $form->customer->first_name,
-                $form->customer->last_name,
+                $form->customer->name,
                 $form->customer->email
             ),
             $items,
@@ -101,9 +101,10 @@ class OrderService
         $send = $this->mailer
             ->compose(
                 ['html' => 'checkout/checkout-html', 'text' => 'checkout/checkout-text'],
-                ['user' => $user,'order' => $order,  ]
+                ['user' => $user,'order' => $order, 'password' => $password]
             )
             ->setTo($form->customer->email)
+            ->setFrom(['info@pharmagreen.ru' => 'Письмо с сайта'])
             ->setSubject('Заказ № ' . $order->id)
             ->send();
         if (!$send) {
@@ -112,5 +113,6 @@ class OrderService
 
         return $order;
     }
+
 
 }

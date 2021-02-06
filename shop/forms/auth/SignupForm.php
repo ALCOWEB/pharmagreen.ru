@@ -10,7 +10,6 @@ use shop\entities\User\User;
  */
 class SignupForm extends Model
 {
-    public $username;
     public $email;
     public $phone;
     public $password;
@@ -22,10 +21,6 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['username', 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => User::class, 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],

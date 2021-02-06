@@ -9,6 +9,8 @@ use shop\helpers\WeightHelper;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\MaskedInput;
+
 
 $this->title = 'Оформить заказ';
 $this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['/shop/catalog/index']];
@@ -99,13 +101,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 <div class="col-lg-12 mb-20">
 
-                                    <?= $form->field($model->customer, 'first_name')->textInput()->label('Имя') ?>
+                                    <?= $form->field($model->customer, 'name')->textInput()->label('Имя') ?>
                                 </div>
+
                                 <div class="col-lg-12 mb-20">
-                                    <?= $form->field($model->customer, 'last_name')->textInput()->label('Имя') ?>
-                                </div>
-                                <div class="col-lg-12 mb-20">
-                                    <?= $form->field($model->customer, 'phone')->textInput()->label('Телефон') ?>
+                                    <?= $form->field($model->customer, 'phone')->widget(MaskedInput::class, [
+                                        'mask' => '+7 (999) 999 99 99',
+                                    ])->textInput()->label('Телефон');?>
 
                                 </div>
                                 <div class="col-lg-12 mb-20">
@@ -131,7 +133,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <h3>Способ доставки</h3>
                      <div class="row">
                         <div class="col-lg-12 mb-20">
-                            <?php var_dump($model->delivery->deliveryMethodsList());?>
+
 <!--                            --><?//= $form->field($model->delivery, 'method')->dropDownList($model->delivery->deliveryMethodsList(), ['prompt' => '--- Select ---', 'encode' => false ])->label('Выбор метода доставки') ?><!-- -->
                             <?= $form->field($model->delivery, 'method')->radioList($model->delivery->deliveryMethodsList(),['unselect' => null,
                                 'item' => function ($index, $label, $name, $checked, $value) use ($model){

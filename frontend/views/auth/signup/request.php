@@ -20,7 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="account_form">
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Имя пользователя') ?>
 
                 <?= $form->field($model, 'email')->label('E-mail') ?>
 

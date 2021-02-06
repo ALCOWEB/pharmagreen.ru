@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
                     <p>
-                        <?= $form->field($model, 'username')->textInput()->label('E-mail') ?>
+                        <?= $form->field($model, 'email')->textInput()->label('E-mail') ?>
                     </p>
                     <p>
                         <?= $form->field($model, 'password')->passwordInput()->label('Пароль') ?>

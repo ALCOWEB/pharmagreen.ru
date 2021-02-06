@@ -50,7 +50,7 @@ class Photo extends ActiveRecord
                     'cart_widget_list' => ['width' => 57, 'height' => 57],
                     'catalog_product_main_500' => ['height' => 500],
                     'catalog_product_main' => ['width' => 750, 'height' => 1000],
-//                    'catalog_product_main' => ['processor' => [new WaterMarker(750, 1000, '@frontend/web/image/logo.png'), 'process']],
+//                  'catalog_product_main' => ['processor' => [new WaterMarker(750, 1000, '@frontend/web/image/logo.png'), 'process']],
                     'catalog_product_additional' => ['width' => 66, 'height' => 66],
                     'catalog_origin' => ['width' => 66, 'height' => 66],
 //                    'catalog_origin' => ['processor' => [new WaterMarker(1024, 768, '@frontend/web/image/logo.png'), 'process']],

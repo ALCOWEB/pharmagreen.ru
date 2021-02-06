@@ -3,9 +3,9 @@ namespace shop\repositories;
 use shop\entities\User\User;
 class UserRepository
 {
-    public function findByUsernameOrEmail($value): ?User
+    public function findByPhoneOrEmail($value): ?User
     {
-        return User::find()->andWhere(['or', ['username' => $value], ['email' => $value]])->one();
+        return User::find()->andWhere(['or', ['phone' => $value], ['email' => $value]])->one();
     }
     public function getByEmailConfirmToken($token): User
     {
@@ -20,10 +20,18 @@ class UserRepository
     {
         return $this->getBy(['email' => $email]);
     }
-    public function getByEmailCheckout($email)
+
+    public function getByPhone($phone): User
     {
-        return $this->getByForCheckout(['email' => $email]);
+        return $this->getBy(['phone' => $phone]);
     }
+
+    public function getByEmailorPhone($email, $phone)
+    {
+        return User::find()->andWhere(['or', ['email' => $email], ['phone' => $phone]])->one();
+    }
+
+
     public function getByPasswordResetToken($token): User
     {
         return $this->getBy(['password_reset_token' => $token]);
@@ -46,13 +54,6 @@ class UserRepository
         return $user;
     }
 
-    private function getByForCheckout(array $condition)
-    {
-        if (!$user = User::find()->andWhere($condition)->limit(1)->one()) {
-            return null;
-        }
-        return $user;
-    }
 
 
     public function get($id): User

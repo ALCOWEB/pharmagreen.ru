@@ -3,13 +3,13 @@ namespace shop\forms\auth;
 use yii\base\Model;
 class LoginForm extends Model
 {
-    public $username;
+    public $email;
     public $password;
     public $rememberMe = true;
     public function rules()
     {
         return [
-            [['username', 'password'], 'required', 'message' => 'это поле необходимо заполнить'],
+            [['email', 'password'], 'required', 'message' => 'это поле необходимо заполнить'],
             ['rememberMe', 'boolean'],
         ];
     }

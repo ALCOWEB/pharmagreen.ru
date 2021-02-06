@@ -9,6 +9,7 @@ use shop\repositories\UserRepository;
 use shop\services\RoleManager;
 use shop\services\TransactionManager;
 use yii\mail\MailerInterface;
+use Yii;
 
 class SignupService
 {
@@ -32,51 +33,67 @@ class SignupService
     public function signup(SignupForm $form): void
     {
         $user = User::requestSignup(
-            $form->username,
             $form->email,
             $form->phone,
             $form->password
         );
+
         $this->users->save($user);
         $sent = $this->mailer
             ->compose(
                 ['html' => 'auth/signup/confirm-html', 'text' => 'auth/signup/confirm-text'],
-                ['user' => $user]
+                ['user' => $user, 'password' => $form->password]
             )
             ->setTo($form->email)
+            ->setFrom(['info@pharmagreen.ru' => 'Письмо с сайта'])
             ->setSubject('Signup confirm for ' . \Yii::$app->name)
             ->send();
         if (!$sent) {
             throw new \RuntimeException('Email sending error.');
         }
     }
+
+
 
     public function getByEmail($email){
-       return $this->users->getByEmailCheckout($email);
+       return $this->users->getByEmail($email);
     }
 
-    public function signup_order(OrderForm $form): void
+    public function getByPhone($phone){
+        return $this->users->getByPhone($phone);
+    }
+
+    public function getByEmailorPhone($email, $phone){
+        return $this->users->getByEmailorPhone($email, $phone);
+    }
+
+    public function signup_order(OrderForm $form)
     {
 
+        $password = mt_rand(10000000, 99999999);
         $user = User::requestSignup(
-            $form->customer->first_name,
             $form->customer->email,
             $form->customer->phone,
-            mt_rand(10000000, 99999999)
+            $password
         );
+
         $this->users->save($user);
-        $sent = $this->mailer
-            ->compose(
-                ['html' => 'auth/signup/confirm-html', 'text' => 'auth/signup/confirm-text'],
-                ['user' => $user]
-            )
-            ->setTo($form->customer->email)
-            ->setSubject('Signup confirm for ' . \Yii::$app->name)
-            ->send();
-        if (!$sent) {
-            throw new \RuntimeException('Email sending error.');
-        }
+
+//        $sent = $this->mailer
+//            ->compose(
+//                ['html' => 'auth/signup/confirm-html', 'text' => 'auth/signup/confirm-text'],
+//                ['user' => $user, 'password' => $password]
+//            )
+//            ->setTo($form->customer->email)
+//            ->setFrom(['info@pharmagreen.ru' => 'Письмо с сайта'])
+//            ->setSubject('Signup confirm for ' . \Yii::$app->name)
+//            ->send();
+//        if (!$sent) {
+//            throw new \RuntimeException('Email sending error.');
+//        }
+        return $password;
     }
+
     public function confirm($token): void
     {
         if (empty($token)) {
@@ -88,5 +105,18 @@ class SignupService
             $this->users->save($user);
             $this->roles->assign($user->id, Rbac::ROLE_USER);
         });
+        if(Yii::$app->user->isGuest){
+            Yii::$app->user->login($user);
+        }
+        else {
+            if (Yii::$app->user->id != $user->id) {
+                Yii::$app->user->logout();
+                Yii::$app->user->login($user);
+            }
+
+          }
+
+
+
     }
 }

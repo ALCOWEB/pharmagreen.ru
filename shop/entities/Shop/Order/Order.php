@@ -195,8 +195,7 @@ class Order extends ActiveRecord
 
         $this->customerData = new CustomerData(
             $this->getAttribute('phone'),
-            $this->getAttribute('first_name'),
-            $this->getAttribute('last_name'),
+            $this->getAttribute('name'),
             $this->getAttribute('email')
         );
 
@@ -218,8 +217,7 @@ class Order extends ActiveRecord
         }, $this->statuses)));
 
         $this->setAttribute('phone', $this->customerData->phone);
-        $this->setAttribute('first_name', $this->customerData->first_name);
-        $this->setAttribute('last_name', $this->customerData->last_name);
+        $this->setAttribute('name', $this->customerData->name);
         $this->setAttribute('email', $this->customerData->email);
 
 

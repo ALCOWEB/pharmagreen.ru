@@ -59,29 +59,24 @@ class CheckoutController extends Controller
            if (!Yii::$app->user->isGuest){
                 try {
                     $order = $this->service->checkout(Yii::$app->user->id, $form);
-                    return $this->redirect(['/cabinet/order/'.$order->id_hash]);
+                    return $this->redirect(['/cabinet/order/'.$order->id]);
                 } catch (\DomainException $e) {
                     Yii::$app->errorHandler->logException($e);
                     Yii::$app->session->setFlash('error', $e->getMessage());
                 }
             } else {
-
-
                try {
-
-
-                      $user = $this->signup_service->getByEmail($form->customer->email);
+                      $user = $this->signup_service->getByEmailorPhone($form->customer->email, $form->customer->phone);
                       if ($user){
                           $order = $this->service->checkout($user->id, $form);
-                          return $this->redirect(['/cabinet/order/'.$order->id_hash]);
+                          return $this->redirect(['/cabinet/order/'.$order->id]);
                       } else {
 
-                          $this->signup_service->signup_order($form);
+                        $password =  $this->signup_service->signup_order($form);
                           $user = $this->signup_service->getByEmail($form->customer->email);
-                          $order = $this->service->checkout($user->id, $form);
-                          return $this->redirect(['/cabinet/order/'.$order->id_hash]);
+                          $order = $this->service->checkout($user->id, $form, $password);
+                          return $this->redirect(['/cabinet/order/'.$order->id]);
                       }
-
                } catch (\DomainException $e) {
                    Yii::$app->errorHandler->logException($e);
                    Yii::$app->session->setFlash('error', $e->getMessage());
