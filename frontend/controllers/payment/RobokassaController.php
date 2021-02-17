@@ -55,6 +55,7 @@ class RobokassaController extends Controller
         ];
     }
 
+
     public function successCallback($merchant, $nInvId, $nOutSum, $shp)
     {
         return $this->goBack();
@@ -88,7 +89,7 @@ class RobokassaController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
         return $order;
-    }
+    } 
 
     private function getMerchant(): Merchant
     {

@@ -90,26 +90,26 @@ class OrderService
             )
         );
 
-        $this->transaction->wrap(function () use ($order, $products) {
+        $this->transaction->wrap(function () use ($order, $products, $user, $password, $form) {
             $this->orders->save($order);
             foreach ($products as $product) {
                 $this->products->save($product);
             }
             $this->cart->clear();
+            $send = $this->mailer
+                ->compose(
+                    ['html' => 'checkout/checkout-html', 'text' => 'checkout/checkout-text'],
+                    ['user' => $user,'order' => $order, 'password' => $password]
+                )
+                ->setTo($form->customer->email)
+                ->setFrom(['info@pharmagreen.ru' => 'Письмо с сайта'])
+                ->setSubject('Заказ № ' . $order->id)
+                ->send();
+            if (!$send) {
+                throw new \RuntimeException('Email sending error.');
+            }
         });
 
-        $send = $this->mailer
-            ->compose(
-                ['html' => 'checkout/checkout-html', 'text' => 'checkout/checkout-text'],
-                ['user' => $user,'order' => $order, 'password' => $password]
-            )
-            ->setTo($form->customer->email)
-            ->setFrom(['info@pharmagreen.ru' => 'Письмо с сайта'])
-            ->setSubject('Заказ № ' . $order->id)
-            ->send();
-        if (!$send) {
-            throw new \RuntimeException('Email sending error.');
-        }
 
         return $order;
     }

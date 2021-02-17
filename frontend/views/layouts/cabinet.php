@@ -17,7 +17,7 @@ use yii\helpers\Url;
 
 
                         <li><a href="<?= Html::encode(Url::to(['/auth/reset/request'])) ?>" class="list-group-item <?= Yii::$app->controller->route == 'auth/reset/request' ? ' active' : '' ?>">Восстановить пароль</a></li>
-                        <li><a href="<?= Html::encode(Url::to(['/cabinet/default/index'])) ?>" class="list-group-item  <?= Yii::$app->controller->route == 'cabinet/profile/edit' ? ' active' : '' ?>">Мой аккаунт</a></li>
+                        <li><a href="<?= Html::encode(Url::to(['/cabinet/profile/edit'])) ?>" class="list-group-item  <?= Yii::$app->controller->route == 'cabinet/profile/edit' ? ' active' : '' ?>">Мой аккаунт</a></li>
                         <li><a href="<?= Html::encode(Url::to(['/cabinet/wishlist/index'])) ?>" class="list-group-item <?= Yii::$app->controller->route == 'cabinet/wishlist/index' ? ' active' : '' ?>">Список желаний</a></li>
                         <li><a href="<?= Html::encode(Url::to(['/cabinet/order/index'])) ?>" class="list-group-item <?= Yii::$app->controller->route == 'cabinet/order/index' ? ' active' : '' ?>">История заказов</a></li>
                     </ul>

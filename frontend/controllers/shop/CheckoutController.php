@@ -69,13 +69,13 @@ class CheckoutController extends Controller
                       $user = $this->signup_service->getByEmailorPhone($form->customer->email, $form->customer->phone);
                       if ($user){
                           $order = $this->service->checkout($user->id, $form);
-                          return $this->redirect(['/cabinet/order/'.$order->id]);
+                          return $this->redirect(['/cabinet/order/view-guest/'.$order->id_hash]);
                       } else {
 
                         $password =  $this->signup_service->signup_order($form);
                           $user = $this->signup_service->getByEmail($form->customer->email);
                           $order = $this->service->checkout($user->id, $form, $password);
-                          return $this->redirect(['/cabinet/order/'.$order->id]);
+                          return $this->redirect(['/cabinet/order/view-guest/'.$order->id_hash]);
                       }
                } catch (\DomainException $e) {
                    Yii::$app->errorHandler->logException($e);

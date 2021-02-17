@@ -66,10 +66,10 @@ $this->params['breadcrumbs'][] = 'Profile';
             <?php ActiveForm::end(); ?>
 
         </div>
+<h4>Привязать профиль соцсетей</h4>
+<?= yii\authclient\widgets\AuthChoice::widget([
+    'baseAuthUrl' => ['cabinet/network/attach'],
+]); ?>
 
-
-<?php
-
-?>
 
 

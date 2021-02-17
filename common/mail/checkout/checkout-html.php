@@ -11,57 +11,57 @@ use shop\entities\Shop\Product\Product;
 $confirmLink = Yii::$app->urlManager->createAbsoluteUrl(['auth/signup/confirm', 'token' => $user->email_confirm_token]);
 ?>
 <div class="password-reset">
-    <p>Hello</p>
     <?php if ($user->email_confirm_token): ?>
-       <p>Follow the link below to confirm your email:</p>
-       <p><?= Html::a(Html::encode($confirmLink), $confirmLink) ?></p>
+        <p>Пройдите по ссылке, чтобы подтвердить вашу электронную почту:</p>
+        <p><?= Html::a(Html::encode($confirmLink), $confirmLink) ?></p>
     <?php endif; ?>
     <?php if ($password): ?>
-        <p>Ваш пароль: <?= $password ?></p>
+        <p>Ваш пароль автоматически созданный при регистрации: <?= $password ?></p>
+        <p>Советуем Вам поменять его в личном кабинете на нашем сайте.</p>
 
     <?php endif; ?>
-   <strong>Информация о заказе в Pharmagreen.ru</strong>
+    <strong>Информация о заказе в Pharmagreen.ru</strong>
     <p>Здравствуйте! Вас приветствует Интернет-магазин Pharmagreen.ru</p>
     <p>Недавно Вы сделали заказ в нашем магазине. Информация о Вашем заказе представлена ниже.</p>
 
     <table style="border: 1px solid #dee2e6; margin-bottom: 1rem; color: #212529; border-collapse: collapse;">
         <tbody>
-            <tr style="background-color: #e9ecef;">
-                <th style="border: 1px solid #dee2e6; padding: 5px; text-align:left">№</th>
-                <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= $order->id ?></td>
-            </tr>
-            <tr>
-                <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Создан</th>
-                <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= Yii::$app->formatter->asDatetime($order->created_at) ?> </td>
-            </tr>
-            <tr style="background-color: #e9ecef;">
-                <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Статус заказа</th>
-                <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= OrderHelper::statusLabel($order->current_status) ?></td>
-            </tr>
-            <tr>
-                <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Метод оплаты</th>
-                <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= $order->payment_method ?></td>
-            </tr>
-            <tr style="background-color: #e9ecef;">
-                <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Метод доставки</th>
-                <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= $order->delivery_method_name ?></td>
-            </tr>
-            <tr>
-                <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Адрес</th>
-                <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= $order->deliveryData->address ?></td>
-            </tr>
-            <tr style="background-color: #e9ecef;">
-                <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Индекс</th>
-                <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= $order->deliveryData->index ?></td>
-            </tr>
-            <tr>
-                <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Цена</th>
-                <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= $order->cost ?></td>
-            </tr>
-            <tr style="background-color: #e9ecef;">
-                <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Заметка</th>
-                <td  style="border: 1px solid #dee2e6; padding: 5px;"><?php echo ($order->note) ? $order->note : '' ?></td>
-            </tr>
+        <tr style="background-color: #e9ecef;">
+            <th style="border: 1px solid #dee2e6; padding: 5px; text-align:left">№</th>
+            <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= $order->id ?></td>
+        </tr>
+        <tr>
+            <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Создан</th>
+            <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= Yii::$app->formatter->asDatetime($order->created_at) ?> </td>
+        </tr>
+        <tr style="background-color: #e9ecef;">
+            <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Статус заказа</th>
+            <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= OrderHelper::statusLabel($order->current_status) ?></td>
+        </tr>
+        <tr>
+            <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Метод оплаты</th>
+            <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= $order->payment_method ?></td>
+        </tr>
+        <tr style="background-color: #e9ecef;">
+            <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Метод доставки</th>
+            <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= $order->delivery_method_name ?></td>
+        </tr>
+        <tr>
+            <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Адрес</th>
+            <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= $order->deliveryData->address ?></td>
+        </tr>
+        <tr style="background-color: #e9ecef;">
+            <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Индекс</th>
+            <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= $order->deliveryData->index ?></td>
+        </tr>
+        <tr>
+            <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Цена</th>
+            <td  style="border: 1px solid #dee2e6; padding: 5px;"><?= $order->cost ?></td>
+        </tr>
+        <tr style="background-color: #e9ecef;">
+            <th  style="border: 1px solid #dee2e6; padding: 5px; text-align:left">Заметка</th>
+            <td  style="border: 1px solid #dee2e6; padding: 5px;"><?php echo ($order->note) ? $order->note : '' ?></td>
+        </tr>
         </tbody>
     </table>
 
@@ -69,7 +69,6 @@ $confirmLink = Yii::$app->urlManager->createAbsoluteUrl(['auth/signup/confirm', 
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th class="text-left" style="background-color: #40A944; border: 1px solid #dee2e6; padding: 5px; text-align:left">Фото</th>
                 <th class="text-left" style="background-color: #40A944; border: 1px solid #dee2e6; padding: 5px; text-align:left">Название продукта</th>
                 <th class="text-left" style="background-color: #40A944; border: 1px solid #dee2e6; padding: 5px; text-align:left">Модель</th>
                 <th class="text-left" style="background-color: #40A944; border: 1px solid #dee2e6; padding: 5px; text-align:left">Кол-во</th>
@@ -80,24 +79,13 @@ $confirmLink = Yii::$app->urlManager->createAbsoluteUrl(['auth/signup/confirm', 
             <tbody>
             <?php foreach ($order->items as $item): ?>
                 <?php $product = Product::findOne($item->product_id) ?>
-            <?php $productUrl = Yii::$app->urlManager->createAbsoluteUrl(['shop/catalog/product', 'id' => $product->id]); ?>
-            <?php $productImgUrl = $message->embed(Swift_Image::fromPath($product->mainPhoto->getThumbFileUrl('file', 'admin'))); ?>
+                <?php $productUrl = Yii::$app->urlManager->createAbsoluteUrl(['shop/catalog/product', 'id' => $product->id]); ?>
 
                 <tr>
-                    <td class="product_thumb" style="border-right: 1px solid #ededed;font-weight: 500;text-transform: capitalize;font-size: 14px;text-align: center;min-width: 150px;">
-
-                        <a href= "<?= $productUrl; ?>">
-
-                            <?php if ($product->mainPhoto): ?>
-
-
-                            <?php endif; ?>
-                        </a>
-                    </td>
                     <td class="text-left" style="border-right: 1px solid #ededed;font-weight: 500;text-transform: capitalize;font-size: 14px;text-align: center;min-width: 150px;">
                         <?= Html::encode($item->product_code) ?><br />
                         <?=
-                        Html::a(Html::encode($item->product_name), ['shop/catalog/product/', 'id' => $item->product_id]) ?>
+                        Html::a(Html::encode($item->product_name), $productUrl) ?>
                     </td>
                     <td class="text-left" style="border-right: 1px solid #ededed;font-weight: 500;text-transform: capitalize;font-size: 14px;text-align: center;min-width: 150px;">
                         <?= Html::encode($item->modification_code) ?><br />
@@ -106,8 +94,8 @@ $confirmLink = Yii::$app->urlManager->createAbsoluteUrl(['auth/signup/confirm', 
                     <td class="text-left" style="border-right: 1px solid #ededed;font-weight: 500;text-transform: capitalize;font-size: 14px;text-align: center;min-width: 150px;">
                         <?= $item->quantity ?>
                     </td>
-                    <td class="text-right" style="border-right: 1px solid #ededed;font-weight: 500;text-transform: capitalize;font-size: 14px;text-align: center;min-width: 150px;"><?= PriceHelper::format($item->price) ?></td>
-                    <td class="text-right" style="border-right: 1px solid #ededed;font-weight: 500;text-transform: capitalize;font-size: 14px;text-align: center;min-width: 150px;"><?= PriceHelper::format($item->getCost()) ?></td>
+                    <td class="text-right" style="border-right: 1px solid #ededed;font-weight: 500;text-transform: capitalize;font-size: 14px;text-align: center;min-width: 150px;"><?= $item->price ?> Рублей</td>
+                    <td class="text-right" style="border-right: 1px solid #ededed;font-weight: 500;text-transform: capitalize;font-size: 14px;text-align: center;min-width: 150px;"><?= $item->getCost()?> Рублей</td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

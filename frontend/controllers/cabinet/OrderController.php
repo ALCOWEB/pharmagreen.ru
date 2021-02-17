@@ -34,6 +34,11 @@ class OrderController extends Controller
                         'actions' => ['view'],
                         'roles' => ['@'],
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['view-guest'],
+                        'roles' => ['?'],
+                    ],
                 ],
             ],
         ];
@@ -70,17 +75,15 @@ class OrderController extends Controller
         ]);
     }
 
-    public function actionViewGuest($id)
+    public function actionViewGuest($id_hash)
     {
-            if ($order = $this->orders->findOwn(\Yii::$app->user->id, $id)) {
-            throw new NotFoundHttpException('Залогиньтесь ');
-        }
 
-//        if (!$order = $this->orders->findOnebyHash($id_hash)) {
-//            throw new NotFoundHttpException('The requested page does not exist.');
-//        }
-        return $this->render('viewGuest', [
-            
+
+        if (!$order = $this->orders->findOnebyHash($id_hash)) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        return $this->render('view', [
+            'order' => $order,
         ]);
     }
 }
