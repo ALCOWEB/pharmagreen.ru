@@ -5,11 +5,13 @@ namespace frontend\controllers\shop;
 use shop\cart\Cart;
 use shop\forms\Shop\Order\OrderForm;
 use shop\forms\auth\SignupForm;
+use shop\readModels\Shop\OrderReadRepository;
 use shop\services\Shop\OrderService;
 use shop\services\auth\SignupService;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\helpers\Url;
 use yii\mail\MailerInterface;
 
 class CheckoutController extends Controller
@@ -59,7 +61,7 @@ class CheckoutController extends Controller
            if (!Yii::$app->user->isGuest){
                 try {
                     $order = $this->service->checkout(Yii::$app->user->id, $form);
-                    return $this->redirect(['/cabinet/order/'.$order->id]);
+                    return $this->redirect(Url::to(['/cabinet/order', 'id' => $order->id]));
                 } catch (\DomainException $e) {
                     Yii::$app->errorHandler->logException($e);
                     Yii::$app->session->setFlash('error', $e->getMessage());
@@ -69,13 +71,29 @@ class CheckoutController extends Controller
                       $user = $this->signup_service->getByEmailorPhone($form->customer->email, $form->customer->phone);
                       if ($user){
                           $order = $this->service->checkout($user->id, $form);
-                          return $this->redirect(['/cabinet/order/view-guest/'.$order->id_hash]);
+                          //return $this->render('checkout-info');
+                          //return $this->redirect(Url::to(['/checkout/checkout-info', 'id' => $order->id]));
+                          if ($order->payment_method == 'Банковская карта'){
+                              return $this->redirect(Url::to(['/payment/robokassa/invoice', 'id' => $order->id]));
+                          } else {
+                              return $this->render('checkout-info', [
+                                  'order' => $order
+                              ]);
+                          }
+
                       } else {
 
                         $password =  $this->signup_service->signup_order($form);
                           $user = $this->signup_service->getByEmail($form->customer->email);
                           $order = $this->service->checkout($user->id, $form, $password);
-                          return $this->redirect(['/cabinet/order/view-guest/'.$order->id_hash]);
+                          if ($order->payment_method == 'Банковская карта'){
+                              return $this->redirect(Url::to(['/payment/robokassa/invoice', 'id' => $order->id]));
+                          } else {
+                              return $this->render('checkout-info', [
+                                  'order' => $order
+                              ]);
+                          }
+                          //return $this->redirect(Url::to(['/cabinet/order', 'id' => $order->id]));
                       }
                } catch (\DomainException $e) {
                    Yii::$app->errorHandler->logException($e);
@@ -90,4 +108,7 @@ class CheckoutController extends Controller
             'model' => $form,
         ]);
     }
+
+
+
 }

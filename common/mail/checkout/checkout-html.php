@@ -9,6 +9,7 @@ use shop\entities\Shop\Product\Product;
 
 /* @var $user \shop\entities\User\User */
 $confirmLink = Yii::$app->urlManager->createAbsoluteUrl(['auth/signup/confirm', 'token' => $user->email_confirm_token]);
+$cabinrtUrl = Yii::$app->urlManager->createAbsoluteUrl(['cabinet/order/view', 'id' => $order->id]);
 ?>
 <div class="password-reset">
     <?php if ($user->email_confirm_token): ?>
@@ -17,12 +18,12 @@ $confirmLink = Yii::$app->urlManager->createAbsoluteUrl(['auth/signup/confirm', 
     <?php endif; ?>
     <?php if ($password): ?>
         <p>Ваш пароль автоматически созданный при регистрации: <?= $password ?></p>
-        <p>Советуем Вам поменять его в личном кабинете на нашем сайте.</p>
 
     <?php endif; ?>
     <strong>Информация о заказе в Pharmagreen.ru</strong>
     <p>Здравствуйте! Вас приветствует Интернет-магазин Pharmagreen.ru</p>
     <p>Недавно Вы сделали заказ в нашем магазине. Информация о Вашем заказе представлена ниже.</p>
+    <p>Посмотреть статус заказа и оплатить его онлай можно перейдя в <?= Html::a('личный кабинет', $cabinrtUrl) ?>личный кабинет</p>
 
     <table style="border: 1px solid #dee2e6; margin-bottom: 1rem; color: #212529; border-collapse: collapse;">
         <tbody>

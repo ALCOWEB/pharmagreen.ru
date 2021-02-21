@@ -85,7 +85,7 @@ class RobokassaController extends Controller
 
     private function loadModel($id): Order
     {
-        if (!$order = $this->orders->findOwn(\Yii::$app->user->id, $id)) {
+        if (!$order = $this->orders->findOne($id)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
         return $order;

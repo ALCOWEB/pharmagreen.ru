@@ -75,15 +75,5 @@ class OrderController extends Controller
         ]);
     }
 
-    public function actionViewGuest($id_hash)
-    {
 
-
-        if (!$order = $this->orders->findOnebyHash($id_hash)) {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-        return $this->render('view', [
-            'order' => $order,
-        ]);
-    }
 }
