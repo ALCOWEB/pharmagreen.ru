@@ -61,7 +61,7 @@ class CheckoutController extends Controller
            if (!Yii::$app->user->isGuest){
                 try {
                     $order = $this->service->checkout(Yii::$app->user->id, $form);
-                    return $this->redirect(Url::to(['/cabinet/order', 'id' => $order->id]));
+                    return $this->redirect(Url::to(['/cabinet/order/'.$order->id]));
                 } catch (\DomainException $e) {
                     Yii::$app->errorHandler->logException($e);
                     Yii::$app->session->setFlash('error', $e->getMessage());

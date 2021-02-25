@@ -102,6 +102,13 @@ $cabinrtUrl = Yii::$app->urlManager->createAbsoluteUrl(['cabinet/order/view', 'i
             </tbody>
         </table>
     </div>
+    <?php if ($order->canBePaid()): ?>
 
+        <div style="margin-left:50px">
+            <h2>Оплатить онлайн</h2>
+
+            <?= Html::a('Оплатить через Робокассу', Yii::$app->urlManager->createAbsoluteUrl(['payment/robokassa/invoice', 'id' => $order->id]), ['class' => 'btn btn-success']) ?>
+        </div>
+    <?php endif; ?>
 
 </div>

@@ -1,4 +1,5 @@
 <?php
+use yii\helpers\Url;
 $params = array_merge(
     require(__DIR__ . '/../../common/config/params.php'),
     require(__DIR__ . '/../../common/config/params-local.php'),
@@ -85,9 +86,11 @@ return [
         'class' => 'yii\filters\AccessControl',
         'except' => ['auth/login', 'site/error'],
         'rules' => [
+
             [
                 'allow' => true,
                 'roles' => ['admin'],
+
             ],
         ],
     ],

@@ -45,7 +45,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <td class="product_name"><a href="<?= Html::encode(Url::to(['shop/catalog/product', 'id' => $model->id])) ?>"><?= $model->name ?></a></td>
                                         <td class="product-price"><?= PriceHelper::format($model->price_new) ?></td>
                                         <td class="product_quantity"><?php echo $model->isAvailable() == true ? 'на складе': 'нет на складе'; ?></td>
-                                        <td class="product_total"><?= Html::a('Добавить в корзину', Url::to(['/shop/cart/add', 'id' => $model->id]), ['data-method' => 'post', 'title' => 'Добавить в корзину','class' => 'add_to_cart_link']) ?></td>
+                                        <td class="product_total">
+                                            <?= Html::a('Добавить в корзину', '#', ['data-method' => 'post', 'title' => 'Добавить в корзину','class' => 'add_to_cart_link', 'data-product-id' => $model->id ]) ?>
+                                        </td>
 
 
                                     </tr>

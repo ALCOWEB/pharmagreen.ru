@@ -77,24 +77,26 @@ class CartController extends Controller
 
 
             if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-                $this->service->add($product->id, null, $form->quantity);
-
-
-                 return CartWidget::widget();
-
-            }
-
-            if (!$product->modifications) {
-                $this->service->add($product->id, null, 1);
-
+                try {
+                    $this->service->add($product->id, null, $form->quantity);
+                } catch (\DomainException $e) {
+                    Yii::$app->errorHandler->logException($e);
+                    Yii::$app->session->setFlash('error', $e->getMessage());
+                }
 
                 return CartWidget::widget();
 
             }
 
-
-
-
+            if (!$product->modifications) {
+                try {
+                    $this->service->add($product->id, null, 1);
+                } catch (\DomainException $e) {
+                    Yii::$app->errorHandler->logException($e);
+                    Yii::$app->session->setFlash('error', $e->getMessage());
+                }
+                return CartWidget::widget();
+            }
         }
 
         return $this->render('add', [
@@ -221,4 +223,5 @@ class CartController extends Controller
 
 
     }
+
 }

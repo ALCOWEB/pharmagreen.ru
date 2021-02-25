@@ -7,6 +7,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
 use frontend\widgets\Shop\CartWidget;
+use frontend\widgets\Shop\WishlistWidget;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use shop\readModels\Shop\ProductReadRepository;
@@ -147,8 +148,8 @@ AppAsset::register($this);
                                     </ul>
                                 </div>
                                 <div class="header_account_list header_wishlist">
+                                    <?= WishlistWidget::widget() ?>
 
-                                    <a href="<?= Url::to(['/cabinet/wishlist/index']) ?>"><span class="lnr lnr-heart"></span> <span class="item_count"><?php echo ProductReadRepository::getWishListCount(\Yii::$app->user->id);?></span> </a>
                                 </div>
                                 <div class="header_account_list  mini_cart_wrapper">
 

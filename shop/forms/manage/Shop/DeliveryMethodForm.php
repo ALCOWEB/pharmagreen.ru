@@ -30,7 +30,7 @@ class DeliveryMethodForm extends Model
     public function rules(): array
     {
         return [
-            [['name', 'cost', 'sort'], 'required'],
+            [['name', 'sort'], 'required'],
             [['name'], 'string', 'max' => 255],
             [['cost', 'minWeight', 'maxWeight', 'sort'], 'integer'],
         ];

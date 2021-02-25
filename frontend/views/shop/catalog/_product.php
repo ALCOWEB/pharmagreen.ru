@@ -28,11 +28,12 @@ $category_url = Url::to(['/shop/catalog/category', 'id' =>$product->category->id
             <div class="action_links">
                 <ul>
                     <li class="add_to_cart">
-                        <?= Html::a('<span class="lnr lnr-cart"></span>', Url::to(['/shop/cart/add', 'id' => $product->id]), ['data-method' => 'post', 'title' => 'Добавить в корзину','class' => 'add_to_cart_link']) ?>
+                        <?= Html::a('<span class="lnr lnr-cart"></span>', '#', ['data-method' => 'post', 'title' => 'Добавить в корзину','class' => 'add_to_cart_link', 'data-product-id' => $product->id ]) ?>
+
                     </li>
                     <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box<?= $product->id;?>"  title="Быстрый просмотр"> <span class="lnr lnr-magnifier"></span></a></li>
                     <li class="wishlist">
-                        <?= Html::a('<span class="lnr lnr-heart"></span>', Url::to(['/cabinet/wishlist/add', 'id' => $product->id]), ['data-method' => 'post', 'title' => 'Добавить в список желаний', ]) ?>
+                        <?= Html::a('<span class="lnr lnr-heart"></span>', "#", ['data-method' => 'post', 'title' => 'Добавить в список желаний', 'class' => 'add_to_wish_list_link', 'data-product-id' => $product->id]) ?></li>
                 </ul>
             </div>
         </div>

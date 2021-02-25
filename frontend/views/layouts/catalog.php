@@ -2,6 +2,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 use frontend\widgets\Shop\TagShopWidget;
+
 ?>
 <?php $this->beginContent('@frontend/views/layouts/main.php') ?>
 

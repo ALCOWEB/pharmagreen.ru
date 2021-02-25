@@ -51,7 +51,7 @@ use yii\widgets\ActiveForm;
                                             </li>
                                             <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box<?= $product->id;?>"  title="Быстрый просмотр"> <span class="lnr lnr-magnifier"></span></a></li>
                                             <li class="wishlist">
-                                                <?= Html::a('<span class="lnr lnr-heart"></span>', Url::to(['/cabinet/wishlist/add', 'id' => $product->id]), ['data-method' => 'post', 'title' => 'Добавить в список желаний', 'class' => 'add_to_wish_list_link', 'data-product-id' => $product->id]) ?>
+                                                <?= Html::a('<span class="lnr lnr-heart"></span>', "#", ['data-method' => 'post', 'title' => 'Добавить в список желаний', 'class' => 'add_to_wish_list_link', 'data-product-id' => $product->id]) ?></li>
                                         </ul>
                                     </div>
                                 </div>

@@ -48,13 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]),
                         'format' => 'datetime',
                     ],
-                    [
-                        'attribute' => 'username',
-                        'value' => function (User $model) {
-                            return Html::a(Html::encode($model->username), ['view', 'id' => $model->id]);
-                        },
-                        'format' => 'raw',
-                    ],
+
                     'email:email',
                     [
                         'attribute' => 'role',

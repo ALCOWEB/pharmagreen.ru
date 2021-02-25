@@ -6,7 +6,7 @@
 	  var id = this.dataset.productId;
 	  var data = $(this).serialize();
 	 $.ajax({
-	    url: 'shop/cart/ajax-add?id='+id,
+	    url: 'http://pharmagreen.ru/shop/cart/ajax-add?id='+id,
 	    type: 'POST',
 	    data: data,
 		 beforeSend: function() {
@@ -51,9 +51,9 @@
 			//url: '/shop/cart/ajax-test',
 			type: form.attr('method'),
 			data: data,
-			success: function(res){
-				console.log(res);
-				$('.header_account_list.mini_cart_wrapper').html(res);
+			success: function(result){
+				console.log(result);
+				$('.header_account_list.mini_cart_wrapper').html(result);
 				setTimeout(function(){
 					$(function(){$('.mini_cart,.off_canvars_overlay').addClass('active');})
 				}, 50);
@@ -72,46 +72,70 @@
       event.preventDefault();
 	  var id = this.dataset.productId;
 	 $.ajax({
-	    url: 'cabinet/wishlist/add-ajax?id='+id,
+	    url: 'http://pharmagreen.ru/cabinet/wishlist/add-ajax?id='+id,
 	    type: 'POST',
-	    //data: data,
-	    success: function(res){
-	       console.log(res);
+		 beforeSend: function() {
+			 console.log('do otpravki')
+		 },
+		 complete: function() {
+			 console.log('posle otpravki')
 
-	      // $('.mini_cart,.off_canvars_overlay').addClass('active');
-
-	    },
-
-	    error: function(){
-	       alert('Error!');
-	    }
+		 },
+		 success: function(res){
+			 console.log(res);
+			 $('.header_account_list.header_wishlist').html(res);
+		 },
+		 error: function(){
+			 alert('Error!');
+		 }
 	 });
-	 return false;
+	   return false;
      });
 
 
 	 $(document).on('click', '.remove_from_cart', function (event) {
-		event.preventDefault();
-		var id = this.dataset.productId;
-		var data = $(this).serialize();
-		$.ajax({
-			url: '/shop/cart/remove-ajax?id='+id,
-			type: 'POST',
-			data: data,
-			success: function(res){
-				console.log(res);
-				$('.header_account_list.mini_cart_wrapper').html(res);
-				$('.mini_cart').addClass('active');
+	  event.preventDefault();
+	  var id = this.dataset.productId;
+	  var data = $(this).serialize();
+	  $.ajax({
+		  url: '/shop/cart/remove-ajax?id='+id,
+		  type: 'POST',
+		  data: data,
+		  success: function(res){
+			  console.log(res);
+			  $('.header_account_list.mini_cart_wrapper').html(res);
+			  $('.mini_cart').addClass('active');
 
-				// $('.mini_cart,.off_canvars_overlay').addClass('active');
+			  // $('.mini_cart,.off_canvars_overlay').addClass('active');
 
-			},
-			error: function(){
-				alert('Error!');
-			}
-		});
-		return false;
-	});
+		  },
+		  error: function(){
+			  alert('Error!');
+		  }
+	  });
+	  return false;
+  });
+  $(document).on('click', '.remove_from_wishlist', function (event) {
+	  event.preventDefault();
+	  var id = this.dataset.productId;
+	  var data = $(this).serialize();
+	  $.ajax({
+		  url: '/cabinet/wishlist/delete-ajax?id='+id,
+		  type: 'POST',
+		  data: data,
+		  success: function(res){
+			  console.log(res);
+
+
+			  // $('.mini_cart,.off_canvars_overlay').addClass('active');
+
+		  },
+		  error: function(){
+			  alert('Error!');
+		  }
+	  });
+	  return false;
+  });
 
 
 
