@@ -117,15 +117,18 @@ class OrderService
 
     public function pay(Order $order){
         $order->pay($order->payment_method);
+        $this->orders->save($order);
     }
 
     public function pending(Order $order){
         $order->pending();
+        $this->orders->save($order);
     }
     public function fail(Order $order){
 
         if ($order->current_status == Status::PENDING) {
             $order->fail();
+            $this->orders->save($order);
         }
     }
 

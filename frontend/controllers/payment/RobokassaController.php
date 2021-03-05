@@ -77,7 +77,7 @@ class RobokassaController extends Controller
         $order = $this->loadModel($nInvId);
         try {
             $this->service->fail($order);
-            return 'OK' . $nInvId;
+            return $this->goBack();
         } catch (\DomainException $e) {
             return $e->getMessage();
         }
