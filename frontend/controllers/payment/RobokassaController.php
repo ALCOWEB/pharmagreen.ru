@@ -30,7 +30,10 @@ class RobokassaController extends Controller
     public function actionInvoice($id)
     {
         $order = $this->loadModel($id);
-        $this->service->pending($order);
+
+        if ($order->isNew())
+        {$this->service->pending($order);} else {return 'order can"t be paid';}
+
         return $this->getMerchant()->payment($order->cost, $order->id, 'Payment', null, null);
     }
 
