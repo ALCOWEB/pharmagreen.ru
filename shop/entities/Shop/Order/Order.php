@@ -77,12 +77,25 @@ class Order extends ActiveRecord
         $this->addStatus(Status::PAID);
     }
 
+    public function fail(): void
+    {
+        $this->addStatus(Status::FAIL);
+    }
+
     public function send(): void
     {
         if ($this->isSent()) {
             throw new \DomainException('Order is already sent.');
         }
         $this->addStatus(Status::SENT);
+    }
+
+    public function pending(): void
+    {
+        if ($this->isPending()) {
+            throw new \DomainException('Order is already sent.');
+        }
+        $this->addStatus(Status::PENDING);
     }
 
     public function complete(): void
@@ -117,6 +130,10 @@ class Order extends ActiveRecord
         return $this->current_status == Status::SENT;
     }
 
+    public function isPending(): bool
+    {
+        return $this->current_status == Status::PENDING;
+    }
     public function canBePaid(): bool
     {
         return $this->isNew();

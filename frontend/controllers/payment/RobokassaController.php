@@ -30,7 +30,7 @@ class RobokassaController extends Controller
     public function actionInvoice($id)
     {
         $order = $this->loadModel($id);
-
+        $this->service->pending($order);
         return $this->getMerchant()->payment($order->cost, $order->id, 'Payment', null, null);
     }
 
@@ -65,7 +65,7 @@ class RobokassaController extends Controller
     {
         $order = $this->loadModel($nInvId);
         try {
-            $this->service->pay($order->id);
+            $this->service->pay($order);
             return 'OK' . $nInvId;
         } catch (\DomainException $e) {
             return $e->getMessage();
@@ -76,7 +76,7 @@ class RobokassaController extends Controller
     {
         $order = $this->loadModel($nInvId);
         try {
-            $this->service->fail($order->id);
+            $this->service->fail($order);
             return 'OK' . $nInvId;
         } catch (\DomainException $e) {
             return $e->getMessage();

@@ -7,6 +7,7 @@ use shop\entities\Shop\Order\CustomerData;
 use shop\entities\Shop\Order\DeliveryData;
 use shop\entities\Shop\Order\Order;
 use shop\entities\Shop\Order\OrderItem;
+use shop\entities\Shop\Order\Status;
 use shop\forms\Shop\Order\OrderForm;
 use shop\repositories\Shop\DeliveryMethodRepository;
 use shop\repositories\Shop\PaymentMethodRepository;
@@ -114,5 +115,18 @@ class OrderService
         return $order;
     }
 
+    public function pay(Order $order){
+        $order->pay($order->payment_method);
+    }
+
+    public function pending(Order $order){
+        $order->pending();
+    }
+    public function fail(Order $order){
+
+        if ($order->current_status == Status::PENDING) {
+            $order->fail();
+        }
+    }
 
 }
