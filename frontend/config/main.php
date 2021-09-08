@@ -38,7 +38,7 @@ return [
         ],
         'assetManager' => [
             'class' => 'yii\web\AssetManager',
-
+            'forceCopy' => true,
             'bundles' => [
 
 

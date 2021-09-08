@@ -10,11 +10,11 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
       public $css = [
 
-       // 'css/bootstrap.min.css',
+        'css/bootstrap.min.css',
         'css/owl.carousel.min.css',
         'css/slick.css',
         'css/magnific-popup.css',
-        //'css/font.awesome.css',
+        'css/font.awesome.css',
         'css/ionicons.min.css',
         'css/linearicons.css',
         'css/animate.css',
@@ -26,7 +26,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         //'js/common.js',
-        'js/vendor/modernizr-3.7.1.min.js',
+      //  'js/vendor/modernizr-3.7.1.min.js',
         'js/popper.js',
         'js/owl.carousel.min.js',
         'js/slick.min.js',

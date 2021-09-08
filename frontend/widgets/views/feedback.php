@@ -17,7 +17,8 @@ use \yii\widgets\MaskedInput;
 
                     ])?>
 
-                    <?=$form->field($feedbackForm, 'mailOrPhone', [ 'options' => [
+                    <?=
+                    $form->field($feedbackForm, 'mailOrPhone', [ 'options' => [
                         'tag' => null
                     ],])->label(false)->widget(MaskedInput::class, [
                         'mask' => '+7 (999) 999 99 99',

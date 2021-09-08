@@ -28,7 +28,7 @@ class ProfileEditForm  extends CompositeForm
             [['phone', 'email'], 'required'],
             ['email', 'email'],
             [['email'], 'string', 'max' => 255],
-            [['phone'], 'integer'],
+            [['phone'], 'string', 'max' => 255],
             [['phone', 'email'], 'unique', 'targetClass' => User::class, 'filter' => ['<>', 'id', $this->_user->id]],
         ];
     }

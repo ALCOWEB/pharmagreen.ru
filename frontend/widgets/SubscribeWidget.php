@@ -18,10 +18,12 @@ class SubscribeWidget extends Widget
     public $subscribe;
     public function init() {
         $this->subscribe = new SubscribeForm();
+            parent::init();
     }
 
     public function run(): string
     {
+
         return $this->render('subscribe',[
             'model' => $this->subscribe,
         ]);

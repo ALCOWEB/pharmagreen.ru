@@ -237,6 +237,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $photo->getUploadedFileUrl('file'),
                                 ['class' => 'thumbnail', 'target' => '_blank']
                             ) ?>
+                            <?= $photo->id;?>
                         </div>
                     </div>
                 <?php endforeach; ?>

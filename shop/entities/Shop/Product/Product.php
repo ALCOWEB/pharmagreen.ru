@@ -380,8 +380,8 @@ class Product extends ActiveRecord
         foreach ($photos as $i => $photo) {
             if ($photo->isIdEqualTo($id)) {
                 if ($prev = $photos[$i - 1] ?? null) {
-                    $photos[$i - 1] = $photo;
                     $photos[$i] = $prev;
+                    $photos[$i - 1] = $photo;
                     $this->updatePhotos($photos);
                 }
                 return;

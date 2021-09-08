@@ -38,10 +38,9 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_WAIT = 0;
     const STATUS_ACTIVE = 10;
 
-    public static function create(string $username, string $email, string $phone, string $password): self
+    public static function create(string $email, string $phone, string $password): self
     {
         $user = new User();
-        $user->username = $username;
         $user->email = $email;
         $user->phone = $phone;
         $user->setPassword(!empty($password) ? $password : Yii::$app->security->generateRandomString());
@@ -51,9 +50,9 @@ class User extends ActiveRecord implements IdentityInterface
         return $user;
     }
 
-    public function edit(string $username, string $email, string $phone): void
+    public function edit(string $email, string $phone): void
     {
-        $this->username = $username;
+
         $this->email = $email;
         $this->phone = $phone;
         $this->updated_at = time();

@@ -1281,7 +1281,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   transform: translateX(100%);
 }
 .mini_cart.active {
-  transform: translateX(0);
+  transform: translateX(0%);
   transition: .5s;
 }
 @media only screen and (max-width: 767px) {

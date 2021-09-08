@@ -7,14 +7,14 @@ use yii\helpers\ArrayHelper;
 use shop\forms\CompositeForm;
 class UserEditForm extends CompositeForm
 {
-    public $username;
+
     public $email;
     public $_user;
     public $phone;
     public $role;
     public function __construct(User $user, $config = [])
     {
-        $this->username = $user->username;
+
         $this->email = $user->email;
         $this->phone = $user->phone;
         $this->photo = new UserPhotoForm();
@@ -26,7 +26,7 @@ class UserEditForm extends CompositeForm
     public function rules(): array
     {
         return [
-            [['username', 'email', 'phone', 'role'], 'required'],
+            [['email', 'phone', 'role'], 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
             ['phone', 'integer'],

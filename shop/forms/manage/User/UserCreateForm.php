@@ -8,7 +8,7 @@ use shop\forms\CompositeForm;
 
 class UserCreateForm extends CompositeForm
 {
-    public $username;
+
     public $email;
     public $phone;
     public $password;
@@ -24,7 +24,7 @@ class UserCreateForm extends CompositeForm
     public function rules(): array
     {
         return [
-            [['username', 'email', 'phone', 'role'], 'required'],
+            [['email', 'phone', 'role'], 'required'],
             ['email', 'email'],
             [['username', 'email'], 'string', 'max' => 255],
             [['username', 'email', 'phone'], 'unique', 'targetClass' => User::class],

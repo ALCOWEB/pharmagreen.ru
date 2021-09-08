@@ -2,8 +2,7 @@
 
 namespace console\controllers;
 
-use Elasticsearch\Client;
-use Elasticsearch\Common\Exceptions\Missing404Exception;
+
 use shop\entities\Shop\Category;
 use shop\entities\Shop\Product\Product;
 use shop\entities\Shop\Product\Value;
@@ -12,14 +11,15 @@ use yii\helpers\ArrayHelper;
 
 class SearchController extends Controller
 {
-    private $client;
 
-    public function __construct($id, $module, Client $client, $config = [])
+
+    public function __construct($id, $module, $config = [])
     {
         parent::__construct($id, $module, $config);
-        $this->client = $client;
+
     }
 
+   
     public function actionReindex(): void
     {
         $query = Product::find()

@@ -35,9 +35,16 @@ AppAsset::register($this);
     <?php $this->head() ?>
     <!-- all css here -->
     <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+<!--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">-->
+    <script src="/js/vendor/modernizr-3.7.1.min.js"></script>
 
-
+    <style>
+        .mini_cart {
+            transition: .5s;
+            transform: translateX(100%);
+        }
+        
+    </style>
 
 
 </head>
