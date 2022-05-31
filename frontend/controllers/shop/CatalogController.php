@@ -66,6 +66,7 @@ class CatalogController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
     /**
      * @param $id
      * @return mixed

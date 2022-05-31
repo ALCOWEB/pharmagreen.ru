@@ -9,70 +9,58 @@ use frontend\widgets\FeedbackWidget;
 //\frontend\assets\OwlCarouselAsset::register($this);
 ?>
 <?php $this->beginContent('@frontend/views/layouts/main.php') ?>
-    <!--slider area start-->
-<!--    <section class="slider_section">-->
-<!--        <div class="slider_area owl-carousel">-->
-<!--            <div class="single_slider d-flex align-items-center" data-bgimg="/img/бобрик.jpg">-->
-<!--                <div class="container">-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-lg-12">-->
-<!--                            <div class="slider_content" style="color: white;     background-color: #0000007a; border-radius: 10px;      width: fit-content;  padding: 25px;" >-->
-<!---->
-<!---->
-<!--                                <h1>НАТУРАЛЬНАЯ БОБРОРОВАЯ СТРУЯ</h1>-->
-<!---->
-<!--                                <p><span class="lnr lnr-heart-pulse"></span>&nbsp;Проверенное народное средство от множества болезней-->
-<!--                                  </p>-->
-<!---->
-<!--                                <p><span class="lnr lnr-heart-pulse"></span>&nbsp;Имеются все необходимые сертефикаты-->
-<!--                                </p>-->
-<!---->
-<!---->
-<!--                                <p style="margin-bottom: 15px;"><span class="lnr lnr-heart-pulse"></span>&nbsp;Доставка по всей России!-->
-<!--                                </p>-->
-<!---->
-<!--                                <a href="">Каталог</a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!---->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="single_slider d-flex align-items-center" data-bgimg="assets/img/slider/slider2.jpg">-->
-<!--                <div class="container">-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-lg-6">-->
-<!--                            <div class="slider_content">-->
-<!--                                <h1>Fresh Vegetables</h1>-->
-<!--                                <h2>Natural Farm Products</h2>-->
-<!--                                <p>-->
-<!--                                    Widest range of farm-fresh Vegetables, Fruits & seasonal produce-->
-<!--                                </p>-->
-<!--                                <a href="shop.html">Read more </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="single_slider d-flex align-items-center" data-bgimg="assets/img/slider/slider3.jpg">-->
-<!--                <div class="container">-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-lg-6">-->
-<!--                            <div class="slider_content">-->
-<!--                                <h1>Fresh Tomatoes</h1>-->
-<!--                                <h2>Natural Farm Products</h2>-->
-<!--                                <p>-->
-<!--                                    Natural organic tomatoes make your health stronger. Put your information here-->
-<!--                                </p>-->
-<!--                                <a href="shop.html">Read more </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </section>-->
-    <!--slider area end-->
+<section class="slider_section">
+        <div class="slider_area owl-carousel">
+            <div class="single_slider d-flex align-items-center" data-bgimg="assets/img/slider/slider1.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="slider_content">
+                                <h1>Vegetables Big Sale</h1>
+                                <h2>Fresh Farm Products</h2>
+                                <p>
+								10% certifled-organic mix of fruit and veggies. Perfect for weekly cooking and snacking!
+							    </p> 
+                                <a href="shop.html">Read more </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single_slider d-flex align-items-center" data-bgimg="assets/img/slider/slider2.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="slider_content">
+                                <h1>Fresh Vegetables</h1>
+                                <h2>Natural Farm Products</h2>
+                                <p>
+								Widest range of farm-fresh Vegetables, Fruits & seasonal produce
+							     </p> 
+                                <a href="shop.html">Read more </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single_slider d-flex align-items-center" data-bgimg="assets/img/slider/slider3.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="slider_content">
+                                <h1>Fresh Tomatoes</h1>
+                                <h2>Natural Farm Products</h2>
+                                <p>
+								Natural organic tomatoes make your health stronger. Put your information here
+							     </p>
+                                <a href="shop.html">Read more </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!--shipping area start-->
     <div class="shipping_area">

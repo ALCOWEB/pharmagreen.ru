@@ -58,7 +58,7 @@ $category_url = Url::to(['/shop/catalog/category', 'id' =>$product->category->id
                 <?php endif; ?>
             </div>
             <div class="product_desc">
-                <p><?= Html::encode($product->description) ?></p>
+                <p><?= $product->description ?></p>
             </div>
             <div class="action_links list_action_right">
                 <ul>

@@ -82,7 +82,7 @@ AppAsset::register($this);
                             <?php endif; ?>
                         </ul>
                     </div>
-                    <div class="search_container">
+                    <!-- <div class="search_container">
                         <?= Html::beginForm(['/shop/catalog/search'], 'get') ?>
 
                         <div class="search_box">
@@ -90,8 +90,8 @@ AppAsset::register($this);
                             <button type="submit"><span class="lnr lnr-magnifier"></span></button>
                         </div>
                         <?= Html::endForm() ?>
-                    </div>
-
+                    </div> -->
+                  
                     <div class="call-support">
                         <p><a href="tel:8-800-667-34-70">8-800-667-34-70</a> Звонок по России бесплатный</p>
                     </div>
@@ -131,7 +131,7 @@ AppAsset::register($this);
                     </div>
                     <div class="col-lg-10 col-md-6 col-sm-7 col-8">
                         <div class="header_right_info">
-                            <div class="search_container">
+                            <!-- <div class="search_container">
                                 <?= Html::beginForm(['/shop/catalog/search'], 'get') ?>
                                     
                                     <div class="search_box">
@@ -139,7 +139,8 @@ AppAsset::register($this);
                                         <button type="submit"><span class="lnr lnr-magnifier"></span></button>
                                     </div>
                                 <?= Html::endForm() ?>
-                            </div>
+                            </div> -->
+                  
                             <div class="header_account_area">
                                 <div class="header_account_list register">
                                     <ul>

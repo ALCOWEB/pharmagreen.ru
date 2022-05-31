@@ -199,7 +199,7 @@ $this->params['active_category'] = $product->category;
                                                 </ul>
                                             </div>
                                             <p><strong><?= $review->text?> </strong><?= Yii::$app->formatter->asDatetime($review->created_at) ?></p>
-                                            <span><?=User::findIdentity($review->user_id)->username;?></span>
+                                            <span><?= User::findIdentity($review->user_id)->username ?  User::findIdentity($review->user_id)->username:'неизвестно';?></span>
                                         </div>
                                     </div>
 
