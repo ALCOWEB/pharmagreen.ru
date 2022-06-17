@@ -11,6 +11,14 @@ class CategoryRepository
         }
         return $category;
     }
+
+    public function getByName($name): Category
+    {
+        if (!$category = Category::find()->where(['name' => $name])->one()) {
+            throw new NotFoundException('Brand is not found.');
+        }
+        return $category;
+    }
     public function save(Category $category): void
     {
         if (!$category->save()) {

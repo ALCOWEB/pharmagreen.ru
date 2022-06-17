@@ -183,7 +183,8 @@ class Product extends ActiveRecord
     {
         $values = $this->values;
         foreach ($values as $val) {
-            if ($val->isForCharacteristic($id)) {
+            if ($val->isForCharacteristic($id))
+            {
                 $val->change($value);
                 $this->values = $values;
                 return;

@@ -11,6 +11,15 @@ class BrandRepository
         }
         return $brand;
     }
+
+    public function getByName($name): Brand
+    {
+        if (!$brand = Brand::find()->where(['name' => $name])->one()) {
+            throw new NotFoundException('Brand is not found.');
+        }
+        return $brand;
+    }
+
     public function save(Brand $brand): void
     {
         if (!$brand->save()) {

@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use shop\helpers\WeightHelper;
+use shop\entities\Shop\Product\Product;
 
 /* @var $this yii\web\View */
 /* @var $product shop\entities\Shop\Product\Product */

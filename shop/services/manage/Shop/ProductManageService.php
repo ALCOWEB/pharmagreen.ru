@@ -3,7 +3,9 @@
 namespace shop\services\manage\Shop;
 
 use shop\entities\Meta;
+use shop\entities\Shop\Characteristic;
 use shop\entities\Shop\Product\Product;
+use shop\entities\Shop\Product\Value;
 use shop\entities\Shop\Tag;
 use shop\forms\manage\Shop\Product\QuantityForm;
 use shop\forms\manage\Shop\Product\CategoriesForm;
@@ -17,7 +19,7 @@ use shop\repositories\Shop\CategoryRepository;
 use shop\repositories\Shop\ProductRepository;
 use shop\repositories\Shop\TagRepository;
 use shop\services\TransactionManager;
-
+use shop\entities\shop\Materials;
 class ProductManageService
 {
     private $products;
@@ -25,6 +27,7 @@ class ProductManageService
     private $categories;
     private $tags;
     private $transaction;
+    public $materials;
 
     public function __construct(
         ProductRepository $products,
@@ -34,12 +37,15 @@ class ProductManageService
         TransactionManager $transaction
     )
     {
+        $this->materials = Materials::find()->where(['status' => Materials::ACTIVE])->one();
         $this->products = $products;
         $this->brands = $brands;
         $this->categories = $categories;
         $this->tags = $tags;
         $this->transaction = $transaction;
     }
+
+   
 
     public function create(ProductCreateForm $form): Product
     {
@@ -63,6 +69,7 @@ class ProductManageService
             )
         );
 
+
         $product->setPrice($form->price->new, $form->price->old);
 
         foreach ($form->categories->others as $otherId) {
@@ -71,7 +78,10 @@ class ProductManageService
         }
 
         foreach ($form->values as $value) {
-            $product->setValue($value->id, $value->value);
+            if($value->value != null){
+                $product->setValue($value->id, $value->value);
+            }
+     
         }
 
         foreach ($form->photos->files as $file) {
@@ -95,6 +105,44 @@ class ProductManageService
         });
 
         return $product;
+    }
+
+  
+
+    public function createFromList($panel)
+    {
+        $brand = $this->brands->getByName($panel['brand']);
+        $category = $this->categories->getByName($panel['category']);
+       
+        $product = Product::create(
+            $brand->id,
+            $category->id,
+            $panel['code'],
+            $panel['name'],
+            $panel['application methods'],
+            $panel['description'],
+            $panel['short-desc'],
+            $panel['weight'],
+            $panel['qty'],
+            new Meta(
+                $panel['SEO']['title'],
+                $panel['SEO']['description'],
+                ''
+            )
+        );
+
+
+        $product->setPrice($panel['price-new'], $panel['price-old']);
+
+        foreach ($panel['characteristics'] as $key => $value) {
+            $characteristic = Characteristic::find()->where(['name' => $key])->one();
+            $product->setValue($characteristic->id, $value);     
+        }
+
+
+        $this->products->save($product);
+
+      
     }
 
     public function edit($id, ProductEditForm $form): void
@@ -132,7 +180,9 @@ class ProductManageService
             }
 
             foreach ($form->values as $value) {
-                $product->setValue($value->id, $value->value);
+                if($value->value != null){
+                    $product->setValue($value->id, $value->value);
+                }
             }
 
             foreach ($form->tags->existing as $tagId) {

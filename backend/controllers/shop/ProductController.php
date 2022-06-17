@@ -14,13 +14,18 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use shop\PanelList\PanelList;
+use shop\services\Shop\LightPanelPriceService;
 class ProductController extends Controller
 {
     private $service;
-    public function __construct($id, $module, ProductManageService $service, $config = [])
+    public $lpService;
+    public function __construct($id, $module, ProductManageService $service, LightPanelPriceService $lpService, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
+        $this->lpService = $lpService;
+        
     }
     public function behaviors(): array
     {
@@ -101,6 +106,22 @@ class ProductController extends Controller
         return $this->render('create', [
             'model' => $form,
         ]);
+    }
+
+    public function actionCreateFromList()
+    {  
+        $list = new PanelList;
+        foreach ($list->panelList as $panel){
+            $product = $this->service->createFromList($panel); 
+        }
+    }
+
+    public function actionChangePrice($id){
+        $product = $this->findModel($id);
+       //var_dump($product->getValue(4));
+        $this->lpService->calcPrice($product);
+        $product->save();
+     
     }
     /**
      * @param integer $id

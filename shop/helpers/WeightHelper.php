@@ -6,6 +6,6 @@ class WeightHelper
 {
     public static function format($weight): string
     {
-        return $weight / 1000 . ' Кг';
+        return round($weight, 1) . ' Кг';
     }
 }

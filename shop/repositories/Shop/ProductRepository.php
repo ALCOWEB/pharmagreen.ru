@@ -11,6 +11,23 @@ class ProductRepository
         }
         return $product;
     }
+
+    public function getByCode($code): Product
+    {
+        if (!$product = Product::find()->where(['code' => $code])->one()) {
+            throw new NotFoundException('Product is not found.');
+        }
+        return $product;
+    }
+
+    public function getWithValues($id): Product
+    {
+        if (!$product = Product::find()->where(['id' => $id])->with('values')->one()) {
+            throw new NotFoundException('Product is not found.');
+        }
+        return $product;
+    }
+
     public function save(Product $product): void
     {
         if (!$product->save()) {
@@ -31,5 +48,7 @@ class ProductRepository
     {
         return Product::find()->andWhere(['category_id' => $id])->exists();
     }
+
+
 
 }

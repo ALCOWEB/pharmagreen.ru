@@ -40,7 +40,7 @@ $this->params['active_category'] = $product->category;
             <div class="col-lg-6 col-md-6">
                 <div class="product-details-tab">
                     <div id="img-1" class="zoomWrapper single-zoom">
-                        <?php if ($product->photos[0]): ?>
+                        <?php if (isset($product->photos[0])): ?>
 
                             <img id="zoom1" src="<?= $product->photos[0]->getThumbFileUrl('file', 'catalog_product_main_500') ?>" alt="<?= Html::encode($product->name) ?>">
 
