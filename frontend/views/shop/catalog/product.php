@@ -103,7 +103,7 @@ $this->params['active_category'] = $product->category;
                             <?php if ($modifications = $cartForm->modificationsList()): ?>
                                 <h3>Доступные модификации</h3>
                             <br>
-                                <?= $form->field($cartForm, 'modification')->dropDownList($modifications, ['prompt' => 'Выбрать опцию', 'class' => 'form-control modification-select'])->label(false) ?>
+                                <?= $form->field($cartForm, 'modification')->dropDownList($modifications, ['prompt' => 'Выбрать опцию', 'encode' => false,'class' => 'form-control modification-select'])->label(false) ?>
                             <?php endif; ?>
                             <div class="product_variant quantity">
                                 <label>Колличество</label>

@@ -12,12 +12,12 @@ class ProductRepository
         return $product;
     }
 
-    public function getByCode($code): Product
+    public function getByCode($code): ?Product
     {
-        if (!$product = Product::find()->where(['code' => $code])->one()) {
-            throw new NotFoundException('Product is not found.');
+        if ($product = Product::find()->where(['code' => $code])->one()) {
+            return $product;
         }
-        return $product;
+        return null;
     }
 
     public function getWithValues($id): Product

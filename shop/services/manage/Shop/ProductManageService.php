@@ -113,31 +113,103 @@ class ProductManageService
     {
         $brand = $this->brands->getByName($panel['brand']);
         $category = $this->categories->getByName($panel['category']);
-       
-        $product = Product::create(
-            $brand->id,
-            $category->id,
-            $panel['code'],
-            $panel['name'],
-            $panel['application methods'],
-            $panel['description'],
-            $panel['short-desc'],
-            $panel['weight'],
-            $panel['qty'],
-            new Meta(
-                $panel['SEO']['title'],
-                $panel['SEO']['description'],
-                ''
-            )
-        );
+        if ($product = $this->products->getByCode($panel['code'])){
+
+            $product->edit(
+                $brand->id,
+                $panel['code'],
+                $panel['name'],
+                $panel['application methods'],
+                $panel['description'],
+                $panel['short-desc'],
+                $panel['weight'],
+                new Meta(
+                    $panel['SEO']['title'],
+                    $panel['SEO']['description'],
+                    ''
+                )
+            );
+            if($modifications = $product->modifications){
+                foreach ($modifications as $modification){
+                    $product->editModification(
+                        $modification->id,
+                        $panel['modification']['code'],
+                        $panel['modification']['name'],
+                        $panel['modification']['price'],
+                        $panel['modification']['qty']
+                    );
+                    $this->products->save($product);  
+                }
+            } elseif ($panel['characteristics']['Количество сторон'] == 'Двухсторонняя'){
+                $product->addModification(
+                    $panel['modification']['code'],
+                    $panel['modification']['name'],
+                    $panel['modification']['price'],
+                    $panel['modification']['qty']
+                );
+                $this->products->save($product);  
+            }
+            
+                        
+        } else {
+            $product = Product::create(
+                $brand->id,
+                $category->id,
+                $panel['code'],
+                $panel['name'],
+                $panel['application methods'],
+                $panel['description'],
+                $panel['short-desc'],
+                $panel['weight'],
+                $panel['qty'],
+                new Meta(
+                    $panel['SEO']['title'],
+                    $panel['SEO']['description'],
+                    ''
+                )
+            );
+
+            if($panel['characteristics']['Количество сторон'] == 'Двухсторонняя'){
+
+                    $product->addModification(
+                        $panel['modification']['code'],
+                        $panel['modification']['name'],
+                        $panel['modification']['price'],
+                        $panel['modification']['qty']
+                   
+                    );
+                    $this->products->save($product);  
+                }
+            }
+        
+    
 
 
         $product->setPrice($panel['price-new'], $panel['price-old']);
 
         foreach ($panel['characteristics'] as $key => $value) {
             $characteristic = Characteristic::find()->where(['name' => $key])->one();
-            $product->setValue($characteristic->id, $value);     
+            if($characteristic != null){
+                $id =  $characteristic->id;
+                $product->setValue($id, $value);     
+            }
         }
+
+        
+        $this->transaction->wrap(function () use ($product, $panel) {
+
+            $product->revokeTags();
+            $this->products->save($product);
+
+            foreach ($panel['tags'] as $tagName) {
+                if (!$tag = $this->tags->findByName($tagName)) {
+                    $tag = Tag::create($tagName, $tagName);
+                    $this->tags->save($tag);
+                }
+                $product->assignTag($tag->id);
+            }
+            $this->products->save($product);
+        });
 
 
         $this->products->save($product);

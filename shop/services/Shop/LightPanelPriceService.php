@@ -35,12 +35,13 @@ class LightPanelPriceService{
         foreach($characteristics as $val){
             $characteristicHash[key($val)] = $val[key($val)];
         }
-       // return  $characteristics_id;
+     //   return  $characteristicHash;
         $sizes = $this->getRealSize($product, $characteristicHash);
 
-
-        if ($product->category->name == 'Кристалайт' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепелния'] == 'Настенная' && $characteristicHash['Количество сторон'] == 'Односторонняя')
-        {
+   
+        if ($product->category->name == 'Кристалайт' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепления'] == 'Настенная' && $characteristicHash['Количество сторон'] == 'Односторонняя')
+        { 
+            
            
             $materials = [
                 'Акрил' =>[$sizes['ploshad_vnesh'],$this->materials->akril_5mm],
@@ -63,11 +64,11 @@ class LightPanelPriceService{
             $product->setPrice($prices[0], $prices[1]);
             $product->setValue($characteristics_id['Толщина'], (5+2+2));
             $product->setValue($characteristics_id['Напряжение питания'], 12);
-            $product->setValue($characteristics_id['Потребляемая мощность'], $this->blockPower($sizes['dlina_diod'], $this->materials));
+            $product->setValue($characteristics_id['Потребляемая мощность'], round($sizes['dlina_diod']*11));
             $product->weight = $sizes['ploshad_vnesh']*0.005*1.19*1000 + $sizes['ploshad_vnesh']*0.002*1.2*1000 + $sizes['ploshad_vnesh']*0.002*0.55*1000 + 0.2;
 
         } 
-        if ($product->category->name == 'Кристалайт' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепелния'] == 'Подвесная'  &&    $characteristicHash['Количество сторон'] == 'Односторонняя') 
+        if ($product->category->name == 'Кристалайт' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепления'] == 'Подвесная'  &&    $characteristicHash['Количество сторон'] == 'Односторонняя') 
         {
            
             $materials = [
@@ -77,8 +78,8 @@ class LightPanelPriceService{
                 'Защитка' =>[$sizes['ploshad_vnesh'],$this->materials->policarb_2mm],
                 //'Проставка' =>[$real_sizez['ploshad_vnesh'],$materials->policarb_2mm],
                 'Светодиоды' =>[$sizes['dlina_diod'],$this->materials->svetodiody],
-                'Кронштейны цанг' =>[2,$materials->kronsht_cang],
-                'Держатели верхние' =>[2,$materials->derj_tabl_verh],
+                'Кронштейны цанг' =>[2,$this->materials->kronsht_cang],
+                'Держатели верхние' =>[2,$this->materials->derj_tabl_verh],
                 //'Дисты' =>[4,$this->materials->derj_dist],
                 'Скотч' =>[$sizes['perimetr_vnut']*2,$this->materials->scoch],
                 'Головки' =>[$sizes['perimetr_vnesh']/0.375-4,$this->materials->golovki],
@@ -90,12 +91,12 @@ class LightPanelPriceService{
             $product->setPrice($prices[0], $prices[1]);
             $product->setValue($characteristics_id['Толщина'], (5+2+2));
             $product->setValue($characteristics_id['Напряжение питания'], 12);
-            $product->setValue($characteristics_id['Потребляемая мощность'], $this->blockPower($sizes['dlina_diod'], $this->materials));
+            $product->setValue($characteristics_id['Потребляемая мощность'], round($sizes['dlina_diod']*11));
             $product->weight = $sizes['ploshad_vnesh']*0.005*1.19*1000 + $sizes['ploshad_vnesh']*0.002*1.2*1000 + $sizes['ploshad_vnesh']*0.002*0.55*1000 + 0.2;
 
         }
      
-        if ($product->category->name == 'Кристалайт' && $characteristicHash['Ценовой сегмент'] == "Премиум" && $characteristicHash['Вариант крепелния'] == 'Подвесная'  &&    $characteristicHash['Количество сторон'] == 'Двухсторонняя') 
+        if ($product->category->name == 'Кристалайт' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепления'] == 'Подвесная'  &&    $characteristicHash['Количество сторон'] == 'Двухсторонняя') 
         {
            
             $materials = [
@@ -105,8 +106,8 @@ class LightPanelPriceService{
                 'Защитка' =>[$sizes['ploshad_vnesh']*2,$this->materials->policarb_2mm],
                 //'Проставка' =>[$sizes['ploshad_vnesh'],$materials->policarb_2mm],
                 'Светодиоды' =>[$sizes['dlina_diod']*2,$this->materials->svetodiody],
-                'Кронштейны цанг' =>[2,$materials->kronsht_cang],
-                'Держатели верхние' =>[2,$materials->derj_tabl_verh],
+                'Кронштейны цанг' =>[2,$this->materials->kronsht_cang],
+                'Держатели верхние' =>[2,$this->materials->derj_tabl_verh],
                 //'Дисты' =>[4,$this->materials->derj_dist],
                 'Скотч' =>[$sizes['perimetr_vnut']*2,$this->materials->scoch],
                 'Головки' =>[$sizes['perimetr_vnesh']/0.375*2-4,$this->materials->golovki],
@@ -118,41 +119,12 @@ class LightPanelPriceService{
             $product->setPrice($prices[0], $prices[1]);
             $product->setValue($characteristics_id['Толщина'], (5+5+2+2));
             $product->setValue($characteristics_id['Напряжение питания'], 12);
-            $product->setValue($characteristics_id['Потребляемая мощность'], $this->blockPower($sizes['dlina_diod'], $this->materials));
+            $product->setValue($characteristics_id['Потребляемая мощность'], round($sizes['dlina_diod']*11*2));
             $product->weight = $sizes['ploshad_vnesh']*0.005*1.19*1000*2 + $sizes['ploshad_vnesh']*0.002*1.2*1000*2 + 0.2;
 
         }
 
-        if ($product->category->name == 'Фреймлайт' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепелния'] == 'Настенная' && $characteristicHash['Количество сторон'] == 'Односторонняя')
-        {
-           
-            $materials = [
-                'Акрил' =>[$sizes['ploshad_vnut'],$materials->akril_5mm],
-                'Печать' =>[$sizes['ploshad_vnut'],$materials->pechat],
-                'ПВХ' =>[$sizes['ploshad_vnut'],$materials->pvh_2mm],
-                'Защитка' =>[$sizes['ploshad_vnut'],$materials->pet_1mm],
-                // 'Проставка' =>[$real_sizez['ploshad_vnut'],$materials->policarb_2mm],
-                'Светодиоды' =>[$sizes['dlina_diod'],$materials->svetodiody],
-                'Профиль фрейм' =>[$sizes['perimetr_vnesh'],$materials->profil_frame],
-               // 'Подвесы фреймлайта' =>[2,$materials->podves_frame],
-                'Пружинки' =>[$sizes['perimetr_vnesh']/0.15,$materials->prujina],
-                //'Кронштейны цанг' =>[2,$materials->kronsht_cang],
-                //'Держатели верхние' =>[2,$materials->derj_tabl_verh],
-                'Скотч' =>[$sizes['perimetr_vnut']*2,$materials->scoch],
-                //'Головки' =>[$real_sizez['perimetr_vnesh']/0.375*2,$materials->golovki],
-                'Блок' =>[1,$this->blockPower($sizes['dlina_diod'], $materials)],
-                //'Тросс' =>[4,$materials->tross],
-                'Провод' =>[2,$materials->provod],
-            ];
-            $prices = $this->price_real($materials, $sizes['ploshad_vnesh'], $product);
-            $product->setPrice($prices[0], $prices[1]);
-            $product->setValue($characteristics_id['Толщина'], (23));
-            $product->setValue($characteristics_id['Напряжение питания'], 12);
-            $product->setValue($characteristics_id['Потребляемая мощность'], $this->blockPower($sizes['dlina_diod'], $this->materials));
-            $product->weight = $sizes['ploshad_vnesh']*0.005*1.19*1000 + $sizes['ploshad_vnesh']*0.002*0.55*1000 + $sizes['ploshad_vnesh']*0.001*1.2*1000*1 + $sizes['perimetr_vnesh']*0.490 + 0.2;
-
-        } 
-        if ($product->category->name == 'Фреймлайт' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепелния'] == 'Подвесная'  &&    $characteristicHash['Количество сторон'] == 'Односторонняя') 
+        if ($product->category->name == 'Фреймлайт' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепления'] == 'Настенная' && $characteristicHash['Количество сторон'] == 'Односторонняя')
         {
            
             $materials = [
@@ -160,78 +132,96 @@ class LightPanelPriceService{
                 'Печать' =>[$sizes['ploshad_vnut'],$this->materials->pechat],
                 'ПВХ' =>[$sizes['ploshad_vnut'],$this->materials->pvh_2mm],
                 'Защитка' =>[$sizes['ploshad_vnut'],$this->materials->pet_1mm],
-                // 'Проставка' =>[$real_sizez['ploshad_vnut'],$materials->policarb_2mm],
                 'Светодиоды' =>[$sizes['dlina_diod'],$this->materials->svetodiody],
                 'Профиль фрейм' =>[$sizes['perimetr_vnesh'],$this->materials->profil_frame],
-               // 'Подвесы фреймлайта' =>[2,$materials->podves_frame],
                 'Пружинки' =>[$sizes['perimetr_vnesh']/0.15,$this->materials->prujina],
-                'Кронштейны цанг' =>[2,$materials->kronsht_cang],
-                //'Держатели верхние' =>[2,$this->materials->derj_tabl_verh],
                 'Скотч' =>[$sizes['perimetr_vnut']*2,$this->materials->scoch],
-                //'Головки' =>[$real_sizez['perimetr_vnesh']/0.375*2,$materials->golovki],
                 'Блок' =>[1,$this->blockPower($sizes['dlina_diod'], $this->materials)],
-                //'Тросс' =>[4,$materials->tross],
                 'Провод' =>[2,$this->materials->provod],
             ];
             $prices = $this->price_real($materials, $sizes['ploshad_vnesh'], $product);
             $product->setPrice($prices[0], $prices[1]);
             $product->setValue($characteristics_id['Толщина'], (23));
             $product->setValue($characteristics_id['Напряжение питания'], 12);
-            $product->setValue($characteristics_id['Потребляемая мощность'], $this->blockPower($sizes['dlina_diod'], $this->materials));
+            $product->setValue($characteristics_id['Потребляемая мощность'], round($sizes['dlina_diod']*11));
+            $product->weight = $sizes['ploshad_vnesh']*0.005*1.19*1000 + $sizes['ploshad_vnesh']*0.002*0.55*1000 + $sizes['ploshad_vnesh']*0.001*1.2*1000*1 + $sizes['perimetr_vnesh']*0.490 + 0.2;
+
+        } 
+        if ($product->category->name == 'Фреймлайт' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепления'] == 'Подвесная'  &&    $characteristicHash['Количество сторон'] == 'Односторонняя') 
+        {
+           
+            $materials = [
+                'Акрил' =>[$sizes['ploshad_vnut'],$this->materials->akril_5mm],
+                'Печать' =>[$sizes['ploshad_vnut'],$this->materials->pechat],
+                'ПВХ' =>[$sizes['ploshad_vnut'],$this->materials->pvh_2mm],
+                'Защитка' =>[$sizes['ploshad_vnut'],$this->materials->pet_1mm],
+                'Светодиоды' =>[$sizes['dlina_diod'],$this->materials->svetodiody],
+                'Профиль фрейм' =>[$sizes['perimetr_vnesh'],$this->materials->profil_frame],
+                'Пружинки' =>[$sizes['perimetr_vnesh']/0.15,$this->materials->prujina],
+                'Кронштейны цанг' =>[2,$this->materials->kronsht_cang],
+                'Скотч' =>[$sizes['perimetr_vnut']*2,$this->materials->scoch],
+                'Блок' =>[1,$this->blockPower($sizes['dlina_diod'], $this->materials)],
+                'Провод' =>[2,$this->materials->provod],
+            ];
+            $prices = $this->price_real($materials, $sizes['ploshad_vnesh'], $product);
+            $product->setPrice($prices[0], $prices[1]);
+            $product->setValue($characteristics_id['Толщина'], (23));
+            $product->setValue($characteristics_id['Напряжение питания'], 12);
+            $product->setValue($characteristics_id['Потребляемая мощность'], round($sizes['dlina_diod']*11));
             $product->weight = $sizes['ploshad_vnesh']*0.005*1.19*1000 + $sizes['ploshad_vnesh']*0.002*0.55*1000 + $sizes['ploshad_vnesh']*0.001*1.2*1000*1 + $sizes['perimetr_vnesh']*0.490 + 0.2;
 
         }
 
-        if ($product->category->name == 'Фреймлайт' && $characteristicHash['Ценовой сегмент'] == "Премиум" && $characteristicHash['Вариант крепелния'] == 'Подвесная'  &&    $characteristicHash['Количество сторон'] == 'Двухсторонняя') 
+        if ($product->category->name == 'Фреймлайт' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепления'] == 'Подвесная'  &&    $characteristicHash['Количество сторон'] == 'Двухсторонняя') 
         {
            
             $materials = [
-                'Акрил' =>[$sizes['ploshad_vnut']*2,$this->$materials->akril_4mm],
-                'Печать' =>[$sizes['ploshad_vnut']*2,$this->$materials->pechat],
-                'ПВХ' =>[$sizes['ploshad_vnut'],$this->$materials->pvh_2mm/2],
-                'Защитка' =>[$sizes['ploshad_vnut']*2,$this->$materials->policarb_2mm],
-                'Светодиоды' =>[$sizes['dlina_diod']*2,$this->$materials->svetodiody],
-                'Профиль фрейм' =>[$sizes['perimetr_vnesh'],$this->$materials->profil_frame_2storon],
-                'Пружинки' =>[$sizes['perimetr_vnesh']/0.15*2,$this->$materials->prujina],
-                'Кронштейны цанг' =>[2,$this->$materials->kronsht_cang],
-                'Скотч' =>[$sizes['perimetr_vnut']*4,$this->$materials->scoch],
-                'Блок' =>[1,$this->blockPower($sizes['dlina_diod'], $this->$materials)],
-                'Тросс' =>[4,$this->$materials->tross],
-                'Провод' =>[2,$this->$materials->provod],
+                'Акрил' =>[$sizes['ploshad_vnut']*2,$this->materials->akril_4mm],
+                'Печать' =>[$sizes['ploshad_vnut']*2,$this->materials->pechat],
+                'ПВХ' =>[$sizes['ploshad_vnut'],$this->materials->pvh_2mm/2],
+                'Защитка' =>[$sizes['ploshad_vnut']*2,$this->materials->policarb_2mm],
+                'Светодиоды' =>[$sizes['dlina_diod']*2,$this->materials->svetodiody],
+                'Профиль фрейм' =>[$sizes['perimetr_vnesh'],$this->materials->profil_frame_2storon],
+                'Пружинки' =>[$sizes['perimetr_vnesh']/0.15*2,$this->materials->prujina],
+                'Кронштейны цанг' =>[2,$this->materials->kronsht_cang],
+                'Скотч' =>[$sizes['perimetr_vnut']*4,$this->materials->scoch],
+                'Блок' =>[1,$this->blockPower($sizes['dlina_diod'], $this->materials)],
+                'Тросс' =>[4,$this->materials->tross],
+                'Провод' =>[2,$this->materials->provod],
             ];;
             $prices = $this->price_real($materials, $sizes['ploshad_vnesh'], $product);
             $product->setPrice($prices[0], $prices[1]);
             $product->setValue($characteristics_id['Толщина'], (32));
             $product->setValue($characteristics_id['Напряжение питания'], 12);
-            $product->setValue($characteristics_id['Потребляемая мощность'], $this->blockPower($sizes['dlina_diod'], $this->materials));
+            $product->setValue($characteristics_id['Потребляемая мощность'], round($sizes['dlina_diod']*11*2));
             $product->weight =  $sizes['ploshad_vnesh']*0.005*1.19*1000 + $sizes['ploshad_vnesh']*0.002*1.2*1000 + $sizes['ploshad_vnesh']*0.001*1.2*1000*2 + $sizes['perimetr_vnesh']*0.590 + 0.2;
         }
         
-        if ($product->category->name == 'Магнетик' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепелния'] == 'Настенная' && $characteristicHash['Количество сторон'] == 'Односторонняя')
+        if ($product->category->name == 'Магнетик' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепления'] == 'Настенная' && $characteristicHash['Количество сторон'] == 'Односторонняя')
         {
            
             $materials = [
-                'Акрил' =>[$sizes['ploshad_vnut'],$materials->akril_5mm],
-                'Печать' =>[$sizes['ploshad_vnut'],$materials->pechat],
-                'ПВХ' =>[$sizes['ploshad_vnut'],$materials->pvh_2mm],
-                'Защитка полик' =>[$sizes['ploshad_vnut'],$materials->policarb_2mm],
-                'Светодиоды' =>[$sizes['dlina_diod'],$materials->svetodiody],
-                'Профиль магнетик' =>[$sizes['perimetr_vnesh'],$materials->profil_magnet],
+                'Акрил' =>[$sizes['ploshad_vnut'],$this->materials->akril_5mm],
+                'Печать' =>[$sizes['ploshad_vnut'],$this->materials->pechat],
+                'ПВХ' =>[$sizes['ploshad_vnut'],$this->materials->pvh_2mm],
+                'Защитка полик' =>[$sizes['ploshad_vnut'],$this->materials->policarb_2mm],
+                'Светодиоды' =>[$sizes['dlina_diod'],$this->materials->svetodiody],
+                'Профиль магнетик' =>[$sizes['perimetr_vnesh'],$this->materials->profil_magnet],
                // 'Пружинки' =>[$sizes['perimetr_vnesh']/0.15,$materials->prujina],
-                'Магнитики' =>[$sizes['perimetr_vnesh']/0.15,$materials->magnitiki],
-                'Скотч' =>[$sizes['perimetr_vnut']*3,$materials->scoch],
-                'Блок' =>[1,$this->blockPower($sizes['dlina_diod'], $materials)],
-                'Провод' =>[2,$materials->provod],
+                'Магнитики' =>[$sizes['perimetr_vnesh']/0.15,$this->materials->magnitiki],
+                'Скотч' =>[$sizes['perimetr_vnut']*3,$this->materials->scoch],
+                'Блок' =>[1,$this->blockPower($sizes['dlina_diod'], $this->materials)],
+                'Провод' =>[2,$this->materials->provod],
             ];
             $prices = $this->price_real($materials, $sizes['ploshad_vnesh'], $product);
             $product->setPrice($prices[0], $prices[1]);
             $product->setValue($characteristics_id['Толщина'], (16));
             $product->setValue($characteristics_id['Напряжение питания'], 12);
-            $product->setValue($characteristics_id['Потребляемая мощность'], $this->blockPower($sizes['dlina_diod'], $this->materials));
+            $product->setValue($characteristics_id['Потребляемая мощность'], round($sizes['dlina_diod']*11));
             $product->weight = $sizes['ploshad_vnesh']*0.005*1.19*1000 + $sizes['ploshad_vnesh']*0.002*0.55*1000 + $sizes['ploshad_vnesh']*0.002*1.2*1000*1 + $sizes['perimetr_vnesh']*0.290 + 0.2;
 
         } 
-        if ($product->category->name == 'Магнетик' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепелния'] == 'Подвесная'  &&    $characteristicHash['Количество сторон'] == 'Односторонняя') 
+        if ($product->category->name == 'Магнетик' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепления'] == 'Подвесная'  &&    $characteristicHash['Количество сторон'] == 'Односторонняя') 
         {
            
             $materials = [
@@ -241,45 +231,44 @@ class LightPanelPriceService{
                 'Защитка полик' =>[$sizes['ploshad_vnut'],$this->materials->policarb_2mm],
                 'Светодиоды' =>[$sizes['dlina_diod'],$this->materials->svetodiody],
                 'Профиль магнетик' =>[$sizes['perimetr_vnesh'],$this->materials->profil_frame],
-                'Кронштейны цанг' =>[2,$materials->kronsht_cang],
-                'Магнитики' =>[$sizes['perimetr_vnesh']/0.15,$materials->magnitiki],
+                'Кронштейны цанг' =>[2,$this->materials->kronsht_cang],
+                'Магнитики' =>[$sizes['perimetr_vnesh']/0.15,$this->materials->magnitiki],
                 'Скотч' =>[$sizes['perimetr_vnut']*3,$this->materials->scoch],
                 'Блок' =>[1,$this->blockPower($sizes['dlina_diod'], $this->materials)],
-                'Тросс' =>[4,$materials->tross],
+                'Тросс' =>[4,$this->materials->tross],
                 'Провод' =>[2,$this->materials->provod],
             ];
             $prices = $this->price_real($materials, $sizes['ploshad_vnesh'], $product);
             $product->setPrice($prices[0], $prices[1]);
             $product->setValue($characteristics_id['Толщина'], (16));
             $product->setValue($characteristics_id['Напряжение питания'], 12);
-            $product->setValue($characteristics_id['Потребляемая мощность'], $this->blockPower($sizes['dlina_diod'], $this->materials));
+            $product->setValue($characteristics_id['Потребляемая мощность'], round($sizes['dlina_diod']*11));
             $product->weight = $sizes['ploshad_vnesh']*0.005*1.19*1000 + $sizes['ploshad_vnesh']*0.002*0.55*1000 + $sizes['ploshad_vnesh']*0.002*1.2*1000*1 + $sizes['perimetr_vnesh']*0.290 + 0.2;
 
         }
         
-        if ($product->category->name == 'Магнетик' && $characteristicHash['Ценовой сегмент'] == "Премиум" && $characteristicHash['Вариант крепелния'] == 'Подвесная'  &&    $characteristicHash['Количество сторон'] == 'Двухсторонняя') 
+        if ($product->category->name == 'Магнетик' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепления'] == 'Подвесная'  &&    $characteristicHash['Количество сторон'] == 'Двухсторонняя') 
         {
            
             $materials = [
-                'Акрил' =>[$sizes['ploshad_vnut']*2,$this->$materials->akril_5mm],
-                'Печать' =>[$sizes['ploshad_vnut']*2,$this->$materials->pechat],
-                //'ПВХ' =>[$sizes['ploshad_vnut'],$this->$materials->pvh_2mm],
-                'Защитка полик' =>[$sizes['ploshad_vnut']*2,$this->$materials->policarb_2mm],
-                //'Проставка' =>[$sizes['ploshad_vnut'],$this->$materials->policarb_2mm],
-                'Светодиоды' =>[$sizes['dlina_diod']*2,$this->$materials->svetodiody],
-                'Профиль магнетик' =>[$sizes['perimetr_vnesh']*2,$this->$materials->profil_magnet],    
-                'Кронштейны цанг' =>[2,$this->$materials->kronsht_cang],
-                'Скотч' =>[$sizes['perimetr_vnut']*6,$this->$materials->scoch],
-                'Магнитики' =>[$sizes['perimetr_vnesh']/0.15*2,$materials->magnitiki],
-                'Блок' =>[1,$this->blockPower($sizes['dlina_diod'], $this->$materials)],
-                'Тросс' =>[4,$this->$materials->tross],
-                'Провод' =>[2,$this->$materials->provod],
+                'Акрил' =>[$sizes['ploshad_vnut']*2,$this->materials->akril_5mm],
+                'Печать' =>[$sizes['ploshad_vnut']*2,$this->materials->pechat],
+                'Защитка полик' =>[$sizes['ploshad_vnut']*2,$this->materials->policarb_2mm],
+                'Проставка' =>[$sizes['ploshad_vnut'],$this->materials->pvh_2mm/2],
+                'Светодиоды' =>[$sizes['dlina_diod']*2,$this->materials->svetodiody],
+                'Профиль магнетик' =>[$sizes['perimetr_vnesh']*2,$this->materials->profil_magnet],    
+                'Кронштейны цанг' =>[2,$this->materials->kronsht_cang],
+                'Скотч' =>[$sizes['perimetr_vnut']*6,$this->materials->scoch],
+                'Магнитики' =>[$sizes['perimetr_vnesh']/0.15*2,$this->materials->magnitiki],
+                'Блок' =>[1,$this->blockPower($sizes['dlina_diod'], $this->materials)],
+                'Тросс' =>[4,$this->materials->tross],
+                'Провод' =>[2,$this->materials->provod],
             ];
             $prices = $this->price_real($materials, $sizes['ploshad_vnesh'], $product);
             $product->setPrice($prices[0], $prices[1]);
             $product->setValue($characteristics_id['Толщина'], (32));
             $product->setValue($characteristics_id['Напряжение питания'], 12);
-            $product->setValue($characteristics_id['Потребляемая мощность'], $this->blockPower($sizes['dlina_diod'], $this->materials));
+            $product->setValue($characteristics_id['Потребляемая мощность'], round($sizes['dlina_diod']*11*2));
             $product->weight =  $sizes['ploshad_vnesh']*0.005*1.19*1000*2 + $sizes['ploshad_vnesh']*0.002*1.2*1000*2 + $sizes['perimetr_vnesh']*0.590 + 0.2;
         }
     

@@ -35,9 +35,9 @@ use yii\helpers\Url;
 
                 </div>
                 <div class="cart_info">
-                    <a href="<?= $url ?>"><?= Html::encode($product->name) ?></a>
+                    <a href="<?= $url ?>"><?= Html::encode($product->name)?></a>
                     <?php if ($modification): ?>
-                        <br/><small><?= Html::encode($modification->name) ?></small>
+                   <small><?= Html::encode($modification->name) ?></small>
                     <?php endif; ?>
                     <p><?= $item->getQuantity() ?> x <span> <?= PriceHelper::format($item->getCost()) ?> </span></p>
                 </div>

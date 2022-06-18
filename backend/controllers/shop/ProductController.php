@@ -111,16 +111,44 @@ class ProductController extends Controller
     public function actionCreateFromList()
     {  
         $list = new PanelList;
-        foreach ($list->panelList as $panel){
-            $product = $this->service->createFromList($panel); 
+        
+        foreach ($list->makeCrystalNasten() as $panel){
+           $this->service->createFromList($panel); 
+        }
+        foreach ($list->makeCrystalPodves1s() as $panel){
+            $this->service->createFromList($panel); 
+         }
+        foreach ($list->makeCrystalPodves2s() as $panel){
+            $this->service->createFromList($panel); 
+        }
+        foreach ($list->makeFramelNasten() as $panel){
+            $this->service->createFromList($panel); 
+         }
+        foreach ($list->makeFramelPodves1s() as $panel){
+            $this->service->createFromList($panel); 
+        }
+        foreach ($list->makeFramelPodves2s() as $panel){
+            $this->service->createFromList($panel); 
+        }
+        foreach ($list->makeMagnetNasten() as $panel){
+            $this->service->createFromList($panel); 
+         }
+        foreach ($list->makeMagnetPodves1s() as $panel){
+            $this->service->createFromList($panel); 
+        }
+        foreach ($list->makeMagnetPodves2s() as $panel){
+            $this->service->createFromList($panel); 
         }
     }
 
-    public function actionChangePrice($id){
-        $product = $this->findModel($id);
+    public function actionChangePrice(){
+        $products = Product::find()->all();
        //var_dump($product->getValue(4));
+       foreach($products as $product){
         $this->lpService->calcPrice($product);
         $product->save();
+       }
+     
      
     }
     /**

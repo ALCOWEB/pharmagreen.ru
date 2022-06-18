@@ -74,29 +74,60 @@ class CartController extends Controller
         if(\Yii::$app->request->isAjax){
 
             //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-
-            if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-                try {
-                    $this->service->add($product->id, null, $form->quantity);
-                } catch (\DomainException $e) {
-                    Yii::$app->errorHandler->logException($e);
-                    Yii::$app->session->setFlash('error', $e->getMessage());
-                }
-
-                return CartWidget::widget();
-
-            }
-
             if (!$product->modifications) {
+                if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+                    try {
+                        $this->service->add($product->id, null, $form->quantity);
+                        return CartWidget::widget();
+                    } catch (\DomainException $e) {
+                        Yii::$app->errorHandler->logException($e);
+                        Yii::$app->session->setFlash('error', $e->getMessage());
+                    }
+                }
+    
                 try {
                     $this->service->add($product->id, null, 1);
+                    Yii::$app->session->setFlash('success', 'Товар добавлен в корзину!');
+                    return CartWidget::widget();
                 } catch (\DomainException $e) {
                     Yii::$app->errorHandler->logException($e);
                     Yii::$app->session->setFlash('error', $e->getMessage());
                 }
-                return CartWidget::widget();
             }
+    
+          //  $this->layout = 'blank';
+    
+            if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+                try {
+                    $this->service->add($product->id, $form->modification, $form->quantity);
+                    return CartWidget::widget();
+                } catch (\DomainException $e) {
+                    Yii::$app->errorHandler->logException($e);
+                    Yii::$app->session->setFlash('error', $e->getMessage());
+                }
+            }
+
+            // if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            //     try {
+            //         $this->service->add($product->id, null, $form->quantity);
+            //     } catch (\DomainException $e) {
+            //         Yii::$app->errorHandler->logException($e);
+            //         Yii::$app->session->setFlash('error', $e->getMessage());
+            //     }
+
+            //     return CartWidget::widget();
+
+            // }
+
+            // if (!$product->modifications) {
+            //     try {
+            //         $this->service->add($product->id, null, 1);
+            //     } catch (\DomainException $e) {
+            //         Yii::$app->errorHandler->logException($e);
+            //         Yii::$app->session->setFlash('error', $e->getMessage());
+            //     }
+            //     return CartWidget::widget();
+            // }
         }
 
         return $this->render('add', [
