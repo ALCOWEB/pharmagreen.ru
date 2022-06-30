@@ -20,6 +20,7 @@ use shop\repositories\Shop\ProductRepository;
 use shop\repositories\Shop\TagRepository;
 use shop\services\TransactionManager;
 use shop\entities\shop\Materials;
+use shop\entities\Shop\Product\Photo;
 class ProductManageService
 {
     private $products;
@@ -129,6 +130,7 @@ class ProductManageService
                     ''
                 )
             );
+        
             if($modifications = $product->modifications){
                 foreach ($modifications as $modification){
                     $product->editModification(
@@ -333,6 +335,14 @@ class ProductManageService
         $product = $this->products->get($id);
         foreach ($form->files as $file) {
             $product->addPhoto($file);
+        }
+        $this->products->save($product);
+    }
+
+    public function addPhotosBatch(Product $product, PhotosForm $form, $deleteTempFile = true): void
+    {
+        foreach ($form->files as $file) {
+            $product->addPhoto($file, $deleteTempFile);
         }
         $this->products->save($product);
     }

@@ -41,3 +41,13 @@ phpunit.phar
 /backend/web/index.php
 /backend/web/index-test.php
 /backend/web/robots.txt
+static/cache/products/256/admin_65.jpg
+static/cache/products/256/cart_list_65.jpg
+static/cache/products/256/cart_widget_list_65.jpg
+static/cache/products/256/catalog_list_65.jpg
+static/cache/products/256/catalog_origin_65.jpg
+static/cache/products/256/catalog_product_additional_65.jpg
+static/cache/products/256/catalog_product_main_65.jpg
+static/cache/products/256/catalog_product_main_500_65.jpg
+static/cache/products/256/thumb_65.jpg
+static/origin/products/256/65.jpg

@@ -1,5 +1,7 @@
 <?php
 namespace shop\entities\Shop\Product;
+
+use shop\entities\behaviors\CustomImageUploadBehavior;
 use shop\services\WaterMarker;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
@@ -13,9 +15,13 @@ use yiidreamteam\upload\ImageUploadBehavior;
  */
 class Photo extends ActiveRecord
 {
-    public static function create(UploadedFile $file): self
+    public function __construct($deleteTempFile = true)
     {
-        $photo = new static();
+        $this->deleteTempFile = $deleteTempFile;
+    }
+    public static function create(UploadedFile $file, $deleteTempFile = true): self
+    {
+        $photo = new static($deleteTempFile);
         $photo->file = $file;
         return $photo;
     }
@@ -35,7 +41,7 @@ class Photo extends ActiveRecord
     {
         return [
             [
-                'class' => ImageUploadBehavior::className(),
+                'class' => CustomImageUploadBehavior::className(),
                 'attribute' => 'file',
                 'createThumbsOnRequest' => true,
                 'filePath' => '@staticRoot/origin/products/[[attribute_product_id]]/[[id]].[[extension]]',

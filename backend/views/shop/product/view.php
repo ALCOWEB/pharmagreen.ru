@@ -1,17 +1,17 @@
 <?php
-use kartik\file\FileInput;
-use shop\entities\Shop\Product\Modification;
-use shop\entities\Shop\Product\Value;
-use shop\helpers\PriceHelper;
-use shop\helpers\ProductHelper;
-use yii\bootstrap\ActiveForm;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\grid\GridView;
+use kartik\file\FileInput;
+use yii\grid\ActionColumn;
 use yii\widgets\DetailView;
+use yii\helpers\ArrayHelper;
+use shop\helpers\PriceHelper;
+use yii\bootstrap\ActiveForm;
 use shop\helpers\WeightHelper;
+use shop\helpers\ProductHelper;
+use shop\entities\Shop\Product\Value;
 use shop\entities\Shop\Product\Product;
+use shop\entities\Shop\Product\Modification;
 
 /* @var $this yii\web\View */
 /* @var $product shop\entities\Shop\Product\Product */

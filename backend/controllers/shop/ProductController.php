@@ -1,21 +1,24 @@
 <?php
 namespace backend\controllers\shop;
-use shop\entities\Shop\Product\Modification;
-use shop\forms\manage\Shop\Product\QuantityForm;
-use shop\forms\manage\Shop\Product\PhotosForm;
-use shop\forms\manage\Shop\Product\PriceForm;
-use shop\forms\manage\Shop\Product\ProductCreateForm;
-use shop\forms\manage\Shop\Product\ProductEditForm;
-use shop\services\manage\Shop\ProductManageService;
 use Yii;
-use shop\entities\Shop\Product\Product;
-use backend\forms\shop\ProductSearch;
-use yii\data\ActiveDataProvider;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
+use yii\httpclient\Client;
 use yii\filters\VerbFilter;
 use shop\PanelList\PanelList;
+use yii\data\ActiveDataProvider;
+use yii\web\NotFoundHttpException;
+use backend\forms\shop\ProductSearch;
+use shop\entities\Shop\Product\Product;
+use shop\entities\Shop\Product\Modification;
+use shop\forms\manage\Shop\Product\PriceForm;
+use shop\forms\manage\Shop\Product\PhotosForm;
 use shop\services\Shop\LightPanelPriceService;
+use shop\forms\manage\Shop\Product\QuantityForm;
+use shop\forms\manage\Shop\Product\ProductEditForm;
+use shop\services\manage\Shop\ProductManageService;
+use shop\forms\manage\Shop\Product\ProductCreateForm;
+
 class ProductController extends Controller
 {
     private $service;
@@ -55,6 +58,34 @@ class ProductController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    public function actionAddPhotoBatch()
+    {  
+        $productSearch = new ProductSearch();
+        $dataProvider = $productSearch->search(Yii::$app->request->queryParams);
+        $products = $dataProvider->getModels();
+        $photosForm = new PhotosForm();
+        if ($photosForm->load(Yii::$app->request->post()) && $photosForm->validate()) {
+            foreach($products as $product){
+                try {
+                    $this->service->addPhotosBatch($product, $photosForm, false);
+                } catch (\DomainException $e) {
+                    Yii::$app->errorHandler->logException($e);
+                    Yii::$app->session->setFlash('error', $e->getMessage());
+                }
+            }
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('addPhotoBatch', [
+            'products' => $products,
+            'dataProvider' => $dataProvider,
+            'searchModel' => $productSearch,
+            'photosForm' => $photosForm
+        ]);
+
+
+    }
     /**-
      * @param integer $id
      * @return mixed
@@ -74,6 +105,7 @@ class ProductController extends Controller
         ]);
         $photosForm = new PhotosForm();
         if ($photosForm->load(Yii::$app->request->post()) && $photosForm->validate()) {
+           //var_dump($photosForm);
             try {
                 $this->service->addPhotos($product->id, $photosForm);
                 return $this->redirect(['view', 'id' => $product->id]);
@@ -147,9 +179,7 @@ class ProductController extends Controller
        foreach($products as $product){
         $this->lpService->calcPrice($product);
         $product->save();
-       }
-     
-     
+       }  
     }
     /**
      * @param integer $id
