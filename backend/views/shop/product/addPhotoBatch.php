@@ -6,10 +6,12 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\bootstrap\ActiveForm;
 use kartik\file\FileInput;
+use shop\entities\Shop\Characteristic;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\forms\Shop\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 ?>
+
 <div class="user-index">
 
   
@@ -43,36 +45,26 @@ use kartik\file\FileInput;
                         'filter' => $searchModel->categoriesList(),
                         'value' => 'category.name',
                     ],
+
                     [
-                        'attribute' => 'price_new',
+                        'label' => 'storon',
+                        'attribute' => 'storon',
+                        'filter' => ['Односторонняя' => 'Односторонняя', 'Двухсторонняя' => 'Двухсторонняя'],
                         'value' => function (Product $model) {
-                            return PriceHelper::formatBackend($model->price_new);
+                            $char = Characteristic::find()->where(['name' => 'Количество сторон'])->one();
+                            $val = $model->getValue($char->id);
+                            return $val->value;
                         },
+                       
+                        
                     ],
-                    'quantity',
+
                     [
                         'attribute' => 'status',
                         'filter' => $searchModel->statusList(),
                         'value' => function (Product $model) {
                         return ProductHelper::statusLabel($model->status);
                     },
-                        'format' => 'raw',
-                    ],
-                    [
-                        'attribute' => 'new',
-                        'filter' => $searchModel->NewList(),
-                        'value' => function (Product $model) {
-                            return ProductHelper::statusNew($model);
-                        },
-                        'format' => 'raw',
-                    ],
-
-                    [
-                        'attribute' => 'sale',
-                        'filter' => $searchModel->NewList(),
-                        'value' => function (Product $model) {
-                            return ProductHelper::statusSale($model);
-                        },
                         'format' => 'raw',
                     ],
 

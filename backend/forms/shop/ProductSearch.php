@@ -4,6 +4,7 @@ use shop\entities\Shop\Category;
 use shop\helpers\ProductHelper;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use shop\entities\Shop\Characteristic;
 use shop\entities\Shop\Product\Product;
 use yii\helpers\ArrayHelper;
 class ProductSearch extends Model
@@ -17,11 +18,12 @@ class ProductSearch extends Model
     public $quantity;
     public $new;
     public $sale;
+    public $storon;
     public function rules(): array
     {
         return [
             [['id', 'category_id', 'brand_id', 'status', 'quantity', 'new', 'sale'], 'integer'],
-            [['code', 'name'], 'safe'],
+            [['code', 'name', 'storon'], 'safe'],
         ];
     }
     /**
@@ -31,6 +33,7 @@ class ProductSearch extends Model
     public function search(array $params): ActiveDataProvider
     {
         $query = Product::find()->with('mainPhoto', 'category');
+        $query->joinWith(['values'])->distinct();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
@@ -50,6 +53,7 @@ class ProductSearch extends Model
             'quantity' => $this->quantity,
             'new' => $this->new,
             'sale' => $this->sale,
+            'shop_values.value' => $this->storon,
         ]);
         $query
             ->andFilterWhere(['like', 'code', $this->code])
@@ -66,6 +70,7 @@ class ProductSearch extends Model
     {
         return ProductHelper::statusList();
     }
+
 
     public function NewList(): array
     {

@@ -355,7 +355,16 @@ class Product extends ActiveRecord
     public function addPhoto(UploadedFile $file, $deleteTempFile = true): void
     {
         $photos = $this->photos;
-        $photos[] = Photo::create($file, $deleteTempFile);
+        $newPhoto =  Photo::create($file, $deleteTempFile);
+        $hash1 = hash_file('md5', $file->tempName);
+        $hashArray = [];
+        foreach ($photos as $photo){
+       
+            $hashArray[] = hash_file('md5', $photo->getImageFileUrl('file'));
+        }
+        if(!in_array($hash1, $hashArray)){
+            $photos[] =  $newPhoto;
+        }
         $this->updatePhotos($photos);
     }
 
