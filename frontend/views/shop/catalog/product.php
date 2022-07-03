@@ -11,7 +11,8 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use shop\entities\User\User;
-
+use yii\widgets\DetailView;
+use shop\entities\Shop\Product\Value;
 $this->title = $product->name;
 
 $this->registerMetaTag(['name' =>'description', 'content' => $product->meta->description]);
@@ -52,11 +53,11 @@ $this->params['active_category'] = $product->category;
                         <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
                             <?php foreach ($product->photos as $i => $photo): ?>
 
-    <li>
-        <a class="elevatezoom-gallery" href="#"  data-image="<?= $photo->getThumbFileUrl('file', 'catalog_product_main_500') ?>">
-            <img src="<?= $photo->getThumbFileUrl('file', 'catalog_product_additional') ?>" alt="" />
-        </a>
-    </li>
+                <li>
+                    <a class="elevatezoom-gallery" href="#"  data-image="<?= $photo->getThumbFileUrl('file', 'catalog_product_main_500') ?>">
+                        <img src="<?= $photo->getThumbFileUrl('file', 'catalog_product_additional') ?>" alt="" />
+                    </a>
+                </li>
 
                             <?php endforeach; ?>
                         </ul>
@@ -80,7 +81,8 @@ $this->params['active_category'] = $product->category;
                                         отзывов: <?= count($product->reviews); ?></a> / <a href="" onclick="$('a[href=\'#reviews\']').trigger('click'); $('html, body').animate({scrollTop: $('#reviews').offset().top }, 1500); return false;">Написать отзыв</a></p></li>
 
                             </ul>
-                        </div>
+                        </div> 
+                        
                         <div class="price_box">
                             <span class="current_price"><?= PriceHelper::format($product->price_new) ?></span>
                             <span class="old_price"><?= PriceHelper::format($product->price_old) ?></span>
@@ -90,7 +92,7 @@ $this->params['active_category'] = $product->category;
                             <p><?= Yii::$app->formatter->asNtext($product->short_desc) ?></p>
                         </div>
                         <div class="product_variant color">
-
+                 
 
 
 
@@ -101,20 +103,27 @@ $this->params['active_category'] = $product->category;
                             ]) ?>
 
                             <?php if ($modifications = $cartForm->modificationsList()): ?>
-                                <h3>Доступные модификации</h3>
-                            <br>
+                                <h3 style="margin-bottom:15px;">Доступные модификации:</h3>
+        
                                 <?= $form->field($cartForm, 'modification')->dropDownList($modifications, ['prompt' => 'Выбрать опцию', 'encode' => false,'class' => 'form-control modification-select'])->label(false) ?>
+                                <!-- <?= $form->field($cartForm, 'modification')->radioList($modifications)->label(false) ?> -->
+                                <!-- <?= $form->field($cartForm, 'modification')->checkboxList($modifications);?> -->
                             <?php endif; ?>
+                            <div class="quantity_inner">
+                                
+                                    <?= $form->field($cartForm, 'quantity', ['template' => "<button class='btn-qty bt_minus'>-</button>{input}<button class='btn-qty bt_plus'>+</button>\n{error}",  'options' => [
+                                        'tag' => false, // Don't wrap with "form-group" div
+                                    ],])->input('number', ['min' => 1, 'class' => 'input-quantity']) ?>
+                                
+                            </div>
                             <div class="product_variant quantity">
-                                <label>Колличество</label>
-                                <?= $form->field($cartForm, 'quantity', ['template' => "{input}\n{error}",  'options' => [
-                                    'tag' => false, // Don't wrap with "form-group" div
-                                ],])->input('number') ?>
+                                <!-- <label>Колличество</label> -->
+                               
                                 <?= Html::submitButton('Добавить в корзину', ['class' => 'button']) ?>
-
+                
                             </div>
                             <?php ActiveForm::end() ?>
-
+                            <strong>Вы так же можете отправить заявку на почту info@calligrafm.ru</strong>
                         </div>
 
                         <div class=" product_d_action">
@@ -138,16 +147,7 @@ $this->params['active_category'] = $product->category;
 <!--                    </div>-->
 
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--product details end-->
-
-<!--product info start-->
-<div class="product_d_info mb-65">
-    <div class="container">
-        <div class="row">
+                <div class="row">
             <div class="col-12">
                 <div class="product_d_inner">
                     <div class="product_info_button">
@@ -156,7 +156,7 @@ $this->params['active_category'] = $product->category;
                                 <a class="active" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Описание</a>
                             </li>
                             <li>
-                                <a data-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Способы приминения</a>
+                                <a data-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Характеристики</a>
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Отзывы&nbsp;(<?= count($product->reviews);?>) </a>
@@ -171,7 +171,15 @@ $this->params['active_category'] = $product->category;
                         </div>
                         <div class="tab-pane fade" id="sheet" role="tabpanel" >
                             <div class="product_info_content">
-                                <?= $product->application_methods ?>
+                                  <?= DetailView::widget([
+                                        'model' => $product,
+                                        'attributes' => array_map(function (Value $value) {
+                                            return [
+                                                'label' => $value->characteristic->name,
+                                                'value' => $value->value,
+                                            ];
+                                        }, $product->values),
+                                    ]) ?>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="reviews" role="tabpanel" >
@@ -254,6 +262,16 @@ $this->params['active_category'] = $product->category;
                     </div>
                 </div>
             </div>
+            </div>
         </div>
     </div>
+</div>
+<!--product details end-->
+
+<!--product info start-->
+<!-- <div class="product_d_info mb-65">
+    <div class="container">
+        
+        </div>
+    </div> -->
 <!--product info end-->

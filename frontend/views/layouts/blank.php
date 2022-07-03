@@ -9,16 +9,16 @@ use yii\helpers\Html;
 
 
     <section class="main_content_area">
-        <div class="container">
-            <h1><?php echo Html::encode($this->title);?></h1>
+        <!-- <div class="container"> -->
+            <!-- <h1><?php echo Html::encode($this->title);?></h1> -->
 
-            <div class="row">
+            <!-- <div class="row"> -->
 
                     <?= $content ?>
 
-            </div>
+            <!-- </div> -->
 
 
-        </div>
+        <!-- </div> -->
     </section>
 <?php $this->endContent() ?>

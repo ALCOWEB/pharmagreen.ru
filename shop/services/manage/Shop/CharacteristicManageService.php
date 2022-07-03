@@ -15,6 +15,7 @@ class CharacteristicManageService
         $characteristic = Characteristic::create(
             $form->name,
             $form->type,
+            $form->uom,
             $form->required,
             $form->default,
             $form->variants,
@@ -29,6 +30,7 @@ class CharacteristicManageService
         $characteristic->edit(
             $form->name,
             $form->type,
+            $form->uom,
             $form->required,
             $form->default,
             $form->variants,
