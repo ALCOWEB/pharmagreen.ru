@@ -10,8 +10,9 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\MaskedInput;
+use frontend\assets\InnSearchAsset;
 
-
+//InnSearchAsset::register($this);
 $this->title = 'Оформить заказ';
 $this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['/shop/catalog/index']];
 $this->params['breadcrumbs'][] = ['label' => 'Shopping Cart', 'url' => ['/shop/cart/index']];
@@ -91,6 +92,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                 </div>
+                <button>Физ. лицо</button>
+                <button>Организация</button>
                 <?php $form = ActiveForm::begin() ?>
                 <?=$form->errorSummary($model);?>
                 <div class="row">

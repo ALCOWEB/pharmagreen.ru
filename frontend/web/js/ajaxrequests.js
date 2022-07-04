@@ -148,3 +148,39 @@
 
 
 
+function join(arr) {
+  var separator = arguments.length > 1 ? arguments[1] : ", ";
+  return arr.filter(function(n){return n}).join(separator);
+}
+function typeDescription(type) {
+  var TYPES = {
+    'INDIVIDUAL': 'Индивидуальный предприниматель',
+    'LEGAL': 'Организация'
+  }
+  return TYPES[type];
+}
+function showSuggestion(suggestion) {
+  console.log(suggestion);
+  var data = suggestion.data;
+  if (!data)
+    return;
+  $("#type").text(
+  typeDescription(data.type) + " (" + data.type + ")"
+  );
+  if (data.name)
+    //$("#company").val(join([data.opf && data.opf.short || "", data.name.short || data.name.full], " "));
+    $("#inn").val(data.inn);
+    $("#kpp").val(data.kpp);
+    $("#ogrn").val(data.ogrn);
+  if (data.address)
+    $("#address").val(data.address.value);
+  }
+  $("#company").suggestions({
+  token: "6dde547f9aca7008036335e50ba9aab1e804ca30",
+  type: "PARTY",
+  count: 5,
+  onSelect: showSuggestion
+  });
+
+
+

@@ -83,7 +83,7 @@ class CheckoutController extends Controller
 
                       } else {
 
-                        $password =  $this->signup_service->signup_order($form);
+                          $password =  $this->signup_service->signup_order($form);
                           $user = $this->signup_service->getByEmail($form->customer->email);
                           $order = $this->service->checkout($user->id, $form, $password);
                           if ($order->payment_method == 'Банковская карта'){

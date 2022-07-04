@@ -67,10 +67,22 @@ class SignupService
         return $this->users->getByEmailorPhone($email, $phone);
     }
 
+    public function gen_password($length = 8)
+    {				
+	$chars = 'qazxswedcvfrtgbnhyujmkiolp1234567890QAZXSWEDCVFRTGBNHYUJMKIOLP'; 
+	$size = strlen($chars) - 1; 
+	$password = ''; 
+	while($length--) {
+		$password .= $chars[random_int(0, $size)]; 
+	}
+	return $password;
+    }
+
+
     public function signup_order(OrderForm $form)
     {
 
-        $password = mt_rand(10000000, 99999999);
+        $password = $this->gen_password();
         $user = User::requestSignup(
             $form->customer->email,
             $form->customer->phone,
