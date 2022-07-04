@@ -21,6 +21,8 @@ use shop\repositories\Shop\TagRepository;
 use shop\services\TransactionManager;
 use shop\entities\shop\Materials;
 use shop\entities\Shop\Product\Photo;
+use shop\forms\manage\Shop\Product\ProductDescriptionBatch;
+
 class ProductManageService
 {
     private $products;
@@ -217,6 +219,26 @@ class ProductManageService
         $this->products->save($product);
 
       
+    }
+
+    public function editDescBatch(Product $product, ProductDescriptionBatch $form): void
+    {
+
+        $product->edit(
+            $product->brand->id,
+            $product->code,
+            $product->name,
+            $product->application_methods,
+            $form->description,
+            $form->short_desc,
+            $product->weight,
+            new Meta(
+                $product->meta->title,
+                $product->meta->description,
+                $product->meta->keywords
+            )
+        );
+        $product->save();
     }
 
     public function edit($id, ProductEditForm $form): void

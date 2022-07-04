@@ -35,6 +35,8 @@
                         ['label' => 'Materials', 'icon' => 'file-o', 'url' => ['/shop/materials/index'], 'active' => $this->context->id == 'shop/materials'],
                         ['label' => 'Orders', 'icon' => 'file-o', 'url' => ['/shop/order/index'], 'active' => $this->context->id == 'shop/order'],
                         ['label' => 'Products', 'icon' => 'file-o', 'url' => ['/shop/product/index'], 'active' => $this->context->id == 'shop/product'],
+                        ['label' => 'Photos', 'icon' => 'file-o', 'url' => ['/shop/product/add-photo-batch'], 'active' => $this->context->id == 'shop/product/add-photo-batch'],
+                        ['label' => 'Descriptions', 'icon' => 'file-o', 'url' => ['/shop/product/add-desc-batch'], 'active' => $this->context->id == 'shop/product/add-desc-batch'],
                         ['label' => 'Brands', 'icon' => 'file-o', 'url' => ['/shop/brand/index'], 'active' => $this->context->id == 'shop/brand'],
                         ['label' => 'Tags', 'icon' => 'file-o', 'url' => ['/shop/tag/index'], 'active' => $this->context->id == 'shop/tag'],
                         ['label' => 'Categories', 'icon' => 'file-o', 'url' => ['/shop/category/index'], 'active' => $this->context->id == 'shop/category'],

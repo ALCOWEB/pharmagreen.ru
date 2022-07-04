@@ -377,11 +377,8 @@ class LightPanelPriceService{
             $product->weight =  $sizes['ploshad_vnesh']*0.005*1.19*1000 + $sizes['ploshad_vnesh']*0.002*1.2*1000*3 + $sizes['perimetr_vnesh']*0.590 + 0.2;
         }
 
-                
-    
-    
-    
-  
+        $product->weight = round($product->weight);
+
        
     }
 

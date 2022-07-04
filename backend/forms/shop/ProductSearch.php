@@ -1,12 +1,12 @@
 <?php
 namespace backend\forms\Shop;
-use shop\entities\Shop\Category;
-use shop\helpers\ProductHelper;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
+use shop\helpers\ProductHelper;
+use shop\entities\Shop\Category;
 use yii\data\ActiveDataProvider;
 use shop\entities\Shop\Characteristic;
 use shop\entities\Shop\Product\Product;
-use yii\helpers\ArrayHelper;
 class ProductSearch extends Model
 {
     public $id;

@@ -69,7 +69,7 @@ $this->params['active_category'] = $product->category;
 
                         <h1><?= Html::encode($product->name);?></h1>
 
-                        <div class=" product_ratting">
+                        <!-- <div class=" product_ratting">
                             <ul>
                                 <li><a href="#"><i class="<?php  echo ceil($product->rating) >= 1 ? 'fa fa-star' : 'fa fa-star-o'?>"></i></a></li>
                                 <li><a href="#"><i class="<?php  echo ceil($product->rating) >= 2 ? 'fa fa-star' : 'fa fa-star-o'?>"></i></a></li>
@@ -80,7 +80,7 @@ $this->params['active_category'] = $product->category;
                                         отзывов: <?= count($product->reviews); ?></a> / <a href="" onclick="$('a[href=\'#reviews\']').trigger('click'); $('html, body').animate({scrollTop: $('#reviews').offset().top }, 1500); return false;">Написать отзыв</a></p></li>
 
                             </ul>
-                        </div>
+                        </div> -->
                         <div class="price_box">
                             <span class="current_price"><?= PriceHelper::format($product->price_new) ?></span>
                             <span class="old_price"><?= PriceHelper::format($product->price_old) ?></span>
@@ -109,7 +109,7 @@ $this->params['active_category'] = $product->category;
                                 <label>Колличество</label>
                                 <?= $form->field($cartForm, 'quantity', ['template' => "{input}\n{error}",  'options' => [
                                     'tag' => false, // Don't wrap with "form-group" div
-                                ],])->input('number') ?>
+                                ],])->input('number', ['min'=> "1"]) ?>
                                 <?= Html::submitButton('Добавить в корзину', ['class' => 'button']) ?>
 
                             </div>
@@ -156,7 +156,7 @@ $this->params['active_category'] = $product->category;
                                 <a class="active" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Описание</a>
                             </li>
                             <li>
-                                <a data-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Способы приминения</a>
+                                <a data-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Характеристики</a>
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Отзывы&nbsp;(<?= count($product->reviews);?>) </a>
@@ -171,7 +171,15 @@ $this->params['active_category'] = $product->category;
                         </div>
                         <div class="tab-pane fade" id="sheet" role="tabpanel" >
                             <div class="product_info_content">
-                                <?= $product->application_methods ?>
+                             <ul>
+                                <li>Размер - <strong>А5</strong> </li>
+                                <li>Размер - <strong>А5</strong> </li>
+                           
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                             </ul>
+                            <?php //var_dump($product->values);?> 
                             </div>
                         </div>
                         <div class="tab-pane fade" id="reviews" role="tabpanel" >

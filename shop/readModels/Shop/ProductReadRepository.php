@@ -51,7 +51,10 @@ class ProductReadRepository
 
     public function find_with_reviews($id): ?Product
     {
-        return Product::find()->with('reviews')->active()->andWhere(['id' => $id])->one();
+        return Product::find()->with([
+            'reviews',
+            'values'
+        ])->active()->andWhere(['id' => $id])->one();
     }
     private function getProvider(ActiveQuery $query): ActiveDataProvider
     {

@@ -10,7 +10,7 @@ use yii\helpers\Html;
 
     <section class="main_content_area">
         <div class="container">
-            <h1><?php echo Html::encode($this->title);?></h1>
+            <!-- <h1><?php echo Html::encode($this->title);?></h1> -->
 
             <div class="row">
 

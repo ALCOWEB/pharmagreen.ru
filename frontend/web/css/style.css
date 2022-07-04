@@ -8183,7 +8183,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 
 .main_content_area {
-  padding: 50px 0 65px;
+  padding: 0px 0 0px;
 }
 @media only screen and (max-width: 767px) {
   .main_content_area {

@@ -18,6 +18,7 @@ use shop\forms\manage\Shop\Product\QuantityForm;
 use shop\forms\manage\Shop\Product\ProductEditForm;
 use shop\services\manage\Shop\ProductManageService;
 use shop\forms\manage\Shop\Product\ProductCreateForm;
+use shop\forms\manage\Shop\Product\ProductDescriptionBatch;
 
 class ProductController extends Controller
 {
@@ -77,15 +78,38 @@ class ProductController extends Controller
             }
             return $this->redirect(['index']);
         }
-
         return $this->render('addPhotoBatch', [
             'products' => $products,
             'dataProvider' => $dataProvider,
             'searchModel' => $productSearch,
             'photosForm' => $photosForm
         ]);
+    }
 
-
+    public function actionAddDescBatch()
+    {  
+        $productSearch = new ProductSearch();
+        $dataProvider = $productSearch->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 10];
+        $products = $dataProvider->getModels();
+        $form = new ProductDescriptionBatch();
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            foreach($products as $product){
+                try {
+                    $this->service->editDescBatch($product, $form);
+                } catch (\DomainException $e) {
+                    Yii::$app->errorHandler->logException($e);
+                    Yii::$app->session->setFlash('error', $e->getMessage());
+                }
+            }
+            return $this->redirect(['index']);
+        }
+        return $this->render('addDescBatch', [
+            'products' => $products,
+            'dataProvider' => $dataProvider,
+            'searchModel' => $productSearch,
+            'descform' => $form
+        ]);
     }
     /**-
      * @param integer $id
