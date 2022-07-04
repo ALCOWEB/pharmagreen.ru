@@ -9,11 +9,7 @@ use yii\helpers\Html;
 
 
     <section class="main_content_area">
-<<<<<<< HEAD
-        <div class="container">
-=======
         <!-- <div class="container"> -->
->>>>>>> d3789f1beca4c89f393e0555f7aedd484a3d221b
             <!-- <h1><?php echo Html::encode($this->title);?></h1> -->
 
             <!-- <div class="row"> -->

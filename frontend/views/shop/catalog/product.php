@@ -81,12 +81,7 @@ $this->params['active_category'] = $product->category;
                                         отзывов: <?= count($product->reviews); ?></a> / <a href="" onclick="$('a[href=\'#reviews\']').trigger('click'); $('html, body').animate({scrollTop: $('#reviews').offset().top }, 1500); return false;">Написать отзыв</a></p></li>
 
                             </ul>
-<<<<<<< HEAD
                         </div> -->
-=======
-                        </div> 
-                        
->>>>>>> d3789f1beca4c89f393e0555f7aedd484a3d221b
                         <div class="price_box">
                             <span class="current_price"><?= PriceHelper::format($product->price_new) ?></span>
                             <span class="old_price"><?= PriceHelper::format($product->price_old) ?></span>
@@ -121,17 +116,10 @@ $this->params['active_category'] = $product->category;
                                 
                             </div>
                             <div class="product_variant quantity">
-<<<<<<< HEAD
-                                <label>Колличество</label>
-                                <?= $form->field($cartForm, 'quantity', ['template' => "{input}\n{error}",  'options' => [
-                                    'tag' => false, // Don't wrap with "form-group" div
-                                ],])->input('number', ['min'=> "1"]) ?>
-=======
                                 <!-- <label>Колличество</label> -->
                                
->>>>>>> d3789f1beca4c89f393e0555f7aedd484a3d221b
                                 <?= Html::submitButton('Добавить в корзину', ['class' => 'button']) ?>
-                
+                                <?= Html::button('Быстрый заказ', ['class' => 'button fast_order']) ?>
                             </div>
                             <?php ActiveForm::end() ?>
                             <strong>Вы так же можете отправить заявку на почту info@calligrafm.ru</strong>
@@ -182,17 +170,6 @@ $this->params['active_category'] = $product->category;
                         </div>
                         <div class="tab-pane fade" id="sheet" role="tabpanel" >
                             <div class="product_info_content">
-<<<<<<< HEAD
-                             <ul>
-                                <li>Размер - <strong>А5</strong> </li>
-                                <li>Размер - <strong>А5</strong> </li>
-                           
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                             </ul>
-                            <?php //var_dump($product->values);?> 
-=======
                                   <?= DetailView::widget([
                                         'model' => $product,
                                         'attributes' => array_map(function (Value $value) {
@@ -202,7 +179,6 @@ $this->params['active_category'] = $product->category;
                                             ];
                                         }, $product->values),
                                     ]) ?>
->>>>>>> d3789f1beca4c89f393e0555f7aedd484a3d221b
                             </div>
                         </div>
                         <div class="tab-pane fade" id="reviews" role="tabpanel" >

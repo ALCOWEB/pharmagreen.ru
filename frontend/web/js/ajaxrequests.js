@@ -67,6 +67,15 @@
 		return false; // отменяем отправку данных формы
 	});
 
+	$('form.fast_order').on('beforeSubmit', function(event) {
+		event.preventDefault();
+		var form = $(this);
+		var data = form.serializeArray();
+			
+		return false; // отменяем отправку данных формы
+	});
+
+
 
    $('a.add_to_wish_list_link').on('click', function(event){
       event.preventDefault();
