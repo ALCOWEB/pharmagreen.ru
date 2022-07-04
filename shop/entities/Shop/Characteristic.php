@@ -17,21 +17,23 @@ class Characteristic extends ActiveRecord  //3 3:45
     const TYPE_INTEGER = 'integer';
     const TYPE_FLOAT = 'float';
     public $variants;
-    public static function create($name, $type, $required, $default, array $variants, $sort): self
+    public static function create($name, $type, $uom, $required, $default, array $variants, $sort): self
     {
         $object = new static();
         $object->name = $name;
         $object->type = $type;
+        $object->uom = $uom;
         $object->required = $required;
         $object->default = $default;
         $object->variants = $variants;
         $object->sort = $sort;
         return $object;
     }
-    public function edit($name, $type, $required, $default, array $variants, $sort): void
+    public function edit($name, $type, $uom, $required, $default, array $variants, $sort): void
     {
         $this->name = $name;
         $this->type = $type;
+        $this->uom = $uom;
         $this->required = $required;
         $this->default = $default;
         $this->variants = $variants;

@@ -14,6 +14,7 @@ use yii\widgets\ActiveForm;
         <div class="box-body">
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'type')->dropDownList($model->typesList()) ?>
+            <?= $form->field($model, 'uom')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'sort')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'required')->checkbox() ?>
             <?= $form->field($model, 'default')->textInput(['maxlength' => true]) ?>

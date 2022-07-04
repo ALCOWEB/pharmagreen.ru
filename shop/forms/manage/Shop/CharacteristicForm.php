@@ -11,6 +11,7 @@ class CharacteristicForm extends Model
 {
     public $name;
     public $type;
+    public $uom;
     public $required;
     public $default;
     public $textVariants;
@@ -21,6 +22,7 @@ class CharacteristicForm extends Model
         if ($characteristic) {
             $this->name = $characteristic->name;
             $this->type = $characteristic->type;
+            $this->uom = $characteristic->uom;
             $this->required = $characteristic->required;
             $this->default = $characteristic->default;
             $this->textVariants = implode(PHP_EOL, $characteristic->variants);
@@ -37,7 +39,7 @@ class CharacteristicForm extends Model
             [['name', 'type', 'sort'], 'required'],
             [['required'], 'boolean'],
             [['default'], 'string', 'max' => 255],
-            [['textVariants'], 'string'],
+            [['textVariants', 'uom'], 'string'],
             [['sort'], 'integer'],
             [['name'], 'unique', 'targetClass' => Characteristic::class, 'filter' => $this->_characteristic ? ['<>', 'id', $this->_characteristic->id] : null]
         ];

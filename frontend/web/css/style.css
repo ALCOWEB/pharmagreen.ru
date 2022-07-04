@@ -6232,6 +6232,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   }
 }
 .product_d_right .price_box span.current_price {
+  font-weight: bold;
   font-size: 23px;
 }
 @media only screen and (max-width: 767px) {
@@ -6418,7 +6419,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .product_variant.quantity button {
   border: 0;
   font-size: 16px;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   background: #40A944;
   height: 42px;
   line-height: 42px;
@@ -6438,7 +6439,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 @media only screen and (max-width: 767px) {
   .product_variant.quantity button {
     min-width: inherit;
-    margin-left: 10px;
+    /* margin-left: 10px; */
   }
 }
 .product_variant.quantity button:hover {
@@ -6629,7 +6630,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 
 .product_d_inner {
-  padding: 20px 30px 27px;
+  padding: 20px 20px 20px;
   border: 1px solid #ededed;
 }
 @media only screen and (max-width: 767px) {
@@ -10992,4 +10993,48 @@ a.button-auth:hover {
   justify-content: space-around;
   text-transform: uppercase;
   margin-bottom: 20px;
+}
+.quantity_inner{
+  display: flex;
+  width: 166px;
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+.quantity_inner input{
+  font-size: 15px;
+  padding: 9px 10px;
+  background: #F9F9F9;
+  border: none;
+  text-align: center;
+  border: 1px solid transparent;
+  flex-grow: 1;
+  width: 56%;
+}
+.bt_plus{
+  border-radius: 0px 3px 3px 0px;
+}
+.bt_minus{
+  border-radius: 3px 0px 0px 3px;
+}
+
+.btn-qty {
+
+  border: none;
+  width: 22%;
+  background: #F2F2F2;
+  font-size: 22px;
+  padding: 0px;
+  font-weight: normal;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none; 
+}
+
+input[type='number'],
+input[type="number"]:hover,
+input[type="number"]:focus {
+    appearance: none;
+    -moz-appearance: textfield;
 }
