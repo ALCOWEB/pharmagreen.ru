@@ -22,13 +22,12 @@ class PaymentForm extends Model
     public function description($value){
         if ($value == 1){return 'Наличка';}
         if ($value == 2){return 'БК онлайн';}
-
     }
 
     public function rules(): array
     {
         return [
-            [['method'], 'required', 'message' => 'это поле не может быть пустым'],
+            [['method'], 'string', 'message' => 'это поле не может быть пустым'],
 
         ];
     }

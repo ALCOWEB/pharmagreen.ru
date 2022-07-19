@@ -6619,6 +6619,11 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   border-top: 1px solid #ddd;
   width: 100%;
 }
+
+.help-block-error{
+  color:red;
+}
+
 .product_d_table table tbody tr {
   border-bottom: 1px solid #ddd;
 }
@@ -10403,7 +10408,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 .modal-content button.close {
   position: absolute;
-  left: 94%;
+  right: 10px;
   width: 35px;
   height: 35px;
   line-height: 37px;

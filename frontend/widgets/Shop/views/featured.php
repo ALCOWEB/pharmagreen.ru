@@ -129,7 +129,7 @@ use yii\widgets\ActiveForm;
                                     <p><?= $product->description ?></p>
                                 </div>
                                 <div class="variants_selects">
-
+                            
                                     <div class="modal_add_to_cart">
 
 

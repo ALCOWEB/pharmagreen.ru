@@ -12,11 +12,11 @@ class OrderForm extends CompositeForm
 {
     public $note;
 
-    public function __construct(int $weight, array $config = [])
+    public function __construct(array $config = [])
     {
-        $this->delivery = new DeliveryForm($weight);
+        $this->delivery = new DeliveryForm();
         $this->customer = new CustomerForm();
-        $this->payment = new PaymentForm();
+        //$this->payment = new PaymentForm();
         parent::__construct($config);
     }
 
@@ -29,6 +29,6 @@ class OrderForm extends CompositeForm
 
     protected function internalForms(): array
     {
-        return ['delivery', 'customer', 'payment'];
+        return ['delivery', 'customer'];
     }
 }

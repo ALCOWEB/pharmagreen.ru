@@ -6,8 +6,12 @@ use yii\widgets\DetailView;
 use yii\helpers\Url;
 $this->title = 'Спасибо за заказ!';
 ?>
-<div class="col-md-12">
-    <p>Ваш заказ <strong>№<?php echo $order->id;?></strong> успешно оформлен.</p>
+
+
+<div class="cabinet-index">
+    <div class="Checkout_section mt-70">
+        <div class="container">
+        <p>Ваш заказ <strong>№<?php echo $order->id;?></strong> успешно оформлен.</p>
     <p>Мы отправили данные заказа на указанную Вами почту: <strong><?php echo $order->email;?></strong></p>
     <p>В ближайшее время наш менеджер свяжется с Вами по телефону или по e-mail и подтвердит заказ. </p>
 
@@ -90,9 +94,7 @@ $this->title = 'Спасибо за заказ!';
             </tbody>
         </table>
     </div>
-
-
+           
+        </div>
+    </div>
 </div>
-
-
-

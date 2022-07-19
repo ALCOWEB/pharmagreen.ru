@@ -105,7 +105,18 @@ class CartController extends Controller
                     Yii::$app->errorHandler->logException($e);
                     Yii::$app->session->setFlash('error', $e->getMessage());
                 }
+            } else {
+                try {
+                    $this->service->add($product->id, null, 1);
+                    Yii::$app->session->setFlash('success', 'Товар добавлен в корзину!');
+                    return CartWidget::widget();
+                } catch (\DomainException $e) {
+                    Yii::$app->errorHandler->logException($e);
+                    Yii::$app->session->setFlash('error', $e->getMessage());
+                }
             }
+
+           
 
             // if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             //     try {

@@ -92,10 +92,28 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                 </div>
-                <button>Физ. лицо</button>
-                <button>Организация</button>
-                <?php $form = ActiveForm::begin() ?>
-                <?=$form->errorSummary($model);?>
+        
+                <div class="row" style="margin-bottom: 10px;">
+                    <div class="col-lg-4 col-md-4">
+                       <p style="font-weight: bold; font-size: 16px;text-transform: uppercase;margin-bottom: 5px;">Выберите тип плательщика:</p>
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" style="width: 20px; height: 20px;" name="inlineRadioOptions" id="inlineRadio1" value="option1"  checked="checked">
+                        <label class="form-check-label" for="inlineRadio1"><p>Юридическое лицо</p></label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" style="width: 20px; height: 20px;" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                        <label class="form-check-label" for="inlineRadio2"><p>Физическое лицо</p></label>
+                        </div>
+                    </div>
+                </div>  
+              
+               
+                <?php $formFiz = ActiveForm::begin(['id' => 'fizlico', 'options' => ['style' => 'display:none;']]) ?>
+                <?php 
+                    echo $formFiz->field($model->customer, 'inn')->hiddenInput(['value'=> 111])->label(false);
+                    echo $formFiz->field($model->customer, 'companyName')->hiddenInput(['value'=> 'нет названия компании'])->label(false);
+                    echo $formFiz->field($model->customer, 'urAddress')->hiddenInput(['value'=> 'нет юр.адреса'])->label(false);
+                ?>
                 <div class="row">
                     <div class="col-lg-4 col-md-4">
 
@@ -104,17 +122,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 <div class="col-lg-12 mb-20">
 
-                                    <?= $form->field($model->customer, 'name')->textInput()->label('Имя') ?>
+                                    <?= $formFiz->field($model->customer, 'name')->textInput()->label('Имя') ?>
                                 </div>
+                                
 
                                 <div class="col-lg-12 mb-20">
-                                    <?= $form->field($model->customer, 'phone')->widget(MaskedInput::class, [
+                                    <?= $formFiz->field($model->customer, 'phone')->widget(MaskedInput::class, [
+                                        'options' => ['id' => 'fizOrderMask'],
                                         'mask' => '+7 (999) 999 99 99',
-                                    ])->textInput()->label('Телефон');?>
+                                    ])->textInput(['id' => 'fizOrderMask', 'placeholder' => '+7 (999) 999 99 99'])->label('Телефон');?>
 
                                 </div>
                                 <div class="col-lg-12 mb-20">
-                                    <?= $form->field($model->customer, 'email')->textInput()->label('E-mail') ?>
+                                    <?= $formFiz->field($model->customer, 'email')->textInput()->label('E-mail') ?>
 
                                 </div>
 
@@ -122,7 +142,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 <div class="col-12">
                                     <div class="order-notes">
-                                        <?= $form->field($model, 'note')->textarea(['rows' => 3])->label('Комментарий к заказу')?>
+                                        <?= $formFiz->field($model, 'note')->textarea(['rows' => 3])->label('Комментарий к заказу')?>
                                     </div>
                                 </div>
                             </div>
@@ -133,54 +153,104 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                     <div class="col-lg-4 col-md-4">
-                            <h3>Способ доставки</h3>
+                        
                      <div class="row">
-                        <div class="col-lg-12 mb-20">
-
-<!--                            --><?//= $form->field($model->delivery, 'method')->dropDownList($model->delivery->deliveryMethodsList(), ['prompt' => '--- Select ---', 'encode' => false ])->label('Выбор метода доставки') ?><!-- -->
-                            <?= $form->field($model->delivery, 'method')->radioList($model->delivery->deliveryMethodsList(),['unselect' => null,
-                                'item' => function ($index, $label, $name, $checked, $value) use ($model){
-                    return '<div class="panel-default" style="display:flex;align-items:baseline;">'.Html::radio($name, $checked, ['value' => $value, 'id' => 'delivery'.$value,'class' => 'project-status-btn', 'onchange' => 'makeActiveDelivery(this)']).'<label class="'.($checked ? ' active'  : '') .' " for="delivery'.$value.'" >' . $label .'<div class="delivery" style="display:none">'.$model->delivery->description($value).'</div></label></div>';
-                },] )->label('') ?>
-
-
-                        </div>
-                        <div class="col-12 mb-20">
+                       
+                        <div class="col-12">
                             <h3>Данные доставки</h3>
 
                         </div>
 
                         <div class="col-lg-12 mb-20">
-                            <?= $form->field($model->delivery, 'address')->textarea(['rows' => 3])->label('Адрес') ?>
-                        </div>
-
-                        <div class="col-lg-12 mb-20">
-                            <?= $form->field($model->delivery, 'index')->textInput()->label('Индекс') ?>
-
+                            <?= $formFiz->field($model->delivery, 'address')->textarea(['rows' => 3])->label('Адрес') ?>
                         </div>
                      </div>
+                     <div class="order_button">
+                            <?= Html::submitButton('Оформить заказ', ['class' => '']) ?>
+                            <?= Html::a('Быстрый заказ', ['#'], ['class' => 'btn btn-primary', 'data-toggle' => "modal", 'data-target' => "#modal_box_checkout"]) ?>
+                        </div>
+
+                    </div>
+
+                      <div class="col-lg-4 col-md-4">
+                    </div>
+                </div>
+                <?php ActiveForm::end() ?>
+
+                <?php $formUr = ActiveForm::begin(['id' => 'Urlico']) ?>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+
+                            <h3>Данные покупателя</h3>
+                            <div class="row">
+
+
+                                <div class="col-lg-12 mb-20">
+                                     <?= $formUr->field($model->customer, 'companyName')->textInput()->label('Название компании') ?>
+                                </div>
+
+                                <div class="col-lg-12 mb-20">
+                                     <?= $formUr->field($model->customer, 'inn')->textInput()->label('ИНН') ?>
+                                </div>
+                                <div class="col-lg-12 mb-20">
+
+                                    <?= $formUr->field($model->customer, 'name')->textInput()->label('Контактное лицо') ?>
+                                </div>
+
+                                <div class="col-lg-12 mb-20">
+                                    <?= $formUr->field($model->customer, 'phone')->widget(MaskedInput::class, [
+                                        'options' => ['id' => 'urOrderMask'],
+                                        'mask' => '+7 (999) 999 99 99',
+                                    ])->textInput(['id' => 'urOrderMask', 'placeholder' => '+7 (999) 999 99 99'])->label('Телефон');?>
+
+                                </div>
+                                <div class="col-lg-12 mb-20">
+                                    <?= $formUr->field($model->customer, 'email')->textInput()->label('E-mail') ?>
+
+                                </div>
+
+                                <div class="col-lg-12 mb-20">
+                                     <?= $formUr->field($model->customer, 'urAddress')->textInput()->label('Юридический адрес') ?>
+                                </div>
+
+
+                                
+
+
+
+                                <div class="col-12">
+                                    <div class="order-notes">
+                                        <?= $formUr->field($model, 'note')->textarea(['rows' => 3])->label('Комментарий к заказу')?>
+                                    </div>
+                                </div>
+                            </div>
+
 
 
                     </div>
 
+
                     <div class="col-lg-4 col-md-4">
-                        <h3>Выбор способа оплаты</h3>
-
-                        <div class="row">
-                            <div class="col-lg-12 mb-20">
-
-                                <?= $form->field($model->payment, 'method')->radioList($model->payment->paymentMethodsList(),['unselect' => null,
-                                    'item' => function ($index, $label, $name, $checked, $value) use ($model){
-                                        return '<div class="panel-default" style="display:flex;align-items:baseline;">'.Html::radio($name, $checked, ['value' => $value, 'id' => 'payment'.$value,'class' => 'project-status-btn', 'onchange' => 'makeActivePayment(this)']).'<label class="'.($checked ? ' active'  : '') .' " for="payment'.$value.'" >' . $label .'<div class="payment" style="display:none">'.$model->payment->description($value).'</div></label></div>';
-                                    },] )->label('') ?>
-                            </div>
+                        
+                     <div class="row">
+                       
+                        <div class="col-12">
+                            <h3>Данные доставки</h3>
 
                         </div>
-                        <div class="order_button">
+
+                        <div class="col-lg-12 mb-20">
+                            <?= $formUr->field($model->delivery, 'address')->textarea(['rows' => 3])->label('Адрес') ?>
+                        </div>
+                     </div>
+                     <div class="order_button">
                             <?= Html::submitButton('Оформить заказ', ['class' => '']) ?>
+                            <?= Html::a('Быстрый заказ', ['#'], ['class' => 'btn btn-primary', 'data-toggle' => "modal", 'data-target' => "#modal_box_checkout"]) ?>
                         </div>
 
+                    </div>
 
+                      <div class="col-lg-4 col-md-4">
                     </div>
                 </div>
                 <?php ActiveForm::end() ?>
@@ -188,6 +258,67 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <!--Checkout page section end-->
+
+    <!-- modal area start-->
+        <div class="modal fade" id="modal_box_checkout" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog" style="display: -ms-flexbox; display: flex; -ms-flex-align: center; align-items: center; min-height: calc(100% - 1rem);"  role="document">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-x"></i></span>
+                    </button>
+                    <div class="modal_body">
+                        <div class="container">
+                            <div class="checkout_form">
+
+                                <?php $form_fast = ActiveForm::begin(['id' => 'fastOrderForm']) ?>
+                                <div class="row">
+                                    <div class="col-lg-12">
+
+                                            <p  style="font-size: 32px; font-weight: bold; text-align: center;">Быстрый заказ</p>
+                                            <p  style="text-align: center; padding-bottom:29px;">Заполните форму и мы Вам перезвоним!</p>
+                                            <div class="row">
+
+                                                <div class="col-lg-12 mb-20">
+
+                                                    <?= $form_fast->field($model->customer, 'name')->textInput(['placeholder' => 'Имя'])->label(false) ?>
+                                                </div>
+
+                                                <div class="col-lg-12 mb-20">
+                                                    <?= $form_fast->field($model->customer, 'phone')->widget(MaskedInput::class, [
+                                                           'options' => ['id' => 'fastOrderMask'],
+                                                        'mask' => '+7 (999) 999 99 99'
+                                                    ])->textInput(['id' => 'fastOrderMask', 'placeholder' => '+7 (999) 999 99 99'])->label(false)?>
+
+                                                </div>
+                                                <div class="col-lg-12 mb-20">
+                                                    <?= $form_fast->field($model->customer, 'email')->textInput(['placeholder' => 'E-Mail'])->label(false) ?>
+
+                                                </div>
+
+
+
+                                                <div class="col-12">
+                                                    <div class="order-notes">
+                                                        <?= $form_fast->field($model, 'note')->textarea(['rows' => 3, 'placeholder' => 'Комментарий к заказу'])->label(false)?>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="order_button">
+                                              <?= Html::submitButton('Оформить заказ', ['class' => '']) ?>
+                                            </div>
+
+                                    </div>
+                                </div>
+                                <?php ActiveForm::end() ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal area end-->
+
 
     <script>
         function makeActiveDelivery(div){

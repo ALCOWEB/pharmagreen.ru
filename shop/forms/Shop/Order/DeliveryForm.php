@@ -14,11 +14,11 @@ class DeliveryForm extends Model
     public $address;
 
 
-    private $_weight;
 
-    public function __construct(int $weight, array $config = [])
+
+    public function __construct(array $config = [])
     {
-        $this->_weight = $weight;
+
         parent::__construct($config);
     }
 
@@ -26,7 +26,6 @@ class DeliveryForm extends Model
     {
         return [
             [['method'], 'integer'],
-            [['index', 'address', ], 'required', 'message' => 'это поле не может быть пустым'],
             [['index', 'address', ], 'string', 'max' => 255],
 
         ];
@@ -43,9 +42,4 @@ class DeliveryForm extends Model
         });
     }
 
-    public function description($value){
-        if ($value == 1){return 'Почтой';}
-        if ($value == 2){return 'Сдэк';}
-
-    }
 }

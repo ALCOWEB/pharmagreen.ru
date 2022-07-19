@@ -867,5 +867,15 @@
         }	
     });	
 
+    //$(".studentq").hide();
+    $('input[type="radio"]').click(function() {
+    if ($(this).attr("value") == "option1") {
+        $("#Urlico").show();
+        $("#fizlico").hide();
+    } else {
+        $("#Urlico").hide();
+        $("#fizlico").show();
+    }
+    });
 
 })(jQuery);

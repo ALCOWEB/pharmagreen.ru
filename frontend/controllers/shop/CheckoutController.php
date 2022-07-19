@@ -3,6 +3,7 @@
 namespace frontend\controllers\shop;
 
 use shop\cart\Cart;
+use shop\cart\CartItem;
 use shop\forms\Shop\Order\OrderForm;
 use shop\forms\auth\SignupForm;
 use shop\readModels\Shop\OrderReadRepository;
@@ -13,6 +14,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\helpers\Url;
 use yii\mail\MailerInterface;
+use shop\entities\Shop\Product\Product;
 
 class CheckoutController extends Controller
 {
@@ -53,9 +55,13 @@ class CheckoutController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {
-        $form = new OrderForm($this->cart->getWeight());
+    {  
+     if(!$this->cart->getItems()){
+        return $this->redirect(['shop/cart/index']);
+     }
+          
 
+        $form = new OrderForm();
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
 
            if (!Yii::$app->user->isGuest){
@@ -73,26 +79,17 @@ class CheckoutController extends Controller
                           $order = $this->service->checkout($user->id, $form);
                           //return $this->render('checkout-info');
                           //return $this->redirect(Url::to(['/checkout/checkout-info', 'id' => $order->id]));
-                          if ($order->payment_method == 'Банковская карта'){
-                              return $this->redirect(Url::to(['/payment/robokassa/invoice', 'id' => $order->id]));
-                          } else {
                               return $this->render('checkout-info', [
                                   'order' => $order
                               ]);
-                          }
-
                       } else {
 
                           $password =  $this->signup_service->signup_order($form);
                           $user = $this->signup_service->getByEmail($form->customer->email);
                           $order = $this->service->checkout($user->id, $form, $password);
-                          if ($order->payment_method == 'Банковская карта'){
-                              return $this->redirect(Url::to(['/payment/robokassa/invoice', 'id' => $order->id]));
-                          } else {
                               return $this->render('checkout-info', [
                                   'order' => $order
                               ]);
-                          }
                           //return $this->redirect(Url::to(['/cabinet/order', 'id' => $order->id]));
                       }
                } catch (\DomainException $e) {

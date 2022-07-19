@@ -105,8 +105,8 @@ $this->params['active_category'] = $product->category;
                                 <h3 style="margin-bottom:15px;">Доступные модификации:</h3>
         
                                 <?= $form->field($cartForm, 'modification')->dropDownList($modifications, ['prompt' => 'Выбрать опцию', 'encode' => false,'class' => 'form-control modification-select'])->label(false) ?>
-                                <!-- <?= $form->field($cartForm, 'modification')->radioList($modifications)->label(false) ?> -->
-                                <!-- <?= $form->field($cartForm, 'modification')->checkboxList($modifications);?> -->
+                                <!-- <?php //echo $form->field($cartForm, 'modification')->radioList($modifications)->label(false) ?> -->
+                                <!-- <?php //echo $form->field($cartForm, 'modification')->checkboxList($modifications);?> -->
                             <?php endif; ?>
                             <div class="quantity_inner">
                                 

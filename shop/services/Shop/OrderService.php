@@ -81,10 +81,11 @@ class OrderService
         );
 
 
-        $order->setPaymentMethod($this->paymentMethods->get($form->payment->method));
+        //$order->setPaymentMethod($this->paymentMethods->get($form->payment->method));
+         $order->setPaymentMethod(null);
 
         $order->setDeliveryInfo(
-            $this->deliveryMethods->get($form->delivery->method),
+            null,
             new DeliveryData(
                 $form->delivery->index,
                 $form->delivery->address

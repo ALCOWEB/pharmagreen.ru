@@ -54,17 +54,28 @@ class Order extends ActiveRecord
         $this->note = $note;
     }
 
-    public function setDeliveryInfo(DeliveryMethod $method, DeliveryData $deliveryData): void
-    {
-        $this->delivery_method_id = $method->id;
-        $this->delivery_method_name = $method->name;
-        $this->delivery_cost = $method->cost;
-        $this->deliveryData = $deliveryData;
+    public function setDeliveryInfo(DeliveryMethod $method = null, DeliveryData $deliveryData): void
+    {  
+        if($method){
+            $this->delivery_method_id = $method->id;
+            $this->delivery_method_name = $method->name;
+            $this->delivery_cost = $method->cost;
+            $this->deliveryData = $deliveryData;
+        } else {
+            $this->delivery_method_name = 'метод доставки не задан';
+            $this->deliveryData = $deliveryData;
+        }
+        
+        
     }
 
-    public function setPaymentMethod(PaymentMethod $method): void
-    {
+    public function setPaymentMethod(PaymentMethod $method = null): void
+    {  if($method){
         $this->payment_method = $method->name;
+       } else {
+        $this->payment_method = null;
+       }
+    
 
     }
 

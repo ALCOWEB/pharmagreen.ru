@@ -9,9 +9,12 @@ $this->title = 'Вход';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+  <div class="container">
+    <h1><?php echo Html::encode($this->title);?></h1>
 
-            <!--login area start-->
-            <div class="col-lg-6 col-md-6">
+        <div class="row">
+          <!--login area start-->
+          <div class="col-lg-6 col-md-6">
                 <div class="account_form">
                     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
@@ -38,8 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <!--login area start-->
 
-            <!--register area start-->
-            <div class="col-lg-6 col-md-6">
+        </div>
+
+        
+        <div class="row">
+           <!--register area start-->
+           <div class="col-lg-6 col-md-6">
                 <div class="well">
 
                     <p><strong>Зарегестрировать аккаунт</strong></p>
@@ -54,6 +61,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]); ?>
                 </div>
             </div>
+        </div>
+
+
+    </div>
+
+
+  
+
+          
 
 
 
