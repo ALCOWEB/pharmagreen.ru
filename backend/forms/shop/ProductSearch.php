@@ -30,7 +30,7 @@ class ProductSearch extends Model
      * @param array $params
      * @return ActiveDataProvider
      */
-    public function search(array $params): ActiveDataProvider
+    public function  search(array $params): ActiveDataProvider
     {
         $query = Product::find()->with('mainPhoto', 'category');
         $query->joinWith(['values'])->distinct();

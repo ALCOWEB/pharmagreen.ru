@@ -10,6 +10,7 @@ use shop\readModels\Shop\TagReadRepository;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use shop\services\manage\Shop\ReviewManageService;
+use backend\forms\Shop\ProductSearch;
 use yii;
 class CatalogController extends Controller
 {
@@ -41,10 +42,13 @@ class CatalogController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {
-        $dataProvider = $this->products->getAll();
+    { 
+        $searchModel = new ProductSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+       // $dataProvider = $this->products->getAll();
         $category = $this->categories->getRoot();
         return $this->render('index', [
+            'search' => $searchModel,
             'category' => $category,
             'dataProvider' => $dataProvider,
         ]);

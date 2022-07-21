@@ -14,5 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ]) ?>
 
 <?= $this->render('_list', [
+    'search' => $search,
     'dataProvider' => $dataProvider
 ]) ?>
