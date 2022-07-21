@@ -119,9 +119,10 @@ $this->params['active_category'] = $product->category;
                                 <!-- <label>Колличество</label> -->
                                
                                 <?= Html::submitButton('Добавить в корзину', ['class' => 'button']) ?>
-                                <?= Html::button('Быстрый заказ', ['class' => 'button fast_order']) ?>
+                                
                             </div>
                             <?php ActiveForm::end() ?>
+
                             <strong>Вы так же можете отправить заявку на почту info@calligrafm.ru</strong>
                         </div>
 

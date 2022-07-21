@@ -6,6 +6,8 @@ use shop\helpers\PriceHelper;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use Yii;
+use NumberFormatter;
 class AddToCartForm extends Model
 {
     public $modification;
@@ -27,8 +29,10 @@ class AddToCartForm extends Model
     }
     public function modificationsList(): array
     {
+       
         return ArrayHelper::map($this->_product->modifications, 'id', function (Modification $modification) {
-            return $modification->name . ' (' . PriceHelper::format($modification->price ? $modification->price : $this->_product->price_new).')';
+            $price = $modification->price ? $modification->price : $this->_product->price_new;
+            return $modification->name . ' (' .Yii::$app->formatter->asCurrency($price, 'RUB',  [NumberFormatter::FRACTION_DIGITS => 0]).')';
         });
     }
 }

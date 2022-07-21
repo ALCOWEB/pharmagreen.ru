@@ -17,7 +17,7 @@ $this->title = 'Спасибо за заказ!';
 
 
 
-    <?= DetailView::widget([
+    <!-- <?= DetailView::widget([
         'model' => $order,
         'attributes' => [
             ['attribute' => 'id',
@@ -49,7 +49,7 @@ $this->title = 'Спасибо за заказ!';
                 'label' => 'Заметка'],
 
         ],
-    ]) ?>
+    ]) ?> -->
 
 
 

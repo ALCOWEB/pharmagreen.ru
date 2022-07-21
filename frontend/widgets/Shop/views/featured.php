@@ -147,12 +147,18 @@ use yii\widgets\ActiveForm;
                                                 <h3>Доступные Модификации</h3>
                                                 <?= $form->field($addToCartForm, 'modification')->dropDownList($modifications, ['prompt' => '--- Выбрать модификацию ---'])->label(false) ?>
                                             <?php endif; ?>
-
+<!-- 
                                                 <?= $form->field($addToCartForm, 'quantity', ['template' => "{input}\n{error}",  'options' => [
                                                     'tag' => false, // Don't wrap with "form-group" div
-                                                ],])->input('number', ['style' => 'float:left']) ?>
+                                                ],])->input('number', ['style' => 'float:left']) ?> -->
+                                                <div class="quantity_inner">
+                                                        <?= $form->field($addToCartForm, 'quantity', ['template' => "<button class='btn-qty bt_minus'>-</button>{input}<button class='btn-qty bt_plus'>+</button>\n{error}",  'options' => [
+                                                            'tag' => false, // Don't wrap with "form-group" div
+                                                        ],])->input('number', ['min' => 1, 'class' => 'input-quantity']) ?>
+                                                </div>
                                                 <?= Html::submitButton('Добавить в корзину', []) ?>
 
+                                             
                                             <?php ActiveForm::end() ?>
 
 

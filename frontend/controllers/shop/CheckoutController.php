@@ -62,6 +62,9 @@ class CheckoutController extends Controller
           
 
         $form = new OrderForm();
+
+    
+
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
 
            if (!Yii::$app->user->isGuest){

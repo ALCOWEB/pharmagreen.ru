@@ -166,8 +166,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                      </div>
                      <div class="order_button">
-                            <?= Html::submitButton('Оформить заказ', ['class' => '']) ?>
-                            <?= Html::a('Быстрый заказ', ['#'], ['class' => 'btn btn-primary', 'data-toggle' => "modal", 'data-target' => "#modal_box_checkout"]) ?>
+                            <?= Html::submitButton('Оформить заказ', ['class' => 'btn']) ?>
+                            <?= Html::a('Быстрый заказ', ['#'], ['class' => 'btn', 'data-toggle' => "modal", 'data-target' => "#modal_box_checkout"]) ?>
                         </div>
 
                     </div>
@@ -244,8 +244,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                      </div>
                      <div class="order_button">
-                            <?= Html::submitButton('Оформить заказ', ['class' => '']) ?>
-                            <?= Html::a('Быстрый заказ', ['#'], ['class' => 'btn btn-primary', 'data-toggle' => "modal", 'data-target' => "#modal_box_checkout"]) ?>
+                            <?= Html::submitButton('Оформить заказ', ['class' => 'btn']) ?>
+                            <?= Html::a('Быстрый заказ', ['#'], ['class' => 'btn', 'data-toggle' => "modal", 'data-target' => "#modal_box_checkout"]) ?>
                         </div>
 
                     </div>
@@ -258,7 +258,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <!--Checkout page section end-->
-
+   
     <!-- modal area start-->
         <div class="modal fade" id="modal_box_checkout" tabindex="-1" role="dialog"  aria-hidden="true">
             <div class="modal-dialog" style="display: -ms-flexbox; display: flex; -ms-flex-align: center; align-items: center; min-height: calc(100% - 1rem);"  role="document">
@@ -270,7 +270,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="container">
                             <div class="checkout_form">
 
-                                <?php $form_fast = ActiveForm::begin(['id' => 'fastOrderForm']) ?>
+                            <?php $form_fast = ActiveForm::begin(['id' => 'fastOrderForm']) ?>
+                                <?php 
+                                    echo $form_fast->field($model->customer, 'inn')->hiddenInput(['value'=> 111])->label(false);
+                                    echo $form_fast->field($model->customer, 'companyName')->hiddenInput(['value'=> 'нет названия компании'])->label(false);
+                                    echo $form_fast->field($model->customer, 'urAddress')->hiddenInput(['value'=> 'нет юр.адреса'])->label(false);
+                                    echo $form_fast->field($model->delivery, 'address')->hiddenInput(['value'=> 'нет адреса доставки'])->label(false);
+                                  
+                                ?>
                                 <div class="row">
                                     <div class="col-lg-12">
 
@@ -305,7 +312,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             </div>
 
                                             <div class="order_button">
-                                              <?= Html::submitButton('Оформить заказ', ['class' => '']) ?>
+                                              <?= Html::submitButton('Оформить заказ', ['class' => 'btn']) ?>
                                             </div>
 
                                     </div>
