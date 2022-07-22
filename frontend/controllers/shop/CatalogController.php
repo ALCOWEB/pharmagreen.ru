@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use shop\services\manage\Shop\ReviewManageService;
 use backend\forms\Shop\ProductSearch;
+use shop\entities\Shop\Product\Product;
 use yii;
 class CatalogController extends Controller
 {
@@ -44,11 +45,16 @@ class CatalogController extends Controller
     public function actionIndex()
     { 
         $searchModel = new ProductSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $query = Product::find()->alias('p')->with('mainPhoto');
+        //->active('p')
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $query);
        // $dataProvider = $this->products->getAll();
+       // $dataProvider = $this->products->search($searchModel);
         $category = $this->categories->getRoot();
+      //  $this->view->params['search'] = $searchModel;
+       
         return $this->render('index', [
-            'search' => $searchModel,
+          //  'search' => $searchModel,
             'category' => $category,
             'dataProvider' => $dataProvider,
         ]);
@@ -63,8 +69,13 @@ class CatalogController extends Controller
         if (!$category = $this->categories->find($id)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-
-        $dataProvider = $this->products->getAllByCategory($category);
+        $searchModel = new ProductSearch();
+        $query = Product::find()->alias('p')->with('mainPhoto')->joinWith(['category'], false)->where(['p.category_id' => $id]);
+        
+        //->active('p')
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $query);
+       // $dataProvider = $this->products->getAllByCategory($category);
+        $this->view->params['search'] = $searchModel;
         return $this->render('category', [
             'category' => $category,
             'dataProvider' => $dataProvider,

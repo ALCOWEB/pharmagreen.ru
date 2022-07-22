@@ -7,6 +7,8 @@ use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
+
+
 ?>
 
 <!--shop wrapper start-->
@@ -41,12 +43,7 @@ use yii\widgets\LinkPager;
             </select>
 
     </div>
-    <?php 
-        $searchForm = ActiveForm::begin(['method' => 'GET']);
-           echo  $searchForm->field($search, 'storon')->textInput(['maxlength' => true]);
-
-          ActiveForm::end();              
-    ?>
+  
     <div class="page_amount">
         <select id="input-limit" class="form-control" onchange="location = this.value;">
             <?php

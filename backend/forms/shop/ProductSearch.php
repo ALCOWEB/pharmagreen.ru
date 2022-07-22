@@ -30,14 +30,38 @@ class ProductSearch extends Model
      * @param array $params
      * @return ActiveDataProvider
      */
-    public function  search(array $params): ActiveDataProvider
-    {
-        $query = Product::find()->with('mainPhoto', 'category');
+    public function  search(array $params, $query = null): ActiveDataProvider
+    {   
+        if ($query == null){
+            $query = Product::find()->with('mainPhoto', 'category');
+        }
         $query->joinWith(['values'])->distinct();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
-                'defaultOrder' => ['id' => SORT_DESC]
+                'defaultOrder' => ['id' => SORT_DESC],
+                'attributes' => [
+                    'id' => [
+                        'asc' => ['p.id' => SORT_ASC],
+                        'desc' => ['p.id' => SORT_DESC],
+                    ],
+                    'name' => [
+                        'asc' => ['p.name' => SORT_ASC],
+                        'desc' => ['p.name' => SORT_DESC],
+                    ],
+                    'price' => [
+                        'asc' => ['p.price_new' => SORT_ASC],
+                        'desc' => ['p.price_new' => SORT_DESC],
+                    ],
+                    'rating' => [
+                        'asc' => ['p.rating' => SORT_ASC],
+                        'desc' => ['p.rating' => SORT_DESC],
+                    ],
+                ],
+            ],
+            'pagination' => [
+                'pageSizeLimit' => [3, 100],
+                'defaultPageSize' => 3
             ]
         ]);
         $this->load($params);
