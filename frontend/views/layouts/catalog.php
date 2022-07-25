@@ -2,10 +2,26 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 use frontend\widgets\Shop\TagShopWidget;
-use yii\bootstrap4\ActiveForm;
+use kartik\field\FieldRange;
+use kartik\widgets\ActiveForm;
+use shop\entities\Shop\Product\Product;
 
-
+$price = isset($this->params['search']->price) ? explode(' - ', $this->params['search']->price): 
+[ 
+    $low->price_new
+    ,
+    
+    $max->price_new
+];
 ?>
+<script>
+    var low = <?php echo $this->params['search']->priceRange[0]; ?>; // Don't forget the extra semicolon!
+    var max = <?php echo $this->params['search']->priceRange[1]; ?>; // Don't forget the extra semicolon!
+
+    var lowSearch = <?php echo $price[0]; ?>; // Don't forget the extra semicolon!
+    var maxSearch = <?php echo $price[1]; ?>; // Don't forget the extra semicolon!
+    
+</script>
 <?php $this->beginContent('@frontend/views/layouts/main.php') ?>
 
 
@@ -17,8 +33,9 @@ use yii\bootstrap4\ActiveForm;
                     <!--sidebar widget start-->
                     <aside class="sidebar_widget">
                         <div class="widget_inner">
-                            <div class="widget_list widget_categories">
+                            <!-- <div class="widget_list widget_categories">
                                 <h3>Women</h3>
+                                
                                 <ul>
                                     <li class="widget_sub_categories sub_categories1"><a href="javascript:void(0)">Shoes</a>
                                         <ul class="widget_dropdown_categories dropdown_categories1">
@@ -48,22 +65,23 @@ use yii\bootstrap4\ActiveForm;
                                         </ul>
                                     </li>
                                 </ul>
-                            </div>
-                            <div class="widget_list widget_filter">
+                            </div> -->
+                           
+                            <?php 
+        $searchForm = ActiveForm::begin(['method' => 'GET', 'action' => 'catalog']);
+           
+           echo  $searchForm->field($this->params['search'], 'storon')->textInput(['maxlength' => true]);?>
+           
+           <div class="widget_list widget_filter">
                                 <h3>Filter by price</h3>
-                                <form action="#"> 
                                     <div id="slider-range"></div>   
                                     <button type="submit">Filter</button>
-                                    <input type="text" name="text" id="amount" />   
-
-                                </form> 
+                                    <?=   $searchForm->field($this->params['search'], 'price')->textInput(['maxlength' => true, 'id' => 'amount', 'class' => null]);   ?>
+                                   
                             </div>
-                            <?php 
-        $searchForm = ActiveForm::begin(['method' => 'GET']);
-           echo  $searchForm->field($this->params['search'], 'storon')->textInput(['maxlength' => true]);
+                     
 
-          ActiveForm::end();              
-    ?>
+     <?php     ActiveForm::end();           ?>
                             <div class="widget_list widget_color">
                                 <h3>Select By Color</h3>
                                 <ul>

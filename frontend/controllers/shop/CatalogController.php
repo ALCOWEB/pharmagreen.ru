@@ -51,7 +51,7 @@ class CatalogController extends Controller
        // $dataProvider = $this->products->getAll();
        // $dataProvider = $this->products->search($searchModel);
         $category = $this->categories->getRoot();
-      //  $this->view->params['search'] = $searchModel;
+        $this->view->params['search'] = $searchModel;
        
         return $this->render('index', [
           //  'search' => $searchModel,

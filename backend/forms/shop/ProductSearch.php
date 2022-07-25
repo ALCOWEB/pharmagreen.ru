@@ -19,11 +19,16 @@ class ProductSearch extends Model
     public $new;
     public $sale;
     public $storon;
+    public $price;
+    public $priceRange;
+
+
+
     public function rules(): array
     {
         return [
-            [['id', 'category_id', 'brand_id', 'status', 'quantity', 'new', 'sale'], 'integer'],
-            [['code', 'name', 'storon'], 'safe'],
+            [['id', 'category_id', 'brand_id', 'status', 'quantity', 'new', 'sale',], 'integer'],
+            [['code', 'name', 'storon', 'price'], 'safe'],
         ];
     }
     /**
@@ -79,9 +84,23 @@ class ProductSearch extends Model
             'sale' => $this->sale,
             'shop_values.value' => $this->storon,
         ]);
+        $low = Product::find()->select(['price_new'])->orderBy(['price_new' => SORT_ASC])->one();
+        $max = Product::find()->select(['price_new'])->orderBy(['price_new' => SORT_DESC])->one();
+        $this->priceRange = [$low->price_new,  $max->price_new];
+        $price = isset($this->price) ? explode(' - ', $this->price): 
+        [ 
+            $low->price_new
+            ,
+            
+            $max->price_new
+        ];
+      
+        $this->price = implode(' - ', $price);
+     
         $query
             ->andFilterWhere(['like', 'code', $this->code])
-            ->andFilterWhere(['like', 'name', $this->name]);
+            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['between', 'price_new', $price[0], $price[1]]);
         return $dataProvider;
     }
     public function categoriesList(): array
