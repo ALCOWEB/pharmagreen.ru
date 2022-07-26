@@ -51,10 +51,9 @@ class CatalogController extends Controller
        // $dataProvider = $this->products->getAll();
        // $dataProvider = $this->products->search($searchModel);
         $category = $this->categories->getRoot();
-        $this->view->params['search'] = $searchModel;
-       
+        //$this->view->params['search'] = $searchModel;
         return $this->render('index', [
-          //  'search' => $searchModel,
+            'search' => $searchModel,
             'category' => $category,
             'dataProvider' => $dataProvider,
         ]);
@@ -74,9 +73,9 @@ class CatalogController extends Controller
         
         //->active('p')
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $query);
-       // $dataProvider = $this->products->getAllByCategory($category);
-        $this->view->params['search'] = $searchModel;
+        //$dataProvider = $this->products->getAllByCategory($category);
         return $this->render('category', [
+            'search' => $searchModel,
             'category' => $category,
             'dataProvider' => $dataProvider,
         ]);

@@ -23,15 +23,17 @@ return [
 
         'catalog' => 'shop/catalog/index',
 
-     //   ['class' => 'frontend\urls\CategoryUrlRule'],
+        ['class' => 'frontend\urls\CategoryUrlRule'],
         'catalog/<id:\d+>' => 'shop/catalog/product',
+       // 'catalog/<slug:[\w\-]+>' => 'shop/catalog/category',
+       
         'cabinet' => 'cabinet/default/index',
         'cabinet/<_c:[\w\-]+>' => 'cabinet/<_c>/index',
         'cabinet/order/view-guest/<id_hash:\w+>' => 'cabinet/order/view-guest',
         'cabinet/<_c:[\w\-]+>/<id:\d+>' => 'cabinet/<_c>/view',
         'cabinet/<_c:[\w\-]+>/<_a:[\w-]+>' => 'cabinet/<_c>/<_a>',
         'cabinet/<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => 'cabinet/<_c>/<_a>',
-       // ['class' => 'frontend\urls\PageUrlRule'],
+        ['class' => 'frontend\urls\PageUrlRule'],
         '<_c:[\w\-]+>' => '<_c>/index',
         '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
         '<_c:[\w\-]+>/<_a:[\w-]+>' => '<_c>/<_a>',

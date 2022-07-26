@@ -15,8 +15,14 @@ foreach ($category->parents as $parent) {
 $this->params['breadcrumbs'][] = $category->name;
 $this->params['active_category'] = $category;
 ?>
+<?php 
+    echo $this->render('_filter', [
+        'search' => $search
+    ])
+ ?>
 
-<h1><?= Html::encode($category->getHeadingTile()) ?></h1>
+<div class="col-lg-9 col-md-12">
+<h1><?= Html::encode($this->title) ?></h1>
 
 <?= $this->render('_subcategories', [
     'category' => $category
@@ -38,4 +44,9 @@ $this->params['active_category'] = $category;
 
 <?= $this->render('_list', [
     'dataProvider' => $dataProvider
-]) ?>
+]) ?>          
+
+</div>
+
+
+

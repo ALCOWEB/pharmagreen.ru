@@ -576,9 +576,9 @@
     /*---slider-range here---*/
     $( "#slider-range" ).slider({
         range: true,
-        min: low,
-        max: max,
-        values: [ lowSearch, maxSearch ],
+        min: typeof(low) != "undefined" && low !== null ? low : 0,
+        max: typeof(max) != "undefined" && max !== null ? max : 0,
+        values: [ typeof(lowSearch) != "undefined" && lowSearch !== null ? lowSearch : 0, typeof(maxSearch) != "undefined" && maxSearch !== null ? maxSearch : 0 ],
         slide: function( event, ui ) {
         $( "#amount" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
        }
