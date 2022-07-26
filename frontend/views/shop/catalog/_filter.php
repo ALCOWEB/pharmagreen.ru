@@ -55,7 +55,7 @@ $price = explode(' - ', $search->price );
                            
                             <?php 
                        
-        $searchForm = ActiveForm::begin(['method' => 'GET', 'action' => ['']]);
+        $searchForm = ActiveForm::begin(['method' => 'POST']);
            
            echo  $searchForm->field( $search, 'storon')->textInput(['maxlength' => true]);?>
            
