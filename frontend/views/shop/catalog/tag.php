@@ -8,11 +8,24 @@ $this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $tag->name;
 ?>
 
+
+<div class="col-lg-9 col-md-12">
+<?php
+// echo $this->render('_filter', [
+//     'search' => $search
+// ]) 
+?>
+
 <h1>Товары с тэгом &laquo;<?= Html::encode($tag->name) ?>&raquo;</h1>
-
-<hr />
-
 <?= $this->render('_list', [
+    //'search' => $search,
     'dataProvider' => $dataProvider
-]) ?>
+]) ?>      
 
+
+
+
+
+          
+
+</div>

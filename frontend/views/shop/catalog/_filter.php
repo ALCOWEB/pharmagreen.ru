@@ -1,6 +1,8 @@
 <?php
 use kartik\widgets\ActiveForm;
 use frontend\widgets\Shop\TagShopWidget;
+use yii\helpers\Url;
+use yii\helpers\Html;
 
 $price = explode(' - ', $search->price );
 ?>
@@ -52,20 +54,27 @@ $price = explode(' - ', $search->price );
                                     </li>
                                 </ul>
                             </div> -->
-                           
-                            <?php 
-                       
-        $searchForm = ActiveForm::begin(['method' => 'POST']);
-           
-           echo  $searchForm->field( $search, 'storon')->textInput(['maxlength' => true]);?>
-           
+          
+                            
+                            <?php  
+
+ 
+
+ $action = [''];
+
+ isset(Yii::$app->request->queryParams['id']) ? $action['id'] = Yii::$app->request->queryParams['id'] : '';
+ ?>   
+    
+                                            
+    <?php $searchForm = ActiveForm::begin(['method' => 'GET', 'action' => $action ]);?>
            <div class="widget_list widget_filter">
-                                <h3>Filter by price</h3>
-                                    <div id="slider-range"></div>   
-                                    <button type="submit">Filter</button>
-                                    <?=   $searchForm->field( $search, 'price')->textInput(['maxlength' => true, 'id' => 'amount', 'class' => null]);   ?>
-                                   
-                            </div>
+                <h3>Розничная цена</h3>
+                <div id="slider-range"></div>   
+                <?=   $searchForm->field( $search, 'price')->textInput(['maxlength' => true, 'id' => 'amount', 'class' => null]);   ?>
+                    
+            </div>
+            <!-- <?php echo  $searchForm->field( $search, 'storon')->checkboxList(['Односторонняя' => 'Односторонний', 'Двухсторонняя' => 'Двухсторонний']); ?> -->
+ 
                      
 
      <?php     ActiveForm::end();           ?>

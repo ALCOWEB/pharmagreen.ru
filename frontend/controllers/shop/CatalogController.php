@@ -45,9 +45,9 @@ class CatalogController extends Controller
     public function actionIndex()
     { 
         $searchModel = new ProductSearch();
-        $query = Product::find()->alias('p')->with('mainPhoto');
+        $query = Product::find()->alias('p')->with('mainPhoto', 'category');
         //->active('p')
-        $dataProvider = $searchModel->search(Yii::$app->request->post(), $query);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $query);
        // $dataProvider = $this->products->getAll();
        // $dataProvider = $this->products->search($searchModel);
         $category = $this->categories->getRoot();
@@ -72,7 +72,7 @@ class CatalogController extends Controller
         $query = Product::find()->alias('p')->with('mainPhoto')->joinWith(['category'], false)->where(['p.category_id' => $id]);
         
         //->active('p')
-        $dataProvider = $searchModel->search(Yii::$app->request->post(), $query);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $query);
         //$dataProvider = $this->products->getAllByCategory($category);
         return $this->render('category', [
             'search' => $searchModel,
@@ -114,6 +114,7 @@ class CatalogController extends Controller
             'tag' => $tag,
             'dataProvider' => $dataProvider,
         ]);
+
     }
     /**
      * @param $id
