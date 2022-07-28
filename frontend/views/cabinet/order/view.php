@@ -16,8 +16,13 @@ $this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
 
 
 
+<div class="shop_area shop_reverse mt-70 mb-70">
+        <div class="container">
+            <div class="row">
+              
 
-    <?= DetailView::widget([
+              
+            <?= DetailView::widget([
         'model' => $order,
         'attributes' => [
             ['attribute' => 'id',
@@ -134,4 +139,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
     </div>
 <?php endif; ?>
 
-</br>
+
+            </div>
+        </div>
+    </div>
+   

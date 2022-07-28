@@ -45,7 +45,7 @@ class CatalogController extends Controller
     public function actionIndex()
     { 
         $searchModel = new ProductSearch();
-        $query = Product::find()->alias('p')->with('mainPhoto', 'category');
+        $query = Product::find()->alias('p')->with('mainPhoto', 'category', 'photos', 'modifications');
         //->active('p')
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $query);
        // $dataProvider = $this->products->getAll();
