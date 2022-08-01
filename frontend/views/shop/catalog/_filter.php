@@ -70,12 +70,35 @@ $price = explode(' - ', $search->price );
            <div class="widget_list widget_filter">
                 <h3>Розничная цена</h3>
                 <div id="slider-range"></div>   
-                <?=   $searchForm->field( $search, 'price')->textInput(['maxlength' => true, 'id' => 'amount', 'class' => null]);   ?>
+                <?=   $searchForm->field( $search, 'price')->textInput(['maxlength' => true, 'id' => 'amount', 'class' => null])->label(false);   ?>
                     
             </div>
-            <!-- <?php echo  $searchForm->field( $search, 'storon')->checkboxList(['Односторонняя' => 'Односторонний', 'Двухсторонняя' => 'Двухсторонний']); ?> -->
+            <div class="widget_list widget_filter">
+            <h3>Количество сторон</h3>
+            <?php echo  $searchForm->field( $search, 'storon')->checkboxList(['Односторонняя' => 'Одна сторона', 'Двухсторонняя' => 'Две стороны'])->label(false); ?>
+                    
+            </div>
+            
  
-                     
+            <div class="widget_list widget_filter">
+            <h3>Вариант крепления</h3>
+            <?php echo  $searchForm->field( $search, 'krepl')->checkboxList(['Настенная' => 'Настенный', 'Подвесная' => 'Подвесной'])->label(false); ?>
+                    
+            </div>   
+
+            <div class="widget_list widget_filter">
+            <h3>Размер</h3>
+            <?php echo  $searchForm->field( $search, 'krepl')->checkboxList([
+                    'A4+' => 'A4+ (постер - 210x297)',
+                    'A3+' => 'A3+ (постер - 297x420)',
+                    'A2+' => 'A2+ (постер - 420x594)',
+                    'A1+' => 'A1+ 594x841',
+                    'A0+' => 'A0+ 841x1189',
+                    'AA' => 'AA 990x1500',
+                    '2AA' => '2AA 1200x1800',
+                     ])->label(false); ?>
+                    
+            </div>   
 
      <?php     ActiveForm::end();           ?>
                             <div class="widget_list widget_color">

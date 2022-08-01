@@ -102,6 +102,7 @@ AppAsset::register($this);
                             </li>
                             <li><a href="<?= Html::encode(Url::to(['/blog/index']))?>">Статьи</a>
                             </li>
+                            <li><a href="<?= Html::encode(Url::to(['/shop/catalog/calculator']))?>">Калькулятор</a></li>
                             <li><a href="<?= Html::encode(Url::to(['/site/about']))?>">О нас</a></li>
                             <li><a href="<?= Html::encode(Url::to(['/site/about']))?>">Доставка и оплата</a></li>
                             <li><a href="<?= Html::encode(Url::to(['contact/index']))?>">Контакты</a></li>
@@ -192,6 +193,7 @@ AppAsset::register($this);
                                     <li><a href="<?= Html::encode(Url::to(['/blog/index']))?>">Статьи</a>
                                     </li>
                                     <li><a href="<?= Html::encode(Url::to(['/site/about']))?>">О нас</a></li>
+                                    <li><a href="<?= Html::encode(Url::to(['/shop/catalog/calculator']))?>">Калькулятор</a></li>
                                     <li><a href="<?= Html::encode(Url::to(['/site/about']))?>">Доставка и оплата</a></li>
                                     <li><a href="<?= Html::encode(Url::to(['contact/index']))?>">Контакты</a></li>
                                 </ul>

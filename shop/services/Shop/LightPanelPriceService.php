@@ -25,6 +25,10 @@ class LightPanelPriceService{
       
 
     }
+
+    public function create(){
+        
+    }
     
     public function calcPrice(Product $product){
         $characteristics_id = $this->characteristics->getIds();
@@ -35,7 +39,7 @@ class LightPanelPriceService{
         foreach($characteristics as $val){
             $characteristicHash[key($val)] = $val[key($val)];
         }
-     //   return  $characteristicHash;
+        //   return  $characteristicHash;
         $sizes = $this->getRealSize($product, $characteristicHash);
 
    

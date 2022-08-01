@@ -1424,10 +1424,11 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 .main_menu nav > ul {
   display: flex;
+  justify-content: space-between;
 }
 .main_menu nav > ul > li {
   position: relative;
-  margin-right: 37px;
+  /* margin-right: 37px; */
 }
 .main_menu nav > ul > li:last-child {
   margin-right: 0;

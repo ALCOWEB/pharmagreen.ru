@@ -12,6 +12,10 @@ use yii\web\NotFoundHttpException;
 use shop\services\manage\Shop\ReviewManageService;
 use backend\forms\Shop\ProductSearch;
 use shop\entities\Shop\Product\Product;
+use shop\services\Shop\LightPanelPriceService;
+use shop\repositories\Shop\CharacteristicRepository;
+use shop\repositories\Shop\MaterialsRepository;
+use shop\repositories\Shop\ProductRepository;
 use yii;
 class CatalogController extends Controller
 {
@@ -42,6 +46,19 @@ class CatalogController extends Controller
     /**
      * @return mixed
      */
+
+    public function actionCalculator()
+    { 
+        
+        $service = new LightPanelPriceService(new ProductRepository, new MaterialsRepository, new CharacteristicRepository);
+        $product = new Product();
+        $service->calcPrice($product);
+        return $this->render('calc', [
+        ]);
+
+    }
+    
+    
     public function actionIndex()
     { 
         $searchModel = new ProductSearch();
@@ -69,7 +86,7 @@ class CatalogController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
         $searchModel = new ProductSearch();
-        $query = Product::find()->alias('p')->with('mainPhoto')->joinWith(['category'], false)->where(['p.category_id' => $id]);
+        $query = Product::find()->alias('p')->with('mainPhoto', 'photos', 'modifications')->joinWith(['category'], false)->where(['p.category_id' => $id]);
         
         //->active('p')
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $query);

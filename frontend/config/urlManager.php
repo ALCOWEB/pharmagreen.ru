@@ -26,7 +26,7 @@ return [
         ['class' => 'frontend\urls\CategoryUrlRule'],
         'catalog/<id:\d+>' => 'shop/catalog/product',
        // 'catalog/<slug:[\w\-]+>' => 'shop/catalog/category',
-       
+        'catalog/calculator' => 'shop/catalog/calculator',
         'cabinet' => 'cabinet/default/index',
         'cabinet/<_c:[\w\-]+>' => 'cabinet/<_c>/index',
         'cabinet/order/view-guest/<id_hash:\w+>' => 'cabinet/order/view-guest',
