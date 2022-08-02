@@ -12,18 +12,21 @@ use yii\base\Model;
 class PanelCalcForm extends Model
 {
     public $category;
-    public $segment;
+    //public $segment;
     public $krepl;
     public $storon;
-
+    public $wight;
+    public $height;
+    public $segment;
+    
 
 
 
     public function rules(): array
     {
         return [
-            [['new'], 'required'],
-            [['old', 'new'], 'integer', 'min' => 0],
+            [['category', 'krepl', 'storon', 'wight', 'height', 'segment'], 'safe'],
+           
         ];
     }
 }

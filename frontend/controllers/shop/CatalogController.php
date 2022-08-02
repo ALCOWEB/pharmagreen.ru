@@ -12,10 +12,14 @@ use yii\web\NotFoundHttpException;
 use shop\services\manage\Shop\ReviewManageService;
 use backend\forms\Shop\ProductSearch;
 use shop\entities\Shop\Product\Product;
+use shop\forms\manage\Shop\Product\PanelCalcForm;
 use shop\services\Shop\LightPanelPriceService;
 use shop\repositories\Shop\CharacteristicRepository;
 use shop\repositories\Shop\MaterialsRepository;
 use shop\repositories\Shop\ProductRepository;
+use shop\entities\Shop\Characteristic;
+use shop\entities\Shop\Category;
+use yii\helpers\ArrayHelper;
 use yii;
 class CatalogController extends Controller
 {
@@ -52,8 +56,37 @@ class CatalogController extends Controller
         
         $service = new LightPanelPriceService(new ProductRepository, new MaterialsRepository, new CharacteristicRepository);
         $product = new Product();
-        $service->calcPrice($product);
+        $form = new PanelCalcForm();
+       // $service->calcPrice($product);
+        $characteristics = Characteristic::find()->all();
+        $charMap = ArrayHelper::map($characteristics, function($characteristic){ return $characteristic->id;}, function($characteristic){ return $characteristic->slug;});
+       // var_dump($charMap);
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+          $product->category_id = Category::find()->where(['name'=>$form->category])->one()->id; 
+          foreach (get_object_vars($form) as $key => $value) {
+            $id = array_search($key, $charMap); 
+            if($id != null){
+                echo $id . '=' . $value.'</br>';
+                $product->setValue($id, $value);
+            }
+           // var_dump($product);
+
+         //sss   var_dump($characteristics);    
+                 
+              //   $product->setValue($id, $value);     
+                    
+          }
+               $service->calcPrice($product);
+               var_dump($product->price_new);
+        }
+               
+                return $this->render('calc', [
+                    'form' => $form
+                ]);
+          
+        
         return $this->render('calc', [
+            'form' => $form
         ]);
 
     }

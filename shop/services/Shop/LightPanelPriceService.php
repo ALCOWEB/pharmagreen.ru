@@ -39,12 +39,13 @@ class LightPanelPriceService{
         foreach($characteristics as $val){
             $characteristicHash[key($val)] = $val[key($val)];
         }
-        //   return  $characteristicHash;
+        // return  $characteristicHash;
         $sizes = $this->getRealSize($product, $characteristicHash);
 
    
         if ($product->category->name == 'Кристалайт' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепления'] == 'Настенная' && $characteristicHash['Количество сторон'] == 'Односторонняя')
-        { 
+        {
+
             
            
             $materials = [

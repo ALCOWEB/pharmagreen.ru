@@ -19,6 +19,7 @@ class ProductSearch extends Model
     public $new;
     public $sale;
     public $storon;
+    public $krepl;
     public $price;
     public $priceRange;
 
@@ -28,7 +29,7 @@ class ProductSearch extends Model
     {
         return [
             [['id', 'category_id', 'brand_id', 'status', 'quantity', 'new', 'sale',], 'integer'],
-            [['code', 'name', 'storon', 'price'], 'safe'],
+            [['code', 'name', 'storon', 'price', 'krepl'], 'safe'],
         ];
     }
     /**
@@ -38,7 +39,8 @@ class ProductSearch extends Model
     public function  search(array $params, $query = null): ActiveDataProvider
     {   
         if ($query == null){
-            $query = Product::find()->with('mainPhoto', 'category');
+            $query = Product::find()->alias('p')->with('mainPhoto', 'category');
+        
         }
         $query->joinWith(['values'])->distinct();
         $dataProvider = new ActiveDataProvider([
@@ -65,8 +67,8 @@ class ProductSearch extends Model
                 ],
             ],
             'pagination' => [
-                'pageSizeLimit' => [3, 100],
-                'defaultPageSize' => 3
+                'pageSizeLimit' => [5, 100],
+                'defaultPageSize' => 5
             ]
         ]);
         $this->load($params);
@@ -83,6 +85,8 @@ class ProductSearch extends Model
             'new' => $this->new,
             'sale' => $this->sale,
             'shop_values.value' => $this->storon,
+            'shop_values.value' => $this->krepl,
+            
         ]);
         $low = Product::find()->select(['price_new'])->orderBy(['price_new' => SORT_ASC])->one();
         $max = Product::find()->select(['price_new'])->orderBy(['price_new' => SORT_DESC])->one();
