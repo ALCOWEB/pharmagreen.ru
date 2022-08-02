@@ -878,4 +878,63 @@
     }
     });
 
+    function hideFilterButton(e) {
+        $(e).css({
+            'display' : 'none',
+        });
+        const el = document.getElementById('goHere');
+        el.scrollIntoView(false);
+    
+    // скроллим страницу на значение равное позиции элемента
+    
+    }
+
+  
+
 })(jQuery);
+
+function change(e) {
+
+
+    pos = $(e).position();
+    button = $('#position');
+    buttonWidth = button.outerWidth();
+
+    if($(window).width() > 990) {
+        button.css({
+            'display' : 'block',
+            'position':'absolute',
+            'top': pos.top,
+            'left': 0 - buttonWidth
+        });
+    }
+           // if ( $("#свой").hasClass("active")) {
+            if ($('#panelcalcform-size').find("input:checked").val() == 'Свой размер') {
+                alert($('#panelcalcform-size').find("input:checked").val());
+            $('.size-choise').css('display', 'block');
+            $('#panelcalcform-height').prop('required',true);
+            $('#panelcalcform-wight').prop('required',true);
+        } else {
+            alert($('#panelcalcform-size').find("input:checked").val());
+            $('.size-choise').css('display', 'none');
+                $('#panelcalcform-height').prop('required',false);
+                $('#panelcalcform-wight').prop('required',false);
+        }
+            if($("#products-kreplen").children("option:selected").val() == 'Настенная' &&  $("#products-storon").children("option:selected").val() == 'двух'){
+                $('select option[value=Подвесная]').prop('selected', true);
+            }
+         // if($("#products-storon").children("option:selected").val() == 'двух'){
+         //
+         //     $('#matrix_qty_block').css('display', 'flex');
+         // } else { $('#matrix_qty_block').css('display', 'none');}
+         //
+         // if ($("#products-matrix_qty").children("option:selected").val() == 1){
+         //     $('#matrix_1').css('display', 'block');
+         //     $('#matrix_2').css('display', 'none');
+         // } else {
+         //     $('#matrix_1').css('display', 'none');
+         //     $('#matrix_2').css('display', 'block');
+         // }
+   // $form.submit();
+
+}

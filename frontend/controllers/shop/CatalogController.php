@@ -19,6 +19,7 @@ use shop\repositories\Shop\MaterialsRepository;
 use shop\repositories\Shop\ProductRepository;
 use shop\entities\Shop\Characteristic;
 use shop\entities\Shop\Category;
+use shop\PanelList\PanelList;
 use yii\helpers\ArrayHelper;
 use yii;
 class CatalogController extends Controller
@@ -63,10 +64,17 @@ class CatalogController extends Controller
        // var_dump($charMap);
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
           $product->category_id = Category::find()->where(['name'=>$form->category])->one()->id; 
+          $listSizes = new PanelList();
+
+          if($form->size != 'Свой размер'){
+            $size = explode('x', $listSizes->sizes[$form->size]);
+            $form->wight = $size[0];
+            $form->height = $size[1];
+          }
           foreach (get_object_vars($form) as $key => $value) {
             $id = array_search($key, $charMap); 
             if($id != null){
-                echo $id . '=' . $value.'</br>';
+              //  echo $id . '=' . $value.'</br>';
                 $product->setValue($id, $value);
             }
            // var_dump($product);
@@ -77,16 +85,16 @@ class CatalogController extends Controller
                     
           }
                $service->calcPrice($product);
-               var_dump($product->price_new);
+             
+               return $this->render('calc', [
+                'model' => $form,
+                'product' => $product
+                 ]);
         }
-               
-                return $this->render('calc', [
-                    'form' => $form
-                ]);
-          
         
         return $this->render('calc', [
-            'form' => $form
+            'model' => $form,
+            'product' => $product
         ]);
 
     }
