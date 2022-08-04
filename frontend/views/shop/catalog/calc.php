@@ -8,6 +8,8 @@ use yii\bootstrap4\ActiveForm;
 use frontend\widgets\shop\TagShopWidget;
 use frontend\widgets\Shop\FilterWidget;
 use shop\PanelList\PanelList;
+use yii\widgets\DetailView;
+use shop\entities\Shop\Product\Value;
 $this->title = 'Калькулятор';
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -15,10 +17,15 @@ $this->params['breadcrumbs'][] = $this->title;
 $list = new PanelList();
 $sizeArray = [];
 foreach($list->sizes as $key => $val){
-    $sizeArray[$key] = $key . ' (постер - '.$val.')';
+    if (strpos($key, '+')){
+        $sizeArray[$key] = $key . ' (постер - '.$val.')';
+    } else {$sizeArray[$key] = $key . ' (габарит - '.$val.')';}
+
 }
 $sizeArray['Свой размер'] = 'Свой размер';
-var_dump($model);
+//var_dump($model);
+echo 'Цена товара - '.$product->price_new;
+//var_dump($product->values);
 ?>
 
 
@@ -55,7 +62,7 @@ var_dump($model);
 
 <div class="for-select-activeform">
     <p class="choise-tag">Способ крепления:</p>
-    <?php echo $form->field($model, 'krepl')->dropDownList(['Настенная' => 'Настенная', 'Подвесная' => 'Подвесная'],['onchange'=>"change(this)"] )->label(false) ?>
+    <?php echo $form->field($model, 'krepl')->radioList(['Настенная' => 'Настенная', 'Подвесная' => 'Подвесная'],['onchange'=>"change(this)"] )->label(false) ?>
 </div>
 
 <div class="for-select-activeform">
@@ -69,6 +76,20 @@ var_dump($model);
 </div>
 
 <div class ='size-choise'>
+    
+<?= $form->field($model, 'wight', [
+        'template' => '{label}{input}',
+        'options' => [
+            'tag'=>false
+        ],
+        'inputOptions' => [
+            'placeholder' => 'Ширина, мм',
+            'class' => 'quantity-num',
+            'size' => 8
+        ]
+
+    ])->textInput(['onchange' => 'change(this)'])->label('Ширина: ') ?>
+
     <?= $form->field($model, 'height', [
         'template' => '{label}{input}',
         'options' => [
@@ -82,22 +103,7 @@ var_dump($model);
 
     ])->textInput(['onchange' => 'change(this)'])->label('Высота: ') ?>
 
-    <?= $form->field($model, 'wight', [
-        'template' => '{label}{input}',
-        'options' => [
-            'tag'=>false
-        ],
-        'inputOptions' => [
-            'placeholder' => 'Ширина, мм',
-            'class' => 'quantity-num',
-            'size' => 8
-        ]
-
-    ])->textInput(['onchange' => 'change(this)'])->label('Ширина: ') ?>
-</div>
-<div class="for-select-activeform">
-    <p class="choise-tag">Учитывать размеры постера или габаритные размеры:</p>
-    <?php echo $form->field($model, 'posterOrGabarit')->dropDownList(['Внутренний' => 'Размер постера', 'Наружный' => 'Габарит панели',],['onchange'=>"change(this)"] )->label(false) ?>
+ 
 </div>
 
 
@@ -126,7 +132,17 @@ var_dump($model);
                             <?php ActiveForm::end() ?>
 
                 </div>
-
+                <div class="product_info_content">
+                                  <?= DetailView::widget([
+                                        'model' => $product,
+                                        'attributes' => array_map(function (Value $value) {
+                                            return [
+                                                'label' => $value->characteristic->name,
+                                                'value' => $value->value,
+                                            ];
+                                        }, $product->values),
+                                    ]) ?>
+                            </div>
 
             </div>
 

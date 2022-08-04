@@ -910,12 +910,12 @@ function change(e) {
     }
            // if ( $("#свой").hasClass("active")) {
             if ($('#panelcalcform-size').find("input:checked").val() == 'Свой размер') {
-                alert($('#panelcalcform-size').find("input:checked").val());
+           
             $('.size-choise').css('display', 'block');
             $('#panelcalcform-height').prop('required',true);
             $('#panelcalcform-wight').prop('required',true);
         } else {
-            alert($('#panelcalcform-size').find("input:checked").val());
+        
             $('.size-choise').css('display', 'none');
                 $('#panelcalcform-height').prop('required',false);
                 $('#panelcalcform-wight').prop('required',false);

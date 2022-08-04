@@ -65,12 +65,63 @@ class CatalogController extends Controller
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
           $product->category_id = Category::find()->where(['name'=>$form->category])->one()->id; 
           $listSizes = new PanelList();
-
+          $form->segment = 'Стандарт';
           if($form->size != 'Свой размер'){
             $size = explode('x', $listSizes->sizes[$form->size]);
-            $form->wight = $size[0];
-            $form->height = $size[1];
-          }
+            if(strpos($form->size, '+')){
+                switch ($form->category) {
+                    case 'Кристалайт':
+                        $form->wight = $size[0]+100;
+                        $form->height = $size[1]+100;
+                        $form->pwight = $size[0];
+                        $form->phight = $size[1];
+                        break;
+                    case 'Фреймлайт':
+                        $form->wight = $size[0]+30;
+                        $form->height = $size[1]+30;
+                        $form->pwight = $size[0];
+                        $form->phight = $size[1];
+                        break;
+                    case 'Магнетик':
+                        $form->wight = $size[0]+30;
+                        $form->height = $size[1]+30;
+                        $form->pwight = $size[0];
+                        $form->phight = $size[1];
+                        break;
+                    default:
+                    $form->wight = $size[0];
+                    $form->height = $size[1];
+                        break;
+                }
+            } else {
+                switch ($form->category) {
+                    case 'Кристалайт':
+                        $form->wight = $size[0];
+                        $form->height = $size[1];
+                        $form->pwight = $size[0]-100;
+                        $form->phight = $size[1]-100;
+                        break;
+                    case 'Фреймлайт':
+                        $form->wight = $size[0];
+                        $form->height = $size[1];
+                        $form->pwight = $size[0]-30;
+                        $form->phight = $size[1]-30;
+                        break;
+                    case 'Магнетик':
+                        $form->wight = $size[0];
+                        $form->height = $size[1];
+                        $form->pwight = $size[0]-30;
+                        $form->phight = $size[1]-30;
+                        break;
+                    default:
+                    $form->wight = $size[0];
+                    $form->height = $size[1];
+                        break;
+                }
+            }
+
+       
+          } 
           foreach (get_object_vars($form) as $key => $value) {
             $id = array_search($key, $charMap); 
             if($id != null){

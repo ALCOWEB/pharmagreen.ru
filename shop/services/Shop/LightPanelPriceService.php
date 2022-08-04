@@ -46,7 +46,7 @@ class LightPanelPriceService{
         if ($product->category->name == 'Кристалайт' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепления'] == 'Настенная' && $characteristicHash['Количество сторон'] == 'Односторонняя')
         {
 
-            
+           
            
             $materials = [
                 'Акрил' =>[$sizes['ploshad_vnesh'],$this->materials->akril_5mm],
@@ -71,7 +71,7 @@ class LightPanelPriceService{
             $product->setValue($characteristics_id['Напряжение питания'], 12);
             $product->setValue($characteristics_id['Потребляемая мощность'], round($sizes['dlina_diod']*11));
             $product->weight = $sizes['ploshad_vnesh']*0.005*1.19*1000 + $sizes['ploshad_vnesh']*0.002*1.2*1000 + $sizes['ploshad_vnesh']*0.002*0.55*1000 + 0.2;
-
+        
         } 
         if ($product->category->name == 'Кристалайт' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепления'] == 'Подвесная'  &&    $characteristicHash['Количество сторон'] == 'Односторонняя') 
         {
@@ -308,6 +308,7 @@ class LightPanelPriceService{
         } 
         if ($product->category->name == 'Магнетик' && $characteristicHash['Ценовой сегмент'] == "Стандарт" && $characteristicHash['Вариант крепления'] == 'Подвесная'  &&    $characteristicHash['Количество сторон'] == 'Односторонняя') 
         {
+     
            
             $materials = [
                 'Акрил' =>[$sizes['ploshad_vnut'],$this->materials->akril_5mm],

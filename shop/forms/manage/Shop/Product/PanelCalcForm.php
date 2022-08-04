@@ -16,7 +16,9 @@ class PanelCalcForm extends Model
     public $krepl;
     public $storon;
     public $wight;
+    public $pwight;
     public $height;
+    public $phight;
     public $segment;
     public $posterOrGabarit;
     public $qty;
@@ -28,7 +30,7 @@ class PanelCalcForm extends Model
     public function rules(): array
     {
         return [
-            [['category', 'krepl', 'storon', 'wight', 'height', 'segment', 'posterOrGabarit', 'qty', 'size'], 'safe'],
+            [['category', 'krepl', 'storon', 'wight', 'pwight', 'height', 'phight','segment', 'posterOrGabarit', 'qty', 'size'], 'safe'],
            
         ];
     }
