@@ -920,9 +920,11 @@ function change(e) {
                 $('#panelcalcform-height').prop('required',false);
                 $('#panelcalcform-wight').prop('required',false);
         }
-            if($("#products-kreplen").children("option:selected").val() == 'Настенная' &&  $("#products-storon").children("option:selected").val() == 'двух'){
-                $('select option[value=Подвесная]').prop('selected', true);
-            }
+        if($('#panelcalcform-storon').find("input:checked").val() == 'Двусторонняя'){
+
+    $('#i2').prop('checked', true);
+    
+        }
          // if($("#products-storon").children("option:selected").val() == 'двух'){
          //
          //     $('#matrix_qty_block').css('display', 'flex');
@@ -938,3 +940,23 @@ function change(e) {
    // $form.submit();
 
 }
+
+window.onload = function() {
+
+    if ($('#panelcalcform-size').find("input:checked").val() == 'Свой размер') {
+
+     
+        $('.size-choise').css('display', 'block');
+        $('#panelcalcform-height').prop('required',true);
+        $('#panelcalcform-wight').prop('required',true);
+    } else {
+        $('.size-choise').css('display', 'none');
+        $('#panelcalcform-height').prop('required',false);
+        $('#panelcalcform-wight').prop('required',false);
+    }
+   
+
+    change();
+   
+};
+

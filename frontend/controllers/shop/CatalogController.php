@@ -139,13 +139,15 @@ class CatalogController extends Controller
              
                return $this->render('calc', [
                 'model' => $form,
-                'product' => $product
+                'product' => $product,
+                'charMap' => $charMap
                  ]);
         }
         
         return $this->render('calc', [
             'model' => $form,
-            'product' => $product
+            'product' => $product,
+            'charMap' => $charMap
         ]);
 
     }

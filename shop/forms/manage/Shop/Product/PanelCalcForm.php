@@ -11,6 +11,7 @@ use yii\base\Model;
  */
 class PanelCalcForm extends Model
 {
+    
     public $category;
     //public $segment;
     public $krepl;
@@ -24,8 +25,12 @@ class PanelCalcForm extends Model
     public $qty;
     public $size;
     
-
-
+    public function __construct($config = [])
+    {
+   
+        $this->qty = 1;
+        parent::__construct($config);
+    }
 
     public function rules(): array
     {

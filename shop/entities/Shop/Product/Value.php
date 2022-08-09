@@ -31,6 +31,7 @@ class Value extends ActiveRecord
     {
         return $this->characteristic_id == $id;
     }
+    
     public static function tableName(): string
     {
         return '{{%shop_values}}';
