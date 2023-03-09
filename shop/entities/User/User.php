@@ -171,12 +171,11 @@ class User extends ActiveRecord implements IdentityInterface
 //    }
 
     public function addPhoto(UploadedFile $file): void
-{
-
-    $photo = $this->photo;
-    $photo = Photo::create($file);
-    $this->updatePhotos($photo);
-}
+    {
+        $photo = $this->photo;
+        $photo = Photo::create($file);
+        $this->updatePhotos($photo);
+    }
 
     public function removePhotos(): void
     {
@@ -252,7 +251,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        return static::findOne(['auth_key' => $token]);
     }
 
     /**
