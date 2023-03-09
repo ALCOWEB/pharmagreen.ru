@@ -25,6 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'phone')->label('Телефон') ?>
 
+                <?= $form->field($model, 'username')->label('Имя') ?>
+
                 <?= $form->field($model, 'password')->passwordInput()->label('Пароль') ?>
 
 

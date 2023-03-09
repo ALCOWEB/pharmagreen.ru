@@ -65,13 +65,14 @@ class User extends ActiveRecord implements IdentityInterface
         $this->updated_at = time();
     }
 
-    public static function requestSignup(string $email, string $phone, string $password): self
+    public static function requestSignup(string $email, string $phone, string $name, string $password): self
     {
         $user = new User();
         $user->email = $email;
         $user->setPassword($password);
         $user->created_at = time();
         $user->phone = $phone;
+        $user->username = $name;
         $user->status = self::STATUS_WAIT;
         $user->email_confirm_token = Yii::$app->security->generateRandomString();
         $user->generateAuthKey();

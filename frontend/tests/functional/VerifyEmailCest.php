@@ -8,7 +8,7 @@ use frontend\tests\FunctionalTester;
 class VerifyEmailCest
 {
     /**
-     * Load fixtures before db transaction begin
+     * Load fixtures before mysql transaction begin
      * Called in _before()
      * @see \Codeception\Module\Yii2::_before()
      * @see \Codeception\Module\Yii2::loadFixtures()

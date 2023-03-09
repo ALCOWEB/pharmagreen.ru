@@ -35,7 +35,8 @@ class SignupService
         $user = User::requestSignup(
             $form->email,
             $form->phone,
-            $form->password
+            $form->username,
+            $form->password,
         );
 
         $this->users->save($user);

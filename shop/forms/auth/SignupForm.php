@@ -13,6 +13,7 @@ class SignupForm extends Model
     public $email;
     public $phone;
     public $password;
+    public $username;
 
 
     /**
@@ -23,9 +24,9 @@ class SignupForm extends Model
         return [
 
             ['email', 'trim'],
-            ['email', 'required'],
+            [['email', 'username'], 'required'],
             ['email', 'email'],
-            ['email', 'string', 'max' => 255],
+            [['email', 'username'], 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => User::class, 'message' => 'This email address has already been taken.'],
 
             ['password', 'required'],

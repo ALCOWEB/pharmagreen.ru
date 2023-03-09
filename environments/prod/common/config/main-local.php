@@ -1,7 +1,7 @@
 <?php
 return [
     'components' => [
-        'db' => [
+        'mysql' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=bobr.yii2',
             'username' => 'root',
