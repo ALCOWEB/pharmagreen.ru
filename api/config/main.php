@@ -64,6 +64,7 @@ return [
             'rules' => [
                 '' => 'site/index',
                 'GET test' => 'site/test',
+                'POST login' => 'site/login',
             ],
         ],
     ],

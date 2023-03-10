@@ -12,7 +12,7 @@ class m230309_105706_create_session_table extends Migration
             'user_id' => $this->integer(),
             'logged' => $this->boolean(),
             'created_at' => $this->timestamp(),
-            'expires' => $this->integer(),
+            'expires' => $this->dateTime(),
         ]);
     }
 
