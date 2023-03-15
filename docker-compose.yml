@@ -1,56 +1,39 @@
-version: '3.2'
-
+version: "3"
 services:
-
   frontend:
-    build: frontend
+    build:
+      context: docker/development/nginx-front
     ports:
-      - 20080:80
+      - "8080:80"
     volumes:
-      # Re-use local composer cache via host-volume
-      - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      # Mount source-code for development
-      - ./:/app
-    extra_hosts:
-      - "localhost:172.22.17.1"
-      - "host.docker.internal:172.22.17.1"
-    environment:
-        XDEBUG_CONFIG: "remote_host=172.22.17.1 remote_enable=1 discover_client_host=1"
-     # - PHP_ENABLE_XDEBUG=1
-        PHP_ENABLE_XDEBUG: 1
-        PHP_IDE_CONFIG: "serverName=PhpServerBase"
+      - ./frontend:/app
     networks:
       - eshop-network
 
   api:
-    build: api
+    build:
+      context: docker/development/nginx-api
     ports:
-      - 22080:80
+      - "8081:80"
     volumes:
-      # Re-use local composer cache via host-volume
-      - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      # Mount source-code for development
+      - ./api:/app
+    depends_on:
+      - php-fpm-api
+    networks:
+      - eshop-network
+
+  php-fpm-api:
+    build:
+      context: docker/development/php-fpm-api
+    volumes:
       - ./:/app
     extra_hosts:
       - "localhost:172.22.17.1"
       - "host.docker.internal:172.22.17.1"
     environment:
       XDEBUG_CONFIG: "remote_host=172.22.17.1 remote_enable=1 discover_client_host=1"
-      # - PHP_ENABLE_XDEBUG=1
       PHP_ENABLE_XDEBUG: 1
       PHP_IDE_CONFIG: "serverName=PhpServerBase"
-    networks:
-      - eshop-network
-
-  backend:
-    build: backend
-    ports:
-      - 21080:80
-    volumes:
-      # Re-use local composer cache via host-volume
-      - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      # Mount source-code for development
-      - ./:/app
     networks:
       - eshop-network
 
@@ -67,13 +50,6 @@ services:
       - '3306:3306'
     networks:
       - eshop-network
-
-#  pgsql:
-#    image: postgres:13
-#    environment:
-#      - POSTGRES_DB=yii2advanced
-#      - POSTGRES_USER=yii2advanced
-#      - POSTGRES_PASSWORD=secret
 
 networks:
   eshop-network:
