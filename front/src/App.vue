@@ -1,15 +1,11 @@
 <template>
   <div class="app">
-      <form>
-        <h4>Create post</h4>
-        <input v-bind:value="title" class="input" type="text" placeholder="название">
-        <input v-bind:value="body"  class="input" type="text" placeholder="описание">
-        <button class="btn" @click="createPost">create</button>
-      </form>
-    <div class="post" v-for="post in posts">
-      <div><strong>Название:</strong> {{ post.title }} </div>
-      <div><strong>Описание</strong> {{ post.body }}</div>
-    </div>
+    <post-form
+        @create="createPost"
+    />
+    <post-list
+        :posts="posts"
+    />
   </div>
 </template>
 
@@ -24,36 +20,16 @@
     box-sizing: border-box;
   }
 
-  .post {
-    padding: 15px;
-    border: 2px solid teal;
-    margin-top: 15px;
-  }
 
-  .input {
-    width: 100%;
-    border: 2px solid teal;
-    padding: 10px 15px;
-    margin-top: 15px;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .btn {
-    align-self: flex-end;
-    margin-top: 15px;
-    padding: 10px 15px;
-    background: none;
-    color: teal;
-    border: 1px solid teal;
-  }
 </style>
 
 <script>
-  export default {
+import PostList from "@/components/PostList.vue";
+import PostForm from "@/components/PostForm.vue";
+export default {
+    components: {
+      PostForm, PostList
+    },
     data() {
       return {
         posts: [
@@ -67,14 +43,12 @@
             title: 'Title php',
             body: 'body of post php'
           },
-        ],
-        title: '',
-        body: ''
+        ]
       }
     },
     methods: {
-      createPost() {
-
+      createPost(post) {
+        this.posts.push(post)
       }
     }
   }
