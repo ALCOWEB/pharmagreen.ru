@@ -11,7 +11,7 @@ services:
 #      - eshop-network
 
   frontend-nodejs:
-    image: node:12.4-alpine
+    image: node:14.17-alpine
     volumes:
       - ./front:/app
     working_dir: /app

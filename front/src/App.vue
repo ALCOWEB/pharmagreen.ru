@@ -5,6 +5,10 @@
       @click="showDialog"
       style="margin: 15px 0"
     >Create post</my-button>
+    <my-button
+        @click="fetchPosts"
+        style="margin: 15px 0"
+    >Получить посты</my-button>
     <my-dialog v-model:show="dialogVisible">
       <post-form
           @create="createPost"
@@ -45,18 +49,7 @@ export default {
     },
     data() {
       return {
-        posts: [
-          {
-            id: 1,
-            title: 'Title js',
-            body: 'body of post js'
-          },
-          {
-            id: 2,
-            title: 'Title php',
-            body: 'body of post php'
-          },
-        ],
+        posts: [],
         dialogVisible: false
       }
     },
@@ -71,9 +64,10 @@ export default {
       showDialog() {
         this.dialogVisible = true
       },
-      async fetchUsers() {
+      async fetchPosts() {
         try {
-          const response = await axios
+          const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+          this.posts = response.data;
         } catch (e) {
           alert("error")
         }
