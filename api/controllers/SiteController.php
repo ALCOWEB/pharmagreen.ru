@@ -29,9 +29,6 @@ class SiteController extends Controller
         $headers = Yii::$app->request->headers;
         $this->token = $headers->get('X-Api-Key');
         $this->session = Session::find()->where(['uuid' => $this->token])->one();
-//        if ($this->token && !$this->session) {
-//            return;
-//        }
         if ($this->session && $this->session->logged) {
             $this->user = User::find()->where(['id' => $this->session->user_id])->one();
             Yii::$app->user->login($this->user, 0);
