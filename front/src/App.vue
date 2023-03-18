@@ -8,7 +8,7 @@
     <my-button
         @click="fetchPosts"
         style="margin: 15px 0"
-    >Получить посты</my-button>
+    >Получить постddы</my-button>
     <my-dialog v-model:show="dialogVisible">
       <post-form
           @create="createPost"
