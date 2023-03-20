@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "watch": "vue-cli-service build --watch --skip-plugins @vue/cli-plugin-eslint --mode development",
+    "watch": "vue-cli-service build --watch-poll --skip-plugins @vue/cli-plugin-eslint --mode development",
     "build": "vue-cli-service build --skip-plugins @vue/cli-plugin-eslint",
     "lint": "vue-cli-service lint"
   },
