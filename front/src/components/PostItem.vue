@@ -6,7 +6,9 @@
       <div><strong>Описание</strong> {{ post.body }}</div>
     </div>
     <div class="post_btns">
-      <my-button>
+      <my-button
+        @click="$router.push(`/posts/${post.id}`)"
+      >
         Открыть
       </my-button>
       <my-button
