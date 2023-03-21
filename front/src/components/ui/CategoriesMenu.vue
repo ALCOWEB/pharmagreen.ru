@@ -5,7 +5,7 @@
         <h2 class="categori_toggle">Все категории</h2>
       </div>
       <transition name="fade">
-        <div v-if="show" class="categories_menu_toggle">
+        <div v-if="show" v-bind:style="{ display: showMenu() }" class="categories_menu_toggle">
         <ul>
           <li class="menu_item_children"><a href="#">Vegetables<i class="fa fa-angle-right"></i></a>
             <ul class="categories_mega_menu">
@@ -133,15 +133,28 @@ export default {
   name: "categories-menu",
   data() {
     return {
-      show: true
+      show: false
     }
   },
   methods: {
-
+    showMenu() {
+      if (this.show == true) {
+        return 'block'
+      } else {
+        return 'none'
+      }
+    }
   }
 }
 </script>
 
 <style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 2.25s;
+}
 
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+  transition: opacity 2.25s;
+}
 </style>
