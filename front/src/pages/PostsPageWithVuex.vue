@@ -1,5 +1,10 @@
 <template>
   <div >
+    <h1>{{ $store.getters.doubleLikes }}</h1>
+    <div>
+      <my-button @click="$store.commit('incrementLikes')">Increment Liks</my-button>
+      <my-button @click="$store.commit('decrementLikes')">Decrement Liks</my-button>
+    </div>
     <h1>Posts page</h1>
     <my-input v-model="searchQuery"/>
     <div class="app_btns">
