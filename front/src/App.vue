@@ -1,30 +1,26 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <shop-header></shop-header>
 </template>
 
+<script>
+
+import ShopHeader from "@/components/layout/ShopHeader";
+export default {
+  components: {ShopHeader}
+}
+
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+  @import "./assets/css/bootstrap.min.css";
+  @import "./assets/css/animate.css";
+  @import "./assets/css/font.awesome.css";
+  @import "./assets/css/ionicons.min.css";
+  @import "./assets/css/linearicons.css";
+  @import "./assets/css/magnific-popup.css";
+  @import "./assets/css/owl.carousel.min.css";
+  @import "./assets/css/plugins.css";
+  @import "./assets/css/slick.css";
+  @import "./assets/css/slinky.menu.css";
+  @import "./assets/scss/style.scss";
 </style>
