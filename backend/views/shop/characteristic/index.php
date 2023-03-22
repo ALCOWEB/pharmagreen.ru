@@ -5,7 +5,7 @@ use yii\grid\ActionColumn;
 use yii\helpers\Html;
 use yii\grid\GridView;
 /* @var $this yii\web\View */
-/* @var $searchModel backend\forms\Shop\CharacteristicSearch */
+/* @var $searchModel backend\forms\shop\CharacteristicSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $this->title = 'Characteristics';
 $this->params['breadcrumbs'][] = $this->title;
@@ -26,6 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'name',
                         'value' => function (Characteristic $model) {
                             return Html::a(Html::encode($model->name), ['view', 'id' => $model->id]);
+                        },
+                        'format' => 'raw',
+                    ],
+                    [
+                        'attribute' => 'slug',
+                        'value' => function (Characteristic $model) {
+                            return Html::encode($model->slug);
                         },
                         'format' => 'raw',
                     ],

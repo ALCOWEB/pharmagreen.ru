@@ -19,7 +19,7 @@ use shop\repositories\Shop\CategoryRepository;
 use shop\repositories\Shop\ProductRepository;
 use shop\repositories\Shop\TagRepository;
 use shop\services\TransactionManager;
-use shop\entities\shop\Materials;
+use shop\entities\Shop\Materials;
 use shop\entities\Shop\Product\Photo;
 use shop\forms\manage\Shop\Product\ProductDescriptionBatch;
 

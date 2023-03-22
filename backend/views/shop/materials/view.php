@@ -1,6 +1,6 @@
 <?php use yii\widgets\DetailView;
 use yii\helpers\Html;
-use shop\entities\shop\Materials;
+use shop\entities\Shop\Materials;
 ?>
 <div class="raw">
 <?= DetailView::widget([

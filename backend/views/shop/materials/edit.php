@@ -1,7 +1,7 @@
 <?php
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
-use shop\entities\shop\Materials;
+use shop\entities\Shop\Materials;
 
 
 

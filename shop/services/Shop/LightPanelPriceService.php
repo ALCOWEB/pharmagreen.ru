@@ -4,7 +4,7 @@ use shop\entities\Shop\Product\Product;
 use shop\repositories\Shop\ProductRepository;
 use shop\repositories\Shop\CharacteristicRepository;
 use shop\repositories\Shop\MaterialsRepository;
-use shop\entities\shop\Materials;
+use shop\entities\Shop\Materials;
 use shop\helpers\ProductHelper;
 use shop\entities\Shop\Product\Value;
 

@@ -8,7 +8,7 @@ use yii\bootstrap\ActiveForm;
 use kartik\file\FileInput;
 use shop\entities\Shop\Characteristic;
 /* @var $this yii\web\View */
-/* @var $searchModel backend\forms\Shop\ProductSearch */
+/* @var $searchModel backend\forms\shop\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 ?>
 

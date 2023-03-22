@@ -1,5 +1,5 @@
 <?php
-namespace backend\forms\Shop;
+namespace backend\forms\shop;
 use shop\helpers\CharacteristicHelper;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -8,13 +8,14 @@ class CharacteristicSearch extends Model
 {
     public $id;
     public $name;
+    public $slug;
     public $type;
     public $required;
     public function rules(): array
     {
         return [
             [['id', 'type', 'required'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'slug'], 'safe'],
         ];
     }
     /**

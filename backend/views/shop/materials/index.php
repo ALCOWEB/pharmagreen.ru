@@ -1,6 +1,6 @@
 <?php
 use yii\grid\GridView;
-use shop\entities\shop\Materials;
+use shop\entities\Shop\Materials;
 use yii\helpers\Json;
 use shop\helpers\OrderHelper;
 use yii\helpers\Html;

@@ -14,6 +14,7 @@ class CharacteristicManageService
     {
         $characteristic = Characteristic::create(
             $form->name,
+            $form->slug,
             $form->type,
             $form->uom,
             $form->required,
@@ -29,6 +30,7 @@ class CharacteristicManageService
         $characteristic = $this->characteristics->get($id);
         $characteristic->edit(
             $form->name,
+            $form->slug,
             $form->type,
             $form->uom,
             $form->required,

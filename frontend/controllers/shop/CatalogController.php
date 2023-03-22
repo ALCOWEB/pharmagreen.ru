@@ -10,7 +10,7 @@ use shop\readModels\Shop\TagReadRepository;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use shop\services\manage\Shop\ReviewManageService;
-use backend\forms\Shop\ProductSearch;
+use backend\forms\shop\ProductSearch;
 use shop\entities\Shop\Product\Product;
 use shop\forms\manage\Shop\Product\PanelCalcForm;
 use shop\services\Shop\LightPanelPriceService;

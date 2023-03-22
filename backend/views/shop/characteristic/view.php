@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attributes' => [
                     'id',
                     'name',
+                    'slug',
                     [
                         'attribute' => 'type',
                         'value' => CharacteristicHelper::typeName($characteristic->type),

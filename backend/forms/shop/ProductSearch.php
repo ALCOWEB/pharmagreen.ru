@@ -1,5 +1,5 @@
 <?php
-namespace backend\forms\Shop;
+namespace backend\forms\shop;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use shop\helpers\ProductHelper;
@@ -90,13 +90,13 @@ class ProductSearch extends Model
         ]);
         $low = Product::find()->select(['price_new'])->orderBy(['price_new' => SORT_ASC])->one();
         $max = Product::find()->select(['price_new'])->orderBy(['price_new' => SORT_DESC])->one();
-        $this->priceRange = [$low->price_new,  $max->price_new];
+        $lowPrice = $low ? $low->price_new : 0;
+        $maxPrice = $max ? $max->price_new : 0;
+        $this->priceRange = [$lowPrice,  $maxPrice];
         $price = isset($this->price) ? explode(' - ', $this->price): 
-        [ 
-            $low->price_new
-            ,
-            
-            $max->price_new
+        [
+            $maxPrice,
+            $maxPrice
         ];
       
         $this->price = implode(' - ', $price);

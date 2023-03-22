@@ -14,6 +14,7 @@ class CharacteristicForm extends Model
     public $uom;
     public $required;
     public $default;
+    public $slug;
     public $textVariants;
     public $sort;
     private $_characteristic;
@@ -21,6 +22,7 @@ class CharacteristicForm extends Model
     {
         if ($characteristic) {
             $this->name = $characteristic->name;
+            $this->slug = $characteristic->slug;
             $this->type = $characteristic->type;
             $this->uom = $characteristic->uom;
             $this->required = $characteristic->required;
@@ -36,7 +38,7 @@ class CharacteristicForm extends Model
     public function rules(): array
     {
         return [
-            [['name', 'type', 'sort'], 'required'],
+            [['name', 'type', 'sort', 'slug'], 'required'],
             [['required'], 'boolean'],
             [['default'], 'string', 'max' => 255],
             [['textVariants', 'uom'], 'string'],

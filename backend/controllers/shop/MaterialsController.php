@@ -3,9 +3,9 @@
 namespace backend\controllers\shop;
 
 use Yii;
-use shop\entities\shop\Materials;
-use backend\forms\Shop\MaterialSearch;
-use shop\forms\shop\Materials as MaterialsForm;
+use shop\entities\Shop\Materials;
+use backend\forms\shop\MaterialSearch;
+use shop\forms\Shop\Materials as MaterialsForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

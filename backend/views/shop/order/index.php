@@ -7,7 +7,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\forms\Shop\OrderSearch */
+/* @var $searchModel backend\forms\shop\OrderSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Orders';

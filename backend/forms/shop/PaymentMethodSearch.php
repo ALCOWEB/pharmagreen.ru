@@ -6,7 +6,7 @@
  * Time: 15:42
  */
 
-namespace backend\forms\Shop;
+namespace backend\forms\shop;
 use shop\entities\Shop\PaymentMethod;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;

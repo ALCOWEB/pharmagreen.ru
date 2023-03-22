@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\forms\Shop;
+namespace backend\forms\shop;
 
 use shop\entities\Shop\Order\Order;
 use shop\helpers\OrderHelper;

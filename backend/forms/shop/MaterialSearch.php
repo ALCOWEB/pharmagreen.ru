@@ -1,10 +1,10 @@
 <?php
 
 
-namespace backend\forms\Shop;
+namespace backend\forms\shop;
 
 
-use shop\entities\shop\Materials;
+use shop\entities\Shop\Materials;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
