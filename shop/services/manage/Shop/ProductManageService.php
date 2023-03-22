@@ -201,7 +201,7 @@ class ProductManageService
 
         
         $this->transaction->wrap(function () use ($product, $panel) {
-
+            $product->status =1;
             $product->revokeTags();
             $this->products->save($product);
 
