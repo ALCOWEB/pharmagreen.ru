@@ -1,5 +1,5 @@
-version: "3"
-services:
+#version: "3"
+#services:
 #  frontend:
 #    build:
 #      context: docker/development/nginx-front
@@ -10,49 +10,128 @@ services:
 #    networks:
 #      - eshop-network
 
-  frontend-nodejs:
-    image: node:14.17-alpine
-    volumes:
-      - ./front:/app
-    working_dir: /app
-    tty: true
-    networks:
-      - eshop-network
+#  frontend-nodejs:
+#    image: node:14.17-alpine
+#    volumes:
+#      - ./front:/app
+#    working_dir: /app
+#    tty: true
+#    networks:
+#      - eshop-network
 
-  front:
-    build:
-      context: docker/development/nginx-front
+#  front:
+#    build:
+#      context: docker/development/nginx-front
+#    ports:
+#      - "8080:80"
+#    volumes:
+#      - ./front:/app
+#    networks:
+#      - eshop-network
+
+#  api:
+#    build:
+#      context: docker/development/nginx-api
+#    ports:
+#      - "8081:80"
+#    volumes:
+#      - ./api:/app
+#    depends_on:
+#      - php-fpm-api
+#    networks:
+#      - eshop-network
+#
+#  php-fpm-api:
+#    build:
+#      context: docker/development/php-fpm-api
+#    volumes:
+#      - ./:/app
+#    extra_hosts:
+#      - "localhost:172.22.17.1"
+#      - "host.docker.internal:172.22.17.1"
+#    environment:
+#      XDEBUG_CONFIG: "remote_host=172.22.17.1 remote_enable=1 discover_client_host=1"
+#      PHP_ENABLE_XDEBUG: 1
+#      PHP_IDE_CONFIG: "serverName=PhpServerBase"
+#    networks:
+#      - eshop-network
+#
+#  mysql:
+#    build: mysql
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=verysecret
+#      - MYSQL_DATABASE=yii2advanced
+#      - MYSQL_USER=yii2advanced
+#      - MYSQL_PASSWORD=verysecret
+#    volumes:
+#      - "./mysql/database:/var/lib/mysql"
+#    ports:
+#      - '3306:3306'
+#    networks:
+#      - eshop-network
+#
+#networks:
+#  eshop-network:
+#    driver: bridge
+#    ipam:
+#      driver: default
+#      config:
+#        - subnet: 172.22.17.0/16
+
+
+version: '3.2'
+
+services:
+
+  frontend:
+    build: frontend
     ports:
-      - "8080:80"
+      - 20080:80
     volumes:
-      - ./front:/app
-    networks:
-      - eshop-network
-
-  api:
-    build:
-      context: docker/development/nginx-api
-    ports:
-      - "8081:80"
-    volumes:
-      - ./api:/app
-    depends_on:
-      - php-fpm-api
-    networks:
-      - eshop-network
-
-  php-fpm-api:
-    build:
-      context: docker/development/php-fpm-api
-    volumes:
+      # Re-use local composer cache via host-volume
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      # Mount source-code for development
       - ./:/app
     extra_hosts:
       - "localhost:172.22.17.1"
       - "host.docker.internal:172.22.17.1"
     environment:
       XDEBUG_CONFIG: "remote_host=172.22.17.1 remote_enable=1 discover_client_host=1"
+      # - PHP_ENABLE_XDEBUG=1
       PHP_ENABLE_XDEBUG: 1
       PHP_IDE_CONFIG: "serverName=PhpServerBase"
+    networks:
+      - eshop-network
+
+  api:
+    build: api
+    ports:
+      - 22080:80
+    volumes:
+      # Re-use local composer cache via host-volume
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      # Mount source-code for development
+      - ./:/app
+    extra_hosts:
+      - "localhost:172.22.17.1"
+      - "host.docker.internal:172.22.17.1"
+    environment:
+      XDEBUG_CONFIG: "remote_host=172.22.17.1 remote_enable=1 discover_client_host=1"
+      # - PHP_ENABLE_XDEBUG=1
+      PHP_ENABLE_XDEBUG: 1
+      PHP_IDE_CONFIG: "serverName=PhpServerBase"
+    networks:
+      - eshop-network
+
+  backend:
+    build: backend
+    ports:
+      - 21080:80
+    volumes:
+      # Re-use local composer cache via host-volume
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      # Mount source-code for development
+      - ./:/app
     networks:
       - eshop-network
 
@@ -69,6 +148,13 @@ services:
       - '3306:3306'
     networks:
       - eshop-network
+
+#  pgsql:
+#    image: postgres:13
+#    environment:
+#      - POSTGRES_DB=yii2advanced
+#      - POSTGRES_USER=yii2advanced
+#      - POSTGRES_PASSWORD=secret
 
 networks:
   eshop-network:
