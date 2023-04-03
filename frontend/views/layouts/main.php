@@ -132,15 +132,15 @@ AppAsset::register($this);
                     </div>
                     <div class="col-lg-10 col-md-6 col-sm-7 col-8">
                         <div class="header_right_info">
-                            <!-- <div class="search_container">
+                             <div class="search_container">
                                 <?= Html::beginForm(['/shop/catalog/search'], 'get') ?>
-                                    
+
                                     <div class="search_box">
                                         <input type="text" name="text" value="" placeholder="Введите название продукта..." >
                                         <button type="submit"><span class="lnr lnr-magnifier"></span></button>
                                     </div>
                                 <?= Html::endForm() ?>
-                            </div> -->
+                            </div>
                   
                             <div class="header_account_area">
                                 <div class="header_account_list register">

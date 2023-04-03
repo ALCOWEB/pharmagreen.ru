@@ -27,7 +27,4 @@ class CustomImageUploadBehavior extends ImageUploadBehavior
 
         $this->owner->trigger(static::EVENT_AFTER_FILE_SAVE);
     }
-
-
-
 }

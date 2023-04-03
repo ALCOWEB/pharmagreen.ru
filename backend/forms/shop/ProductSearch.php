@@ -95,7 +95,7 @@ class ProductSearch extends Model
         $this->priceRange = [$lowPrice,  $maxPrice];
         $price = isset($this->price) ? explode(' - ', $this->price): 
         [
-            $maxPrice,
+            $lowPrice,
             $maxPrice
         ];
       
