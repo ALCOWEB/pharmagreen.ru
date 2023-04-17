@@ -11,21 +11,21 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
-<?= $this->render('_filter', [
-    'search' => $search
-]) ?>
+<?php //= $this->render('_filter', [
+//    'search' => $search
+//]) ?>
 
-<div class="col-lg-9 col-md-12">
+<div class="col-lg-12 col-md-12">
 <h1><?= Html::encode($this->title) ?></h1>
 
 <?= $this->render('_subcategories', [
     'category' => $category
 ]) ?>
 
-<?= $this->render('_list', [
-    //'search' => $search,
-    'dataProvider' => $dataProvider
-]) ?>             
+<?php //= $this->render('_list', [
+//    //'search' => $search,
+//    'dataProvider' => $dataProvider
+//]) ?><!--             -->
 
 </div>
 

@@ -48,4 +48,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
         </div>
     </div>
+    <img src="<?= $category->getThumbFileUrl('photo', 'thumb') ?>">
 </div>
