@@ -54,7 +54,11 @@ return [
         'user' => [
             'identityClass' => 'shop\entities\User\User',
             'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity', 'httpOnly' => true, 'domain' => $params['cookieDomain']],
+            'identityCookie' => [
+                'name' => '_identity',
+                'httpOnly' => true,
+                'domain' => $params['cookieDomain']
+            ],
             'loginUrl' => ['auth/auth/login'],
         ],
         'session' => [
