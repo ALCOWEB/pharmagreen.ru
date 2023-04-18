@@ -1,5 +1,6 @@
 <?php
 namespace shop\entities\Shop;
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
 /**
@@ -49,6 +50,17 @@ class Characteristic extends ActiveRecord  //3 3:45
     {
         return '{{%shop_characteristics}}';
     }
+
+    public function getCategories()
+    {
+        return $this->hasMany(Category::class, ['id' => 'category_id'])
+            ->viaTable('shop_characteristic_category', ['characteristic_id' => 'id']);
+    }
+
+    public function assignCategory($category){
+        $this->categories = $category;
+    }
+
     public function afterFind(): void
     {
         $this->variants = array_filter(Json::decode($this->getAttribute('variants_json')));
@@ -73,4 +85,13 @@ class Characteristic extends ActiveRecord  //3 3:45
         return $this->type === self::TYPE_FLOAT;
     }
 
+    public function behaviors(): array
+    {
+        return [
+            [
+                'class' => SaveRelationsBehavior::className(),
+                'relations' => ['categories'],
+            ],
+        ];
+    }
 }

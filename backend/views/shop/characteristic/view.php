@@ -41,6 +41,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => implode(PHP_EOL, $characteristic->variants),
                         'format' => 'ntext',
                     ],
+                    [
+                            'attribute' => 'categories',
+                        'value' => implode(PHP_EOL, array_map(function($category) {
+                            return $category->name;
+                        },$characteristic->categories)),
+                        'format' => 'ntext',
+                    ],
                 ],
             ]) ?>
         </div>

@@ -1,5 +1,6 @@
 <?php
 namespace shop\services\manage\Shop;
+use shop\entities\Shop\Category;
 use shop\entities\Shop\Characteristic;
 use shop\forms\manage\Shop\CharacteristicForm;
 use shop\repositories\Shop\CharacteristicRepository;
@@ -38,6 +39,7 @@ class CharacteristicManageService
             $form->variants,
             $form->sort
         );
+        $characteristic->assignCategory(Category::find()->where(['in', 'id', [2,4]])->all());
         $this->characteristics->save($characteristic);
     }
     public function remove($id): void

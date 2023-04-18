@@ -18,7 +18,7 @@ $this->params['active_category'] = $category;
 <?php 
     echo $this->render('_filter', [
         'search' => $search
-    ])
+    ]);
  ?>
 
 <div class="col-lg-9 col-md-12">

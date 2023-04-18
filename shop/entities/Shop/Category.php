@@ -61,7 +61,11 @@ class Category extends ActiveRecord
     {
         $this->photo = $photo;
     }
-
+    public function getCharacterisitcs()
+    {
+        return $this->hasMany(Characteristic::class, ['id' => 'characteristic_id'])
+            ->viaTable('shop_characteristic_category', ['category_id' => 'id']);
+    }
     public static function tableName(): string
     {
         return '{{%shop_categories}}';
@@ -100,7 +104,4 @@ class Category extends ActiveRecord
     {
         return new CategoryQuery(static::class);
     }
-
-
-
 }
