@@ -40,7 +40,6 @@ class ProductSearch extends Model
     {   
         if ($query == null){
             $query = Product::find()->alias('p')->with('mainPhoto', 'category');
-        
         }
         $query->joinWith(['values'])->distinct();
         $dataProvider = new ActiveDataProvider([

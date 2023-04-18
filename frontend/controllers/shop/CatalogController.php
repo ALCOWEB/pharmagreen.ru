@@ -179,10 +179,18 @@ class CatalogController extends Controller
         if (!$category = $this->categories->find($id)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+
+        $childrens = $category->getChildren()->all();
+        $ids = array_map(function($category) {return $category->id;}, $childrens);
+        $ids[] = $id;
+
         $searchModel = new ProductSearch();
-        $query = Product::find()->alias('p')->with('mainPhoto', 'photos', 'modifications')->joinWith(['category'], false)->where(['p.category_id' => $id]);
-        
-        //->active('p')
+        $query = Product::find()
+            ->alias('p')
+            ->with('mainPhoto', 'photos', 'modifications')
+            ->joinWith(['category'], false)
+            ->where(['in', 'p.category_id', $ids])
+            ->active('p');
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $query);
         //$dataProvider = $this->products->getAllByCategory($category);
         return $this->render('category', [

@@ -12,15 +12,18 @@ use yii\helpers\Url;
                     <div class="single_banner">
                         <div class="banner_thumb">
                             <a href="<?= Html::encode(Url::to(['/shop/catalog/category', 'id' => $child->id])) ?>">
-                                <?= Html::encode($child->name) ?>
-                                <img src="<?= $child->getThumbFileUrl('photo', 'thumb') ?>" alt="">
+                                <img
+                                        style="object-fit: cover; height: 230px; width: 100%;"
+                                        src="<?= $child->getThumbFileUrl('photo', 'thumb') ?>"
+                                        alt=""
+                                >
+                                <h4 style="text-align: center; margin-top: 10px;">
+                                    <?= Html::encode($child->name) ?>
+                                </h4>
                             </a>
                         </div>
                     </div>
-<!--                    <img src="--><?php //= $child->getThumbFileUrl('photo', 'thumb') ?><!--">-->
-<!--                    <a href="--><?php //= Html::encode(Url::to(['/shop/catalog/category', 'id' => $child->id])) ?><!--">--><?php //= Html::encode($child->name) ?><!--</a> &nbsp;-->
                 </div>
-
             <?php endforeach; ?>
         </div>
     </div>
