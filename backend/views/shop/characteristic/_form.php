@@ -20,6 +20,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'required')->checkbox() ?>
             <?= $form->field($model, 'default')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'textVariants')->textarea(['rows' => 6]) ?>
+            <?= $form->field($model, 'categories')->checkboxList($model->getCategoriesList()) ?>
         </div>
     </div>
 

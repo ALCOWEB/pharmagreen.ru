@@ -37,9 +37,9 @@ class CharacteristicManageService
             $form->required,
             $form->default,
             $form->variants,
-            $form->sort
+            $form->sort,
+            $form->categories,
         );
-        $characteristic->assignCategory(Category::find()->where(['in', 'id', [2,4]])->all());
         $this->characteristics->save($characteristic);
     }
     public function remove($id): void

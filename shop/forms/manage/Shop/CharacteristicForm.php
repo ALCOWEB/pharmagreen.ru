@@ -1,5 +1,6 @@
 <?php
 namespace shop\forms\manage\Shop;
+use shop\entities\Shop\Category;
 use shop\entities\Shop\Characteristic;
 use yii\base\Model;
 use shop\helpers\CharacteristicHelper;
@@ -17,6 +18,7 @@ class CharacteristicForm extends Model
     public $slug;
     public $textVariants;
     public $sort;
+    public $categories;
     private $_characteristic;
     public function __construct(Characteristic $characteristic = null, $config = [])
     {
@@ -30,6 +32,7 @@ class CharacteristicForm extends Model
             $this->textVariants = implode(PHP_EOL, $characteristic->variants);
             $this->sort = $characteristic->sort;
             $this->_characteristic = $characteristic;
+            $this->categories = array_map(function($category) {return $category->id;}, $characteristic->categories);
         } else {
             $this->sort = Characteristic::find()->max('sort') + 1;
         }
@@ -42,6 +45,7 @@ class CharacteristicForm extends Model
             [['required'], 'boolean'],
             [['default'], 'string', 'max' => 255],
             [['textVariants', 'uom'], 'string'],
+            [['categories'], 'safe'],
             [['sort'], 'integer'],
             [['name'], 'unique', 'targetClass' => Characteristic::class, 'filter' => $this->_characteristic ? ['<>', 'id', $this->_characteristic->id] : null]
         ];
@@ -49,6 +53,11 @@ class CharacteristicForm extends Model
     public function typesList(): array
     {
         return CharacteristicHelper::typeList();
+    }
+
+    public function getCategoriesList(): array{
+        $result = array_column(array_map(function($category) {return ['id' => $category->id, 'name' => $category->name];}, Category::find()->where(['<>', 'slug', 'root'])->all()), 'name', 'id');
+       return $result;
     }
 
     public function getVariants(): array

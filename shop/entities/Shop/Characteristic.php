@@ -31,7 +31,7 @@ class Characteristic extends ActiveRecord  //3 3:45
         $object->sort = $sort;
         return $object;
     }
-    public function edit($name, $slug, $type, $uom, $required, $default, array $variants, $sort): void
+    public function edit($name, $slug, $type, $uom, $required, $default, array $variants, $sort, $categories): void
     {
         $this->name = $name;
         $this->slug = $slug;
@@ -41,6 +41,7 @@ class Characteristic extends ActiveRecord  //3 3:45
         $this->default = $default;
         $this->variants = $variants;
         $this->sort = $sort;
+        $this->assignCategory(Category::find()->where(['in', 'id', $categories])->all());
     }
     public function isSelect(): bool
     {
