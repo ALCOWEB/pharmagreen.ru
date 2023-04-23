@@ -18,6 +18,12 @@ class Characteristic extends ActiveRecord  //3 3:45
     const TYPE_INTEGER = 'integer';
     const TYPE_FLOAT = 'float';
     public $variants;
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     public static function create($name, $slug, $type, $uom, $required, $default, array $variants, $sort): self
     {
         $object = new static();

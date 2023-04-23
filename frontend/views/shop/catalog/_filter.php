@@ -56,114 +56,50 @@ $price = explode(' - ', $search->price );
                             </div> -->
           
                             
-                            <?php  
-
- 
+                            <?php
 
  $action = [''];
 
  isset(Yii::$app->request->queryParams['id']) ? $action['id'] = Yii::$app->request->queryParams['id'] : '';
  ?>   
-    
-                                            
-    <?php $searchForm = ActiveForm::begin(['method' => 'GET', 'action' => $action ]);?>
+
+    <?php $searchForm = ActiveForm::begin(['method' => 'GET', 'action' => $action]);?>
            <div class="widget_list widget_filter">
                 <h3>Розничная цена</h3>
                 <div id="slider-range"></div>   
                 <?=   $searchForm->field( $search, 'price')->textInput(['maxlength' => true, 'id' => 'amount', 'class' => null])->label(false);   ?>
                     
             </div>
+<!--            --><?php //foreach ( as $item):?>
             <div class="widget_list widget_filter">
-            <h3>Количество сторон</h3>
-            <?php echo  $searchForm->field( $search, 'storon')->checkboxList(['Односторонняя' => 'Одна сторона', 'Двухсторонняя' => 'Две стороны'])->label(false); ?>
-                    
-            </div>
-            
- 
+                <h3>Количество сторон</h3>
+                <?php echo  $searchForm->field( $search, 'storon')->checkboxList(['Односторонняя' => 'Одна сторона', 'Двухсторонняя' => 'Две стороны'])->label(false); ?>
+                </div>
+<!--            --><?php //endforeach;?>
             <div class="widget_list widget_filter">
             <h3>Вариант крепления</h3>
             <?php echo  $searchForm->field( $search, 'krepl')->checkboxList(['Настенная' => 'Настенный', 'Подвесная' => 'Подвесной'])->label(false); ?>
                     
             </div>   
 
-            <div class="widget_list widget_filter">
-            <h3>Размер</h3>
-            <?php echo  $searchForm->field( $search, 'krepl')->checkboxList([
-                    'A4+' => 'A4+ (постер - 210x297)',
-                    'A3+' => 'A3+ (постер - 297x420)',
-                    'A2+' => 'A2+ (постер - 420x594)',
-                    'A1+' => 'A1+ 594x841',
-                    'A0+' => 'A0+ 841x1189',
-                    'AA' => 'AA 990x1500',
-                    '2AA' => '2AA 1200x1800',
-                     ])->label(false); ?>
-                    
-            </div>   
+<!--            <div class="widget_list widget_filter">-->
+<!--            <h3>Размер</h3>-->
+<!--            --><?php //echo  $searchForm->field( $search, 'size')->checkboxList([
+//                    'A4+' => 'A4+ (постер - 210x297)',
+//                    'A3+' => 'A3+ (постер - 297x420)',
+//                    'A2+' => 'A2+ (постер - 420x594)',
+//                    'A1+' => 'A1+ 594x841',
+//                    'A0+' => 'A0+ 841x1189',
+//                    'AA' => 'AA 990x1500',
+//                    '2AA' => '2AA 1200x1800',
+//                     ])->label(false); ?>
+<!--                    -->
+<!--            </div>   -->
 
-     <?php     ActiveForm::end();           ?>
-                            <div class="widget_list widget_color">
-                                <h3>Select By Color</h3>
-                                <ul>
-                                    <li>
-                                        <a href="#">Black  <span>(6)</span></a> 
-                                    </li>
-                                    <li>
-                                        <a href="#"> Blue <span>(8)</span></a> 
-                                    </li>
-                                    <li>
-                                        <a href="#">Brown <span>(10)</span></a> 
-                                    </li>
-                                    <li>
-                                        <a href="#"> Green <span>(6)</span></a> 
-                                    </li>
-                                    <li>
-                                        <a href="#">Pink <span>(4)</span></a> 
-                                    </li>
-                                  
-                                </ul>
-                            </div>
-                            <div class="widget_list widget_color">
-                                <h3>Select By SIze</h3>
-                                <ul>
-                                    <li>
-                                        <a href="#">S  <span>(6)</span></a> 
-                                    </li>
-                                    <li>
-                                        <a href="#"> M <span>(8)</span></a> 
-                                    </li>
-                                    <li>
-                                        <a href="#">L <span>(10)</span></a> 
-                                    </li>
-                                    <li>
-                                        <a href="#"> XL <span>(6)</span></a> 
-                                    </li>
-                                    <li>
-                                        <a href="#">XLL <span>(4)</span></a> 
-                                    </li>
-                                  
-                                </ul>
-                            </div>
-                            <div class="widget_list widget_manu">
-                                <h3>Manufacturer</h3>
-                                <ul>
-                                    <li>
-                                        <a href="#">Brake Parts <span>(6)</span></a> 
-                                    </li>
-                                    <li>
-                                        <a href="#">Accessories <span>(10)</span></a> 
-                                    </li>
-                                    <li>
-                                        <a href="#">Engine Parts <span>(4)</span></a> 
-                                    </li>
-                                    <li>
-                                        <a href="#">hermes <span>(10)</span></a> 
-                                    </li>
-                                    <li>
-                                        <a href="#">louis vuitton <span>(8)</span></a> 
-                                    </li>
-                                
-                                </ul>
-                            </div>
+     <?php
+      echo Html::submitButton('Применить', ['class' => 'button']);
+        ActiveForm::end();
+     ?>
                             <div class="widget_list tags_widget">
                             <h3>Тэги</h3>
                                 <?= TagShopWidget::widget();?>

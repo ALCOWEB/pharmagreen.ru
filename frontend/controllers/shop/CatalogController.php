@@ -179,12 +179,20 @@ class CatalogController extends Controller
         if (!$category = $this->categories->find($id)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+        $characteristics = $category->characterisitcs;
 
         $childrens = $category->getChildren()->all();
         $ids = array_map(function($category) {return $category->id;}, $childrens);
         $ids[] = $id;
 
-        $searchModel = new ProductSearch();
+        foreach ($childrens as $children) {
+            $childrenChar = $children->characterisitcs;
+            foreach ($childrenChar as $characterisitc) {
+                $characteristics[] = $characterisitc;
+            }
+        }
+        $characteristics =  array_unique($characteristics);
+        $searchModel = new ProductSearch($characteristics);
         $query = Product::find()
             ->alias('p')
             ->with('mainPhoto', 'photos', 'modifications')

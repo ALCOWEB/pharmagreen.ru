@@ -22,8 +22,13 @@ class ProductSearch extends Model
     public $krepl;
     public $price;
     public $priceRange;
+    public $characterisitcs;
 
-
+    public function __construct($caracterisitcs = [],$config = [])
+    {
+        $this->characterisitcs = $caracterisitcs;
+        parent::__construct($config);
+    }
 
     public function rules(): array
     {
@@ -32,10 +37,7 @@ class ProductSearch extends Model
             [['code', 'name', 'storon', 'price', 'krepl'], 'safe'],
         ];
     }
-    /**
-     * @param array $params
-     * @return ActiveDataProvider
-     */
+
     public function  search(array $params, $query = null): ActiveDataProvider
     {   
         if ($query == null){
@@ -83,10 +85,11 @@ class ProductSearch extends Model
             'quantity' => $this->quantity,
             'new' => $this->new,
             'sale' => $this->sale,
-            'shop_values.value' => $this->storon,
             'shop_values.value' => $this->krepl,
-            
         ]);
+
+
+
         $low = Product::find()->select(['price_new'])->orderBy(['price_new' => SORT_ASC])->one();
         $max = Product::find()->select(['price_new'])->orderBy(['price_new' => SORT_DESC])->one();
         $lowPrice = $low ? $low->price_new : 0;
@@ -106,22 +109,24 @@ class ProductSearch extends Model
             ->andFilterWhere(['between', 'price_new', $price[0], $price[1]]);
         return $dataProvider;
     }
+
     public function categoriesList(): array
     {
         return ArrayHelper::map(Category::find()->andWhere(['>', 'depth', 0])->orderBy('lft')->asArray()->all(), 'id', function (array $category) {
             return ($category['depth'] > 1 ? str_repeat('-- ', $category['depth'] - 1) . ' ' : '') . $category['name'];
         });
     }
+
     public function statusList(): array
     {
         return ProductHelper::statusList();
     }
 
-
     public function NewList(): array
     {
         return [0 => 'standart', 1 => 'new' ];
     }
+
     public function Saleist(): array
     {
         return [0 => 'standart', 1 => 'Sale' ];

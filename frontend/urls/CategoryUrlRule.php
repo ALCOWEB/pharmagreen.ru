@@ -21,7 +21,7 @@ class CategoryUrlRule extends BaseObject implements UrlRuleInterface
 
     public function __construct(CategoryReadRepository $repository, Cache $cache, $config = [])
     {
-      //  parent::__construct($config);
+        parent::__construct($config);
         $this->repository = $repository;
         $this->cache = $cache;
     }
