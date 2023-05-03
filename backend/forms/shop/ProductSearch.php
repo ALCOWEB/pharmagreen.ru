@@ -22,7 +22,7 @@ class ProductSearch extends Model
     public $krepl;
     public $price;
     public $priceRange;
-    public $characterisitcs;
+    public array $characterisitcs;
 
     public function __construct($caracterisitcs = [],$config = [])
     {
@@ -43,6 +43,7 @@ class ProductSearch extends Model
         if ($query == null){
             $query = Product::find()->alias('p')->with('mainPhoto', 'category');
         }
+       // $query->joinWith(['values'])->distinct();
         $query->joinWith(['values'])->distinct();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -85,10 +86,11 @@ class ProductSearch extends Model
             'quantity' => $this->quantity,
             'new' => $this->new,
             'sale' => $this->sale,
-            'shop_values.value' => $this->krepl,
+//            'shop_values.value' => $this->storon,
         ]);
 
 
+        $query->andWhere(['in', 'shop_values.value', $this->storon]);
 
         $low = Product::find()->select(['price_new'])->orderBy(['price_new' => SORT_ASC])->one();
         $max = Product::find()->select(['price_new'])->orderBy(['price_new' => SORT_DESC])->one();
